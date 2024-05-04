@@ -9,7 +9,7 @@ Created:    March 8, 2023
 */
 
 #pragma once
-#include "Vec3.h"
+#include "Collision.h"
 #include "Sprite.h"
 
 namespace Math { class TransformationMatrix; }
@@ -39,9 +39,9 @@ namespace CS230 {
         const Math::vec3& GetPosition() const;
         const Math::vec3& GetVelocity() const;
         const Math::vec3& GetScale() const;
-        double GetRotation() const;
+        //double GetRotation() const;
         View GetView() const;
-
+        void SetView(View view);
 
     protected:
         class State {
@@ -62,9 +62,8 @@ namespace CS230 {
         //Different in each view but okay to use together
         void SetScale(Math::vec3 new_scale);
         void UpdateScale(Math::vec3 delta);
-        void SetRotation(double new_rotation);
-        void UpdateRotation(double delta);
-        void SetView();
+        //void SetRotation(double new_rotation);
+        //void UpdateRotation(double delta);
 
         //should have each sprite
         Sprite side_sprite;
@@ -91,6 +90,8 @@ namespace CS230 {
         Math::vec3 scale;
         Math::vec3 position;
         Math::vec3 velocity;
+
+        Math::cube collision_cube;
 
         //this change by current view
         double* view_position = &(position.y);

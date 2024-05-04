@@ -28,12 +28,12 @@ CS230::GameObject::GameObject(Math::vec3 position, double rotation, Math::vec3 s
 {}
 
 void CS230::GameObject::Update(double dt) {
-    current_state->Update(this, dt);
+    check_view();
     view_sprite->Update(dt);
+    current_state->Update(this, dt);
     if (velocity.x != 0 || velocity.y != 0 || velocity.z != 0) {
         UpdatePosition(velocity * dt);
     }
-    check_view();
     current_state->CheckExit(this);
 }
 
@@ -49,19 +49,22 @@ void CS230::GameObject::Draw(Math::TransformationMatrix camera_matrix) {
 
 void CS230::GameObject::check_view()
 {
-    if (current_view) {
-        view_sprite = &side_sprite;
-        view_position = &(position.y);
-        view_scale = &(scale.y);
-    }
-    else {
-        view_sprite = &top_sprite;
-        view_position = &(position.z);
-        view_scale = &(scale.z);
+    if (!matrix_outdated) {
+        if (current_view) {
+            view_sprite = &side_sprite;
+            view_position = &(position.y);
+            view_scale = &(scale.y);
+        }
+        else {
+            view_sprite = &top_sprite;
+            view_position = &(position.z);
+            view_scale = &(scale.z);
+        }
     }
 }
 
 const Math::TransformationMatrix& CS230::GameObject::GetMatrix() {
+    //this make problem!!!
     if (!matrix_outdated) {
         object_matrix = Math::TranslationMatrix(Math::vec2({position.x, *view_position })) * Math::ScaleMatrix({scale.x, *view_scale });
         matrix_outdated = true;
@@ -125,7 +128,8 @@ void CS230::GameObject::UpdateScale(Math::vec3 delta)
     scale += delta;
 }
 
-void CS230::GameObject::SetView()
+void CS230::GameObject::SetView(View view)
 {
-    current_view = static_cast<View>(!static_cast<bool>(current_view));
+    matrix_outdated = false;
+    current_view = view;
 }

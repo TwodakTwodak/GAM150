@@ -13,7 +13,6 @@ Created:    May 3, 2024
 #include "../Engine/GameState.h"
 #include "../Engine/GameObjectManager.h"
 #include "../Engine/Camera.h"
-#include "Player.h"
 
 class Map : public CS230::GameState {
 public:
@@ -33,7 +32,6 @@ public:
 
 private:
     CS230::GameObjectManager gameobjectmanager;
-    Player* player_ptr = nullptr;
 };
 
 //Why don't it work when i change driection of headerfile, why does it work after retyping.

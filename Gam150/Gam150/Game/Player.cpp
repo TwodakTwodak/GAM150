@@ -5,7 +5,7 @@ Player::Player(Math::vec3 start_position) :
 	GameObject(start_position)
 {
 	side_sprite.Load("Assets/Ship.spt");
-    top_sprite.Load("Assets/Meteor.spt");
+    top_sprite.Load("Assets/Ship.spt");
 }
 
 void Player::update_x_velocity(double dt)
@@ -70,10 +70,6 @@ void Player::update_z_velocity(double dt)
 
 void Player::change_view(double dt)
 {
-    if (Engine::GetInput().KeyJustReleased(CS230::Input::Keys::F)) {
-        SetView();
-        Engine::GetLogger().LogDebug("View" + std::to_string(static_cast<bool>(GetView())));
-    }
     if (GetView()) {
         update_y_velocity(dt);
     }
@@ -83,10 +79,8 @@ void Player::change_view(double dt)
 }
 
 void Player::Update(double dt) {
-	GameObject::Update(dt);
-    check_view();
     change_view(dt);
+    check_view();
+	GameObject::Update(dt);
     update_x_velocity(dt);
-
-    Engine::GetLogger().LogDebug("position" + std::to_string(GetPosition().x) + "velocity" + std::to_string(GetVelocity().x));
 }

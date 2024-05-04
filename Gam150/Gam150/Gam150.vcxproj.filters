@@ -40,6 +40,15 @@
     <Filter Include="Game\InGame\Map">
       <UniqueIdentifier>{660df625-0477-47e1-b3eb-3ea7dd126e48}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Physic">
+      <UniqueIdentifier>{0f5765a0-55c5-4e14-b623-a7aa00dbede4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\InGame\Map\Level1">
+      <UniqueIdentifier>{a31e50a5-19ca-4473-81d0-95224fb42d05}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\InGame\Object">
+      <UniqueIdentifier>{502bdbe1-4c62-44d6-b1a9-145523dffd93}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -91,14 +100,20 @@
     <ClCompile Include="Engine\Vec3.cpp">
       <Filter>Engine\Math</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Map.cpp">
-      <Filter>Game\InGame\Map</Filter>
-    </ClCompile>
     <ClCompile Include="Game\Splash.cpp">
       <Filter>Game\Other</Filter>
     </ClCompile>
     <ClCompile Include="Game\Player.cpp">
       <Filter>Game\InGame\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Collision.cpp">
+      <Filter>Engine\Physic</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Map.cpp">
+      <Filter>Game\InGame\Map\Level1</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Crates.cpp">
+      <Filter>Game\InGame\Object</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -156,9 +171,6 @@
     <ClInclude Include="Engine\Vec3.h">
       <Filter>Engine\Math</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Map.h">
-      <Filter>Game\InGame\Map</Filter>
-    </ClInclude>
     <ClInclude Include="Game\Fonts.h">
       <Filter>Game\Other</Filter>
     </ClInclude>
@@ -173,6 +185,18 @@
     </ClInclude>
     <ClInclude Include="Game\Floor.h">
       <Filter>Game\InGame\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Collision.h">
+      <Filter>Engine\Physic</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Cube.h">
+      <Filter>Engine\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Map.h">
+      <Filter>Game\InGame\Map\Level1</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Crates.h">
+      <Filter>Game\InGame\Object</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -12,15 +12,27 @@ Upadted:    March 14, 2024
 #include "../Engine/Engine.h"
 #include "States.h"
 #include "Map.h"
+#include "Player.h"
+#include "Crates.h"
+
+Player* player_ptr = nullptr;
 
 Map::Map() { }
 
 void Map::Load() {
-	player_ptr = new Player{{300, floor, 300}};
+	player_ptr = new Player({300, floor, 300});
 	gameobjectmanager.Add(player_ptr);
+	gameobjectmanager.Add(new Crates({ 600, floor, 200 }));
+	gameobjectmanager.Add(new Crates({ 200, floor, 400 }));
+	gameobjectmanager.Add(new Crates({ 400, floor, 300 }));
+	gameobjectmanager.Reorder(gameobjectmanager.main_view);
 }
 
 void Map::Update([[maybe_unused]] double dt) {
+	if (Engine::GetInput().KeyJustReleased(CS230::Input::Keys::F)) {
+		gameobjectmanager.main_view = static_cast<View>(!static_cast<bool>(gameobjectmanager.main_view));
+		gameobjectmanager.ChangeAll(dt);
+	}
 	gameobjectmanager.UpdateAll(dt);
 }
 

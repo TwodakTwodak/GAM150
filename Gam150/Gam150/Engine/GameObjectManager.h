@@ -23,6 +23,13 @@ namespace CS230 {
 
         void UpdateAll(double dt);
         void DrawAll(Math::TransformationMatrix camera_matrix);
+
+        void ChangeAll(bool change_view);
+        void Reorder(bool change_view);
+        static bool side_compare(GameObject* object1, GameObject* object2);
+        static bool top_compare(GameObject* object1, GameObject* object2);
+
+        View main_view = View::Side;
     private:
         std::vector<GameObject*> objects;
     };
