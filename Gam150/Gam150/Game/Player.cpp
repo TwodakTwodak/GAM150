@@ -1,11 +1,12 @@
 #include "Player.h"
 #include "../Engine/Engine.h"
+#include "Map.h"
 
 Player::Player(Math::vec3 start_position) :
 	GameObject(start_position)
 {
 	side_sprite.Load("Assets/Ship.spt");
-    top_sprite.Load("Assets/Ship.spt");
+    top_sprite.Load("Assets/Meteor.spt");
 }
 
 void Player::update_x_velocity(double dt)
@@ -38,7 +39,20 @@ void Player::update_x_velocity(double dt)
 //jump
 void Player::update_y_velocity(double dt)
 {
-
+    //jump
+    if (Engine::GetInput().KeyJustPressed(CS230::Input::Keys::W)) {
+        SetVelocity({ GetVelocity().x , jump_velocity, GetVelocity().z });
+    }
+    if(Engine::GetInput().KeyJustReleased(CS230::Input::Keys::W)){
+        SetVelocity({ GetVelocity().x , 0, GetVelocity().z });
+    }
+    if (GetVelocity().y != 0) {
+        if (GetPosition().y <= Map::floor) {
+            SetVelocity({ GetVelocity().x, 0, GetVelocity().z });
+            SetPosition({ GetPosition().x, Map::floor, GetPosition().z });
+        }
+        UpdateVelocity({ 0 , -Map::gravity * dt, 0 });
+    }
 }
 
 void Player::update_z_velocity(double dt)
@@ -71,7 +85,7 @@ void Player::update_z_velocity(double dt)
 void Player::change_view(double dt)
 {
     if (GetView()) {
-        update_y_velocity(dt);
+        //update_y_velocity(dt);
     }
     else {
         update_z_velocity(dt);

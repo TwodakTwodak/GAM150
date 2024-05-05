@@ -27,7 +27,7 @@ public:
     }
 
     static constexpr double gravity = 800;
-    static constexpr double floor = 80;
+    static constexpr double floor = 100;
     static constexpr double timer_max = 30;
 
 private:

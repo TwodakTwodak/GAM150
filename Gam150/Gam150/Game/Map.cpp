@@ -22,16 +22,15 @@ Map::Map() { }
 void Map::Load() {
 	player_ptr = new Player({300, floor, 300});
 	gameobjectmanager.Add(player_ptr);
-	gameobjectmanager.Add(new Crates({ 600, floor, 200 }));
-	gameobjectmanager.Add(new Crates({ 200, floor, 400 }));
+	gameobjectmanager.Add(new Crates({ 200, 400, 400 }));
 	gameobjectmanager.Add(new Crates({ 400, floor, 300 }));
+	gameobjectmanager.Add(new Crates({ 600, 80, 200 }));
 	gameobjectmanager.Reorder(gameobjectmanager.main_view);
 }
 
 void Map::Update([[maybe_unused]] double dt) {
-	if (Engine::GetInput().KeyJustReleased(CS230::Input::Keys::F)) {
-		gameobjectmanager.main_view = static_cast<View>(!static_cast<bool>(gameobjectmanager.main_view));
-		gameobjectmanager.ChangeAll(dt);
+	if (Engine::GetInput().KeyJustPressed(CS230::Input::Keys::F)) {
+		gameobjectmanager.ChangeAll();
 	}
 	gameobjectmanager.UpdateAll(dt);
 }
@@ -39,7 +38,6 @@ void Map::Update([[maybe_unused]] double dt) {
 void Map::Draw() {
 	Engine::GetWindow().Clear(0x000000FF);
 	gameobjectmanager.DrawAll(Math::TransformationMatrix());
-
 }
 
 void Map::Unload() {

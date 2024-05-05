@@ -15,5 +15,4 @@ Crates::Crates(Math::vec3 start_position) :
 {
     side_sprite.Load("Assets/Crates1.spt");
     top_sprite.Load("Assets/Crates1.spt");
-    //should find way to use same picture in each view (pointer?)
 }

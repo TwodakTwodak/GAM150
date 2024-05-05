@@ -23,8 +23,9 @@ namespace CS230 {
 
         void UpdateAll(double dt);
         void DrawAll(Math::TransformationMatrix camera_matrix);
+        void CollisionAll();
 
-        void ChangeAll(bool change_view);
+        void ChangeAll();
         void Reorder(bool change_view);
         static bool side_compare(GameObject* object1, GameObject* object2);
         static bool top_compare(GameObject* object1, GameObject* object2);

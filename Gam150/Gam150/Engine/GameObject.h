@@ -16,8 +16,8 @@ namespace Math { class TransformationMatrix; }
 
 //made with bool beacuse we have only two view!
 enum View : bool {
-    Top,
-    Side
+    Side = true,
+    Top = false
 };
 
 
