@@ -9,7 +9,7 @@ Player::Player(Math::vec3 start_position) :
     top_sprite.Load("Assets/Meteor.spt");
 }
 
-void Player::update_x_velocity(double dt)
+void Player::sideview_move(double dt)
 {
     if (Engine::GetInput().KeyDown(CS230::Input::Keys::D)) {
         UpdateVelocity({ xz_acceleration * dt , 0, 0 });
@@ -34,16 +34,15 @@ void Player::update_x_velocity(double dt)
             SetVelocity({ 0 , GetVelocity().y, GetVelocity().z });
         }
     }
+    jump(dt);
 }
 
-//jump
-void Player::update_y_velocity(double dt)
+void Player::jump(double dt)
 {
-    //jump
     if (Engine::GetInput().KeyJustPressed(CS230::Input::Keys::W)) {
         SetVelocity({ GetVelocity().x , jump_velocity, GetVelocity().z });
     }
-    if(Engine::GetInput().KeyJustReleased(CS230::Input::Keys::W)){
+    if (Engine::GetInput().KeyJustReleased(CS230::Input::Keys::W)) {
         SetVelocity({ GetVelocity().x , 0, GetVelocity().z });
     }
     if (GetVelocity().y != 0) {
@@ -55,8 +54,32 @@ void Player::update_y_velocity(double dt)
     }
 }
 
-void Player::update_z_velocity(double dt)
+void Player::topview_move(double dt)
 {
+    if (Engine::GetInput().KeyDown(CS230::Input::Keys::D)) {
+        UpdateVelocity({ xz_acceleration * dt , 0, 0 });
+        if (GetVelocity().x > max_velocity) {
+            SetVelocity({ max_velocity , GetVelocity().y, GetVelocity().z });
+        }
+    }
+    else if (Engine::GetInput().KeyDown(CS230::Input::Keys::A)) {
+        UpdateVelocity({ -xz_acceleration * dt , 0, 0 });
+        if (GetVelocity().x < -max_velocity) {
+            SetVelocity({ -max_velocity , GetVelocity().y, GetVelocity().z });
+        }
+    }
+    else {
+        if (GetVelocity().x > xz_drag * dt) {
+            UpdateVelocity({ -xz_drag * dt , 0, 0 });
+        }
+        else if (GetVelocity().x < -xz_drag * dt) {
+            UpdateVelocity({ xz_drag * dt , 0, 0 });
+        }
+        else {
+            SetVelocity({ 0 , GetVelocity().y, GetVelocity().z });
+        }
+    }
+
     if (Engine::GetInput().KeyDown(CS230::Input::Keys::W)) {
         UpdateVelocity({ 0, 0, xz_acceleration * dt });
         if (GetVelocity().z > max_velocity) {
@@ -85,10 +108,10 @@ void Player::update_z_velocity(double dt)
 void Player::change_view(double dt)
 {
     if (GetView()) {
-        //update_y_velocity(dt);
+        sideview_move(dt);
     }
     else {
-        update_z_velocity(dt);
+        topview_move(dt);
     }
 }
 
@@ -96,5 +119,4 @@ void Player::Update(double dt) {
     change_view(dt);
     check_view();
 	GameObject::Update(dt);
-    update_x_velocity(dt);
 }

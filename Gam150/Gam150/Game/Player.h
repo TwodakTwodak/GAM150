@@ -23,7 +23,8 @@ private:
 	static constexpr double max_velocity = 200;
 	static constexpr double jump_velocity = 650;
 
-	void update_x_velocity(double dt);
-	void update_y_velocity(double dt);
-	void update_z_velocity(double dt);
+	void sideview_move(double dt);
+	void jump(double dt);
+	void topview_move(double dt);
+	void dash(double dt);
 };

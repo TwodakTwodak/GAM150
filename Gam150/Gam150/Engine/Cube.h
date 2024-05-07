@@ -22,9 +22,9 @@ namespace Math {
                 //using abs beacuse of flip (use scale -1!)
                 //Dont need to think about rotation part!
                 //Beacuse we will not rotate cube while playing game!
-                std::abs(top_front.x - bottom_behind.x),
-                std::abs(top_front.y - bottom_behind.y),
-                std::abs(top_front.z - bottom_behind.z)
+                top_front.x - bottom_behind.x,
+                top_front.y - bottom_behind.y,
+                top_front.z - bottom_behind.z
             };
         }
     };
