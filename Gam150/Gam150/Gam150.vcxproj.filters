@@ -115,6 +115,9 @@
     <ClCompile Include="Game\Crates.cpp">
       <Filter>Game\InGame\Object</Filter>
     </ClCompile>
+    <ClCompile Include="Game\Button.cpp">
+      <Filter>Game\InGame\Object</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Animation.h">
@@ -196,6 +199,9 @@
       <Filter>Game\InGame\Map\Level1</Filter>
     </ClInclude>
     <ClInclude Include="Game\Crates.h">
+      <Filter>Game\InGame\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Button.h">
       <Filter>Game\InGame\Object</Filter>
     </ClInclude>
   </ItemGroup>

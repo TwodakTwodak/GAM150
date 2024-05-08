@@ -146,6 +146,7 @@
     <ClCompile Include="Engine\Vec2.cpp" />
     <ClCompile Include="Engine\Vec3.cpp" />
     <ClCompile Include="Engine\Window.cpp" />
+    <ClCompile Include="Game\Button.cpp" />
     <ClCompile Include="Game\Crates.cpp" />
     <ClCompile Include="Game\Player.cpp" />
     <ClCompile Include="Game\Map.cpp" />
@@ -173,6 +174,7 @@
     <ClInclude Include="Engine\Vec2.h" />
     <ClInclude Include="Engine\Vec3.h" />
     <ClInclude Include="Engine\Window.h" />
+    <ClInclude Include="Game\Button.h" />
     <ClInclude Include="Game\Crates.h" />
     <ClInclude Include="Game\Floor.h" />
     <ClInclude Include="Game\Fonts.h" />
