@@ -3,6 +3,7 @@
 void CS230::GameObjectManager::Add(GameObject* object)
 {
 	objects.push_back(object);
+	new_object = true;
 }
 
 void CS230::GameObjectManager::Unload()
@@ -15,6 +16,7 @@ void CS230::GameObjectManager::Unload()
 
 void CS230::GameObjectManager::UpdateAll(double dt)
 {
+	ChangeAll();
 	for (CS230::GameObject* object : objects) {
 		object->Update(dt);
 	}
@@ -29,20 +31,25 @@ void CS230::GameObjectManager::DrawAll(Math::TransformationMatrix camera_matrix)
 
 void CS230::GameObjectManager::CollisionAll()
 {
-	//for (int i = 0; i < objects.size() - 1; ++i) {
-	//	if (Gam150::Collision::CollisionCheck( , )) {
-
-	//	}
-	//}
+	for (int i = 0; i < objects.size() - 1; ++i) {
+		objects[0]->Collision(objects[i + 1]);
+	}
 }
 
 void CS230::GameObjectManager::ChangeAll()
 {
-	main_view = static_cast<View>(!static_cast<bool>(main_view));
-	for (CS230::GameObject* object : objects) {
-		object->SetView(main_view);
+	if (Engine::GetInput().KeyJustPressed(CS230::Input::Keys::F)) {
+		main_view = static_cast<View>(!static_cast<bool>(main_view));
+		for (CS230::GameObject* object : objects) {
+			object->SetView(main_view);
+		}
+		Reorder(main_view);
 	}
-	Reorder(main_view);
+
+	if (new_object) {
+		Reorder(main_view);
+		new_object = false;
+	}
 }
 
 void CS230::GameObjectManager::Reorder(bool change_view)

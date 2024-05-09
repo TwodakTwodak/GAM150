@@ -8,6 +8,7 @@ Author:     Jonathan Holmes
 Created:    March 8, 2023
 */
 
+#include "Collision.h"
 #include "GameObject.h"
 
 CS230::GameObject::GameObject() :
@@ -24,8 +25,14 @@ CS230::GameObject::GameObject(Math::vec3 position, double rotation, Math::vec3 s
     position(position),
     scale(scale),
     rotation(rotation),
-    current_state(&state_none)
+    current_state(&state_none),
+    collision(new Gam150::Collision(this))
 {}
+
+CS230::GameObject::~GameObject()
+{
+    delete collision;
+}
 
 void CS230::GameObject::Update(double dt) {
     check_view();
@@ -34,6 +41,12 @@ void CS230::GameObject::Update(double dt) {
     if (velocity.x != 0 || velocity.y != 0 || velocity.z != 0) {
         UpdatePosition(velocity * dt);
     }
+    collision_cube.bottom_behind = position;
+    collision_cube.top_front = { 
+        side_sprite.GetFrameSize().x - side_sprite.GetHotSpot(0).x + position.x,
+        side_sprite.GetFrameSize().y - side_sprite.GetHotSpot(0).y + position.y,
+        top_sprite.GetFrameSize().y - top_sprite.GetHotSpot(0).y + position.z
+    };
     current_state->CheckExit(this);
 }
 
@@ -45,6 +58,7 @@ void CS230::GameObject::change_state(State* new_state) {
 //
 void CS230::GameObject::Draw(Math::TransformationMatrix camera_matrix) {
     view_sprite->Draw(camera_matrix * GetMatrix());
+    collision->CollisionDraw();
 }
 
 void CS230::GameObject::check_view()
@@ -61,6 +75,13 @@ void CS230::GameObject::check_view()
             view_scale = &(scale.z);
         }
     }
+}
+
+void CS230::GameObject::Collision(GameObject* compare)
+{
+    if (collision->CollisionDetect(compare)) {
+        Engine::GetLogger().LogEvent("COLLISION");
+    };
 }
 
 const Math::TransformationMatrix& CS230::GameObject::GetMatrix() {

@@ -11,7 +11,6 @@ Created:    March 8, 2023
 #pragma once
 #include <vector>
 #include "GameObject.h"
-#include "Matrix.h"
 
 namespace Math { class TransformationMatrix; }
 
@@ -29,6 +28,7 @@ namespace CS230 {
         void Reorder(bool change_view);
         static bool side_compare(GameObject* object1, GameObject* object2);
         static bool top_compare(GameObject* object1, GameObject* object2);
+        bool new_object = false;
 
         View main_view = View::Side;
     private:

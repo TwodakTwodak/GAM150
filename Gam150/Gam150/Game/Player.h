@@ -14,7 +14,6 @@ class Player : public CS230::GameObject {
 public:
 	Player(Math::vec3 start_position);
 	void Update(double dt) override;
-	void change_view(double dt);
 	const Math::vec3& GetPosition() const { return GameObject::GetPosition(); };
 
 private:
@@ -23,8 +22,7 @@ private:
 	static constexpr double max_velocity = 200;
 	static constexpr double jump_velocity = 650;
 
-	void sideview_move(double dt);
+	void move(double dt);
 	void jump(double dt);
-	void topview_move(double dt);
 	void dash(double dt);
 };

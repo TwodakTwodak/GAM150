@@ -6,35 +6,29 @@ Player::Player(Math::vec3 start_position) :
 	GameObject(start_position)
 {
 	side_sprite.Load("Assets/Ship.spt");
-    top_sprite.Load("Assets/Meteor.spt");
+    top_sprite.Load("Assets/Ship.spt");
 }
 
-void Player::sideview_move(double dt)
+void Player::move(double dt)
 {
     if (Engine::GetInput().KeyDown(CS230::Input::Keys::D)) {
-        UpdateVelocity({ xz_acceleration * dt , 0, 0 });
-        if (GetVelocity().x > max_velocity) {
-            SetVelocity({ max_velocity , GetVelocity().y, GetVelocity().z });
-        }
+        SetVelocity({ max_velocity , GetVelocity().y, GetVelocity().z });
     }
     else if (Engine::GetInput().KeyDown(CS230::Input::Keys::A)) {
-        UpdateVelocity({ -xz_acceleration * dt , 0, 0 });
-        if (GetVelocity().x < -max_velocity) {
-            SetVelocity({ -max_velocity , GetVelocity().y, GetVelocity().z });
-        }
+        SetVelocity({ -max_velocity , GetVelocity().y, GetVelocity().z });
+    }
+    else if (Engine::GetInput().KeyDown(CS230::Input::Keys::W) && !GetView()) {
+        SetVelocity({ GetVelocity().x , GetVelocity().y, max_velocity });
+    }
+    else if (Engine::GetInput().KeyDown(CS230::Input::Keys::S) && !GetView()) {
+        SetVelocity({ GetVelocity().x , GetVelocity().y, -max_velocity });
     }
     else {
-        if (GetVelocity().x > xz_drag * dt) {
-            UpdateVelocity({ -xz_drag * dt , 0, 0 });
-        }
-        else if (GetVelocity().x < -xz_drag * dt) {
-            UpdateVelocity({ xz_drag * dt , 0, 0 });
-        }
-        else {
-            SetVelocity({ 0 , GetVelocity().y, GetVelocity().z });
-        }
+        SetVelocity({ 0 , GetVelocity().y, 0 });
     }
-    jump(dt);
+    if (GetView()) {
+        jump(dt);
+    }
 }
 
 void Player::jump(double dt)
@@ -54,69 +48,8 @@ void Player::jump(double dt)
     }
 }
 
-void Player::topview_move(double dt)
-{
-    if (Engine::GetInput().KeyDown(CS230::Input::Keys::D)) {
-        UpdateVelocity({ xz_acceleration * dt , 0, 0 });
-        if (GetVelocity().x > max_velocity) {
-            SetVelocity({ max_velocity , GetVelocity().y, GetVelocity().z });
-        }
-    }
-    else if (Engine::GetInput().KeyDown(CS230::Input::Keys::A)) {
-        UpdateVelocity({ -xz_acceleration * dt , 0, 0 });
-        if (GetVelocity().x < -max_velocity) {
-            SetVelocity({ -max_velocity , GetVelocity().y, GetVelocity().z });
-        }
-    }
-    else {
-        if (GetVelocity().x > xz_drag * dt) {
-            UpdateVelocity({ -xz_drag * dt , 0, 0 });
-        }
-        else if (GetVelocity().x < -xz_drag * dt) {
-            UpdateVelocity({ xz_drag * dt , 0, 0 });
-        }
-        else {
-            SetVelocity({ 0 , GetVelocity().y, GetVelocity().z });
-        }
-    }
-
-    if (Engine::GetInput().KeyDown(CS230::Input::Keys::W)) {
-        UpdateVelocity({ 0, 0, xz_acceleration * dt });
-        if (GetVelocity().z > max_velocity) {
-            SetVelocity({ GetVelocity().x , GetVelocity().y, max_velocity });
-        }
-    }
-    else if (Engine::GetInput().KeyDown(CS230::Input::Keys::S)) {
-        UpdateVelocity({ 0, 0, -xz_acceleration * dt });
-        if (GetVelocity().z < -max_velocity) {
-            SetVelocity({ GetVelocity().x , GetVelocity().y, -max_velocity });
-        }
-    }
-    else {
-        if (GetVelocity().z > xz_drag * dt) {
-            UpdateVelocity({ 0, 0, -xz_drag * dt });
-        }
-        else if (GetVelocity().z < -xz_drag * dt) {
-            UpdateVelocity({ 0, 0, xz_drag * dt });
-        }
-        else {
-            SetVelocity({ GetVelocity().x , GetVelocity().y, 0});
-        }
-    }
-}
-
-void Player::change_view(double dt)
-{
-    if (GetView()) {
-        sideview_move(dt);
-    }
-    else {
-        topview_move(dt);
-    }
-}
-
 void Player::Update(double dt) {
-    change_view(dt);
+    move(dt);
     check_view();
 	GameObject::Update(dt);
 }

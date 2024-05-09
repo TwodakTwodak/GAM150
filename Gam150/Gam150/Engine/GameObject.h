@@ -9,10 +9,11 @@ Created:    March 8, 2023
 */
 
 #pragma once
-#include "Collision.h"
+#include "Engine.h"
+#include "Cube.h"
 #include "Sprite.h"
 
-namespace Math { class TransformationMatrix; }
+namespace Gam150 { class Collision; }
 
 //made with bool beacuse we have only two view!
 enum View : bool {
@@ -27,13 +28,15 @@ namespace CS230 {
         GameObject();
         GameObject(Math::vec3 position);
         GameObject(Math::vec3 position, double rotation, Math::vec3 scale);
-        virtual ~GameObject() {}
+        ~GameObject();
 
         virtual void Update(double dt);
         //Different in each view
         virtual void Draw(Math::TransformationMatrix camera_matrix);
         //For change view
         virtual void check_view();
+        //For Collision
+        void Collision(GameObject* compare);
 
         const Math::TransformationMatrix& GetMatrix();
         const Math::vec3& GetPosition() const;
@@ -42,6 +45,8 @@ namespace CS230 {
         //double GetRotation() const;
         View GetView() const;
         void SetView(View view);
+        Math::cube collision_cube;
+        Gam150::Collision* collision;
 
     protected:
         class State {
@@ -90,8 +95,6 @@ namespace CS230 {
         Math::vec3 scale;
         Math::vec3 position;
         Math::vec3 velocity;
-
-        Math::cube collision_cube;
 
         //this change by current view
         double* view_position = &(position.y);
