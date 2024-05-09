@@ -49,6 +49,9 @@
     <Filter Include="Game\InGame\Object">
       <UniqueIdentifier>{502bdbe1-4c62-44d6-b1a9-145523dffd93}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\FileIO">
+      <UniqueIdentifier>{11fc71c6-ab83-4781-b9ce-6d2b06d1f489}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -117,6 +120,9 @@
     </ClCompile>
     <ClCompile Include="Game\Button.cpp">
       <Filter>Game\InGame\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\FileIO.cpp">
+      <Filter>Engine\FileIO</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -203,6 +209,9 @@
     </ClInclude>
     <ClInclude Include="Game\Button.h">
       <Filter>Game\InGame\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\FileIO.h">
+      <Filter>Engine\FileIO</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
