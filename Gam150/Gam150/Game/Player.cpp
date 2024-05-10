@@ -1,6 +1,7 @@
 #include "Player.h"
 #include "../Engine/Engine.h"
 #include "Map.h"
+#include "../Engine/Collision.h"
 
 Player::Player(Math::vec3 start_position) :
 	GameObject(start_position)
@@ -56,4 +57,17 @@ void Player::Update(double dt) {
     move(dt);
     check_view();
 	GameObject::Update(dt);
+}
+
+void Player::Collision(GameObject* compare)
+{
+    if (GetVelocity().x != 0) {
+        UpdatePosition({ collision->GetDistanceX(compare), 0, 0 });
+    }
+    if (GetVelocity().y != 0) {
+        UpdatePosition({0, collision->GetDistanceY(compare), 0 });
+    }
+    if (GetVelocity().z != 0) {
+        UpdatePosition({ 0, 0, collision->GetDistanceZ(compare) });
+    }
 }

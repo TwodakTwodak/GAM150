@@ -41,7 +41,6 @@ void CS230::GameObject::Update(double dt) {
     if (velocity.x != 0 || velocity.y != 0 || velocity.z != 0) {
         UpdatePosition(velocity * dt);
     }
-
     collision_cube.bottom_behind = {
         position.x,
         position.y,
@@ -53,16 +52,6 @@ void CS230::GameObject::Update(double dt) {
         position.z + top_sprite.texture->GetSize().y
     };
 
-    //collision_cube.bottom_behind = {
-    //position.x + side_sprite.GetHotSpot(0).x,
-    //position.y - side_sprite.GetHotSpot(0).y,
-    //position.z - top_sprite.GetHotSpot(0).y
-    //};
-    //collision_cube.top_front = {
-    //    position.x - side_sprite.GetFrameSize().x + side_sprite.GetHotSpot(0).x,
-    //    position.y - side_sprite.GetFrameSize().y - side_sprite.GetHotSpot(0).y,
-    //    position.z - top_sprite.GetFrameSize().y - top_sprite.GetHotSpot(0).y
-    //};
     current_state->CheckExit(this);
 }
 
@@ -73,8 +62,8 @@ void CS230::GameObject::change_state(State* new_state) {
 
 //
 void CS230::GameObject::Draw(Math::TransformationMatrix camera_matrix) {
-    view_sprite->Draw(camera_matrix * GetMatrix());
     collision->CollisionDraw();
+    view_sprite->Draw(camera_matrix * GetMatrix());
 }
 
 void CS230::GameObject::check_view()
@@ -95,9 +84,7 @@ void CS230::GameObject::check_view()
 
 void CS230::GameObject::Collision(GameObject* compare)
 {
-    if (collision->CollisionDetect(compare)) {
-        Engine::GetLogger().LogEvent("COLLISION");
-    };
+    collision->CollisionDetect(compare);
 }
 
 const Math::TransformationMatrix& CS230::GameObject::GetMatrix() {

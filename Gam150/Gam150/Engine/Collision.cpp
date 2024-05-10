@@ -26,6 +26,63 @@ namespace Gam150 {
 		return false;
 	}
 
+    double Collision::GetDistanceX(CS230::GameObject* compare)
+    {
+		if (CollisionDetect(compare))
+		{
+			if (gameobject->collision_cube.top_front.x < compare->collision_cube.top_front.x)
+			{
+				return (compare->collision_cube.bottom_behind.x - gameobject->collision_cube.top_front.x);
+			}
+			else
+			{
+				return -(gameobject->collision_cube.bottom_behind.x - compare->collision_cube.top_front.x);
+			}
+		}
+		else
+		{
+			return NULL;
+		}
+	}
+
+	double Collision::GetDistanceY(CS230::GameObject* compare)
+	{
+		if (CollisionDetect(compare))
+		{
+			if (gameobject->collision_cube.top_front.y < compare->collision_cube.top_front.y)
+			{
+				return -(gameobject->collision_cube.top_front.y - compare->collision_cube.bottom_behind.y);
+			}
+			else
+			{
+				return (compare->collision_cube.top_front.y - gameobject->collision_cube.bottom_behind.y);
+			}
+		}
+		else
+		{
+			return NULL;
+		}
+	}
+
+	double Collision::GetDistanceZ(CS230::GameObject* compare)
+	{
+		if (CollisionDetect(compare))
+		{
+			if (gameobject->collision_cube.top_front.z < compare->collision_cube.top_front.z)
+			{
+				return -(gameobject->collision_cube.top_front.z - compare->collision_cube.bottom_behind.z);
+			}
+			else
+			{
+				return (compare->collision_cube.top_front.z - gameobject->collision_cube.bottom_behind.z);
+			}
+		}
+		else
+		{
+			return NULL;
+		}
+	}
+
 	void Collision::CollisionDraw()
 	{
         int width, height;

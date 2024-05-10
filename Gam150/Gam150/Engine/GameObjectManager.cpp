@@ -2,37 +2,39 @@
 
 void CS230::GameObjectManager::Add(GameObject* object)
 {
-	objects.push_back(object);
+	collision_objects.push_back(object);
+	draw_objects.push_back(object);
 	new_object = true;
 }
 
 void CS230::GameObjectManager::Unload()
 {
-	for (CS230::GameObject* object : objects) {
+	for (CS230::GameObject* object : collision_objects) {
 		delete object;
 	}
-	objects.clear();
+	collision_objects.clear();
+	draw_objects.clear();
 }
 
 void CS230::GameObjectManager::UpdateAll(double dt)
 {
 	ChangeAll();
-	for (CS230::GameObject* object : objects) {
+	for (CS230::GameObject* object : collision_objects) {
 		object->Update(dt);
 	}
 }
 
 void CS230::GameObjectManager::DrawAll(Math::TransformationMatrix camera_matrix)
 {
-	for (CS230::GameObject* object : objects) {
+	for (CS230::GameObject* object : draw_objects) {
 		object->Draw(camera_matrix);
 	}
 }
 
 void CS230::GameObjectManager::CollisionAll()
 {
-	for (int i = 0; i < objects.size() - 1; ++i) {
-		objects[0]->Collision(objects[i + 1]);
+	for (int i = 0; i < collision_objects.size() - 1; ++i) {
+		collision_objects[0]->Collision(collision_objects[i + 1]);
 	}
 }
 
@@ -40,7 +42,7 @@ void CS230::GameObjectManager::ChangeAll()
 {
 	if (Engine::GetInput().KeyJustPressed(CS230::Input::Keys::F)) {
 		main_view = static_cast<View>(!static_cast<bool>(main_view));
-		for (CS230::GameObject* object : objects) {
+		for (CS230::GameObject* object : draw_objects) {
 			object->SetView(main_view);
 		}
 		Reorder(main_view);
@@ -55,10 +57,10 @@ void CS230::GameObjectManager::ChangeAll()
 void CS230::GameObjectManager::Reorder(bool change_view)
 {
 	if (change_view) {
-		std::sort(objects.begin(), objects.end(), &GameObjectManager::side_compare);
+		std::sort(draw_objects.begin(), draw_objects.end(), &GameObjectManager::side_compare);
 	}
 	else {
-		std::sort(objects.begin(), objects.end(), &GameObjectManager::top_compare);
+		std::sort(draw_objects.begin(), draw_objects.end(), &GameObjectManager::top_compare);
 	}
 }
 //need fix!

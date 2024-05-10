@@ -36,7 +36,7 @@ namespace CS230 {
         //For change view
         virtual void check_view();
         //For Collision
-        void Collision(GameObject* compare);
+        virtual void Collision(GameObject* compare);
 
         const Math::TransformationMatrix& GetMatrix();
         const Math::vec3& GetPosition() const;

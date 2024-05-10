@@ -20,6 +20,9 @@ namespace Gam150 {
     public:
         Collision(CS230::GameObject* clone);
         bool CollisionDetect(CS230::GameObject* compare);
+        double GetDistanceX(CS230::GameObject* compare);
+        double GetDistanceY(CS230::GameObject* compare);
+        double GetDistanceZ(CS230::GameObject* compare);
         void CollisionDraw();
     private:
         Math::vec3 distance;

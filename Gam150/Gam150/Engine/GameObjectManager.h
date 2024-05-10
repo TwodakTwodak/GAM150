@@ -32,6 +32,7 @@ namespace CS230 {
 
         View main_view = View::Side;
     private:
-        std::vector<GameObject*> objects;
+        std::vector<GameObject*> collision_objects;
+        std::vector<GameObject*> draw_objects;
     };
 }
