@@ -33,17 +33,21 @@ void Player::move(double dt)
 
 void Player::jump(double dt)
 {
-    if (Engine::GetInput().KeyJustPressed(CS230::Input::Keys::W)) {
+    if (Engine::GetInput().KeyDown(CS230::Input::Keys::W) && !jump_able) {
+        jump_able = true;
         SetVelocity({ GetVelocity().x , jump_velocity, GetVelocity().z });
+        if (Engine::GetInput().KeyJustReleased(CS230::Input::Keys::W)) {
+            SetVelocity({ GetVelocity().x , 0, GetVelocity().z });
+        }
     }
-    if (Engine::GetInput().KeyJustReleased(CS230::Input::Keys::W)) {
-        SetVelocity({ GetVelocity().x , 0, GetVelocity().z });
-    }
-    if (GetVelocity().y != 0) {
+    else if (jump_able) {
         if (GetPosition().y <= Map::floor) {
             SetVelocity({ GetVelocity().x, 0, GetVelocity().z });
+            jump_able = false;
             SetPosition({ GetPosition().x, Map::floor, GetPosition().z });
         }
+    }
+    if (GetPosition().y > Map::floor) {
         UpdateVelocity({ 0 , -Map::gravity * dt, 0 });
     }
 }

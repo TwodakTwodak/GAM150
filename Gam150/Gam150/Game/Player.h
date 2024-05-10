@@ -21,6 +21,7 @@ private:
 	static constexpr double xz_drag = 450;
 	static constexpr double max_velocity = 200;
 	static constexpr double jump_velocity = 650;
+	bool jump_able = false;
 
 	void move(double dt);
 	void jump(double dt);

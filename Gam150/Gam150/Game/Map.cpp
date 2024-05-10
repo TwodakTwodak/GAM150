@@ -73,6 +73,9 @@ void Map::Load() {
 }
 
 void Map::Update([[maybe_unused]] double dt) {
+	if (Engine::GetInput().KeyDown(CS230::Input::Keys::Nine)) {
+		dt = dt * 0.1;
+	}
 	gameobjectmanager.UpdateAll(dt);
 	gameobjectmanager.CollisionAll();
 	if (Engine::GetInput().KeyJustPressed(CS230::Input::Keys::Up) && room < 9) {

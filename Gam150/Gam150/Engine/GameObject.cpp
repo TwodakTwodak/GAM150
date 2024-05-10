@@ -41,12 +41,28 @@ void CS230::GameObject::Update(double dt) {
     if (velocity.x != 0 || velocity.y != 0 || velocity.z != 0) {
         UpdatePosition(velocity * dt);
     }
-    collision_cube.bottom_behind = position;
-    collision_cube.top_front = { 
-        side_sprite.GetFrameSize().x - side_sprite.GetHotSpot(0).x + position.x,
-        side_sprite.GetFrameSize().y - side_sprite.GetHotSpot(0).y + position.y,
-        top_sprite.GetFrameSize().y - top_sprite.GetHotSpot(0).y + position.z
+
+    collision_cube.bottom_behind = {
+        position.x,
+        position.y,
+        position.z
     };
+    collision_cube.top_front = {
+        position.x + side_sprite.texture->GetSize().x,
+        position.y + side_sprite.texture->GetSize().y,
+        position.z + top_sprite.texture->GetSize().y
+    };
+
+    //collision_cube.bottom_behind = {
+    //position.x + side_sprite.GetHotSpot(0).x,
+    //position.y - side_sprite.GetHotSpot(0).y,
+    //position.z - top_sprite.GetHotSpot(0).y
+    //};
+    //collision_cube.top_front = {
+    //    position.x - side_sprite.GetFrameSize().x + side_sprite.GetHotSpot(0).x,
+    //    position.y - side_sprite.GetFrameSize().y - side_sprite.GetHotSpot(0).y,
+    //    position.z - top_sprite.GetFrameSize().y - top_sprite.GetHotSpot(0).y
+    //};
     current_state->CheckExit(this);
 }
 

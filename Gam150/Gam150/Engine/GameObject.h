@@ -47,6 +47,8 @@ namespace CS230 {
         void SetView(View view);
         Math::cube collision_cube;
         Gam150::Collision* collision;
+        Sprite side_sprite;
+        Sprite top_sprite;
 
     protected:
         class State {
@@ -71,8 +73,6 @@ namespace CS230 {
         //void UpdateRotation(double delta);
 
         //should have each sprite
-        Sprite side_sprite;
-        Sprite top_sprite;
         Sprite* view_sprite = &side_sprite;
 
     private:

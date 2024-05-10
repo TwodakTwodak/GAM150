@@ -28,22 +28,27 @@ namespace Gam150 {
 
 	void Collision::CollisionDraw()
 	{
-		if (gameobject->GetView()) {
-			int width = std::abs(gameobject->collision_cube.top_front.x - gameobject->collision_cube.bottom_behind.x);
-			int height = std::abs(gameobject->collision_cube.top_front.y - gameobject->collision_cube.bottom_behind.y);
-			DrawRectangleLines(gameobject->collision_cube.bottom_behind.x, Engine::GetWindow().GetSize().y - gameobject->collision_cube.bottom_behind.y,
-				width,
-				height,
-				WHITE);
-		}
-		else {
-			int width = std::abs(gameobject->collision_cube.top_front.x - gameobject->collision_cube.bottom_behind.x);
-			int height = std::abs(gameobject->collision_cube.top_front.z - gameobject->collision_cube.bottom_behind.z);
-			DrawRectangleLines(gameobject->collision_cube.bottom_behind.x, Engine::GetWindow().GetSize().y - gameobject->collision_cube.bottom_behind.z,
-				width,
-				height,
-				WHITE);
-		}
+        int width, height;
+        if (gameobject->GetView()) {
+            width = std::abs(gameobject->collision_cube.top_front.x - gameobject->collision_cube.bottom_behind.x);
+            height = std::abs(gameobject->collision_cube.top_front.y - gameobject->collision_cube.bottom_behind.y);
+            DrawRectangleLines(
+                gameobject->collision_cube.bottom_behind.x,
+                Engine::GetWindow().GetSize().y - gameobject->collision_cube.bottom_behind.y,  // y좌표 계산을 bottom_behind.y 사용
+                width,
+                height,
+                WHITE);
+        }
+        else {
+            width = std::abs(gameobject->collision_cube.top_front.x - gameobject->collision_cube.bottom_behind.x);
+            height = std::abs(gameobject->collision_cube.top_front.z - gameobject->collision_cube.bottom_behind.z);
+            DrawRectangleLines(
+                gameobject->collision_cube.bottom_behind.x,
+                Engine::GetWindow().GetSize().y - gameobject->collision_cube.bottom_behind.z,  // z좌표 계산을 bottom_behind.z 사용
+                width,
+                height,
+                WHITE);
+        }
 
 		const double render_height = rlGetFramebufferHeight();
 	}
