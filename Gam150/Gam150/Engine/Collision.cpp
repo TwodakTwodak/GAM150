@@ -34,7 +34,7 @@ namespace Gam150 {
             height = std::abs(gameobject->collision_cube.top_front.y - gameobject->collision_cube.bottom_behind.y);
             DrawRectangleLines(
                 gameobject->collision_cube.bottom_behind.x,
-                Engine::GetWindow().GetSize().y - gameobject->collision_cube.bottom_behind.y,  // y좌표 계산을 bottom_behind.y 사용
+                Engine::GetWindow().GetSize().y - gameobject->collision_cube.bottom_behind.y - height,
                 width,
                 height,
                 WHITE);
@@ -44,13 +44,11 @@ namespace Gam150 {
             height = std::abs(gameobject->collision_cube.top_front.z - gameobject->collision_cube.bottom_behind.z);
             DrawRectangleLines(
                 gameobject->collision_cube.bottom_behind.x,
-                Engine::GetWindow().GetSize().y - gameobject->collision_cube.bottom_behind.z,  // z좌표 계산을 bottom_behind.z 사용
+                Engine::GetWindow().GetSize().y - gameobject->collision_cube.bottom_behind.z - height,
                 width,
                 height,
                 WHITE);
         }
-
-		const double render_height = rlGetFramebufferHeight();
 	}
 
 }
