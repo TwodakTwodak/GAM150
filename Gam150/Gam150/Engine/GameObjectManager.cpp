@@ -22,6 +22,7 @@ void CS230::GameObjectManager::UpdateAll(double dt)
 	for (CS230::GameObject* object : collision_objects) {
 		object->Update(dt);
 	}
+	CollisionPlayer();
 }
 
 void CS230::GameObjectManager::DrawAll(Math::TransformationMatrix camera_matrix)
@@ -31,7 +32,7 @@ void CS230::GameObjectManager::DrawAll(Math::TransformationMatrix camera_matrix)
 	}
 }
 
-void CS230::GameObjectManager::CollisionAll()
+void CS230::GameObjectManager::CollisionPlayer()
 {
 	for (int i = 0; i < collision_objects.size() - 1; ++i) {
 		collision_objects[0]->Collision(collision_objects[i + 1]);

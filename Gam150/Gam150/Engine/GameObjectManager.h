@@ -22,7 +22,7 @@ namespace CS230 {
 
         void UpdateAll(double dt);
         void DrawAll(Math::TransformationMatrix camera_matrix);
-        void CollisionAll();
+        void CollisionPlayer();
 
         void ChangeAll();
         void Reorder(bool change_view);

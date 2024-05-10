@@ -35,7 +35,7 @@ namespace CS230 {
         virtual void Draw(Math::TransformationMatrix camera_matrix);
         //For change view
         virtual void check_view();
-        //For Collision
+        //For Collisiona
         virtual void Collision(GameObject* compare);
 
         const Math::TransformationMatrix& GetMatrix();

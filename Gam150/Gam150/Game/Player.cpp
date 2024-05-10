@@ -61,13 +61,7 @@ void Player::Update(double dt) {
 
 void Player::Collision(GameObject* compare)
 {
-    if (GetVelocity().x != 0) {
-        UpdatePosition({ collision->GetDistanceX(compare), 0, 0 });
-    }
-    if (GetVelocity().y != 0) {
-        UpdatePosition({0, collision->GetDistanceY(compare), 0 });
-    }
-    if (GetVelocity().z != 0) {
-        UpdatePosition({ 0, 0, collision->GetDistanceZ(compare) });
-    }
+    //UpdatePosition({ collision->GetDistanceX(compare), 0, 0 });
+    UpdatePosition({0, collision->GetDistanceY(compare), 0 });
+    //UpdatePosition({ 0, 0, collision->GetDistanceZ(compare) });
 }
