@@ -10,6 +10,10 @@ Created:    May 3, 2024
 #include "../Engine/Camera.h"
 #include "../Engine/GameObject.h"
 
+struct key_order {
+	bool press;
+};
+
 class Player : public CS230::GameObject {
 public:
 	Player(Math::vec3 start_position);
@@ -22,9 +26,15 @@ private:
 	static constexpr double xz_drag = 450;
 	static constexpr double max_velocity = 200;
 	static constexpr double jump_velocity = 650;
-	bool jump_able = false;
+	bool jumping = false;
+	bool falling = false;
+
+	bool key_order[4];
 
 	void move(double dt);
 	void jump(double dt);
 	void dash(double dt);
+
+	void gravity(double dt);
+
 };

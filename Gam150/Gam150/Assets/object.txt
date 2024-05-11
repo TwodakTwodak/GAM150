@@ -11,10 +11,10 @@ Position 200 100 80
 Information move
 Size 100 200 300
 Number 3
-Room 2
-Type button
-Position 300 200 80
-Information cant
+Room 1
+Type box
+Position 400 300 80
+Information move
 Size 200 200 300
 Number 4
 Room 2
