@@ -27,18 +27,12 @@ private:
 	static constexpr double max_velocity = 200;
 	static constexpr double jump_velocity = 650;
 	static constexpr double dash_velocity = 2000;
-	static constexpr double dash_timer = 2;
+	static constexpr double cool_time = 1.5;
 	bool jumping = false;
 	bool falling = false;
-	bool dashing = false;
 	double dash_start_pos;
 	bool key_order[4];
-	double count_timer;
-	double cool_time = 1.5;
-
-	bool collision_X = false;
-	bool collision_Y = false;
-	bool collision_Z = false;
+	double cool_timer;
 
 	void move(double dt);
 

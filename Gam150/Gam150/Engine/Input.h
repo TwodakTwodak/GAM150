@@ -20,7 +20,8 @@ namespace CS230 {
             A, B, C, D, E, F, G, H, I, J, K, L, M,
             N, O, P, Q, R, S, T, U, V, W, X, Y, Z,
             Space, Enter, Left, Up, Right, Down,
-            One, Two, Three, Four, Five, Six, Seven, Eight, Nine, Zero, Escape,
+            One, Two, Three, Four, Five, Six, Seven, Eight, Nine, Zero, 
+            Escape, Left_Shift,
             Count
         };
 

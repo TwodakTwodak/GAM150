@@ -106,6 +106,8 @@ constexpr int cs230_to_rl(CS230::Input::Keys cs230_key) noexcept {
         return KEY_ZERO;
     case CS230::Input::Keys::Escape:
         return KEY_ESCAPE;
+    case CS230::Input::Keys::Left_Shift:
+        return KEY_LEFT_SHIFT;
         //is this right to add this thing here?
     default:
         return -1;
