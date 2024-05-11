@@ -83,6 +83,17 @@ namespace Gam150 {
 		}
 	}
 
+	Math::vec3 Collision::GetDistance(CS230::GameObject* compare)
+	{
+		distance.x = GetDistanceX(compare);
+		distance.y = GetDistanceY(compare);
+		distance.z = GetDistanceZ(compare);
+		bigger(bigger(&distance.x, &distance.y), &distance.z);
+		return distance;
+	}
+
+	
+
 	void Collision::CollisionDraw()
 	{
         int width, height;
@@ -106,6 +117,17 @@ namespace Gam150 {
                 height,
                 WHITE);
         }
+	}
+
+	double* Collision::bigger(double* com1, double* com2) {
+		if (std::abs(*com1) < std::abs(*com2)) {
+			*com2 = 0;
+			return com1;
+		}
+		else {
+			*com1 = 0;
+			return com2;
+		}
 	}
 
 }

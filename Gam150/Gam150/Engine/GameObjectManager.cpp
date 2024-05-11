@@ -19,10 +19,10 @@ void CS230::GameObjectManager::Unload()
 void CS230::GameObjectManager::UpdateAll(double dt)
 {
 	ChangeAll();
+	CollisionPlayer();
 	for (CS230::GameObject* object : collision_objects) {
 		object->Update(dt);
 	}
-	CollisionPlayer();
 }
 
 void CS230::GameObjectManager::DrawAll(Math::TransformationMatrix camera_matrix)

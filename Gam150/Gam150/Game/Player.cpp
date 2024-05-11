@@ -29,7 +29,6 @@ void Player::move(double dt) {
         }
     }
     else if (Engine::GetInput().KeyDown(CS230::Input::Keys::A)) {
-        collision_X = true;
         SetVelocity({ -max_velocity, GetVelocity().y, GetVelocity().z });
 
         if (!GetView()) {
@@ -47,7 +46,6 @@ void Player::move(double dt) {
     if (Engine::GetInput().KeyDown(CS230::Input::Keys::W)) {
         if (GetView()) {
             if (!jumping && !falling) {
-                collision_Y = true;
                 jumping = true;
                 SetVelocity({ GetVelocity().x, jump_velocity, GetVelocity().z });
             }
@@ -109,13 +107,16 @@ void Player::Update(double dt) {
 
 void Player::Collision(GameObject* compare)
 {
-    if (!falling) {
-        UpdatePosition({ collision->GetDistanceX(compare), 0, 0 });
-    }
-    if (collision->CollisionDetect(compare) && falling) {
+    UpdatePosition(collision->GetDistance(compare));
+
+    if (collision->distance.y != 0) {
         SetVelocity({ GetVelocity().x, 0, GetVelocity().z });
-        UpdatePosition({ 0, collision->GetDistanceY(compare), 0 });
+        if (collision->distance.y > 0) {
+            falling = false;
+        }
+        else {
+            falling = true;
+        }
         jumping = false;
-        falling = false;
     }
 }

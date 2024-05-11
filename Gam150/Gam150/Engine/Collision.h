@@ -23,9 +23,11 @@ namespace Gam150 {
         double GetDistanceX(CS230::GameObject* compare);
         double GetDistanceY(CS230::GameObject* compare);
         double GetDistanceZ(CS230::GameObject* compare);
+        Math::vec3 GetDistance(CS230::GameObject* compare);
         void CollisionDraw();
-    private:
+        double* bigger(double* com1, double* com2);
         Math::vec3 distance;
+    private:
         CS230::GameObject* gameobject;
     };
 }
