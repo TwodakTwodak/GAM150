@@ -14,6 +14,7 @@ Upadted:    March 14, 2024
 #include "Map.h"
 #include "Player.h"
 #include "Crates.h"
+#include "Floor.h"
 #include "Button.h"
 #include "../Engine/FileIO.h"
 
@@ -42,6 +43,10 @@ void Map::Load() {
 				{
 					gameobjectmanager.Add(new Button(GetPosition(load_object_number)));
 				}
+				if (GetType(load_object_number) == "floor") 
+				{
+					gameobjectmanager.Add(new Floor(GetPosition(load_object_number)));
+				}
 			}
 			load_object_number++;
 		}
@@ -63,6 +68,10 @@ void Map::Load() {
 				if (GetType(temp_load_object_number) == "button")//check type
 				{
 					gameobjectmanager.Add(new Button(GetPosition(temp_load_object_number)));
+				}
+				if (GetType(temp_load_object_number) == "floor") 
+				{
+					gameobjectmanager.Add(new Floor(GetPosition(temp_load_object_number)));
 				}
 			}
 			temp_load_object_number++;

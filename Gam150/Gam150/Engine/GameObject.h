@@ -21,6 +21,11 @@ enum View : bool {
     Top = false
 };
 
+enum Collision_Type : char {
+    Detect,
+    Block,
+    Move
+};
 
 namespace CS230 {
     class GameObject {
@@ -36,7 +41,7 @@ namespace CS230 {
         //For change view
         virtual void check_view();
         //For Collisiona
-        virtual void Collision(GameObject* compare);
+        virtual void Collision(GameObject* compare, Collision_Type type);
 
         const Math::TransformationMatrix& GetMatrix();
         const Math::vec3& GetPosition() const;
@@ -44,11 +49,13 @@ namespace CS230 {
         const Math::vec3& GetScale() const;
         //double GetRotation() const;
         View GetView() const;
+        Collision_Type GetType() const;
         void SetView(View view);
         Math::cube collision_cube;
         Gam150::Collision* collision;
         Sprite side_sprite;
         Sprite top_sprite;
+        void UpdatePosition(Math::vec3 delta);
 
     protected:
         class State {
@@ -63,7 +70,6 @@ namespace CS230 {
         void change_state(State* new_state);
 
         void SetPosition(Math::vec3 new_position);
-        void UpdatePosition(Math::vec3 delta);
         void SetVelocity(Math::vec3 new_velocity);
         void UpdateVelocity(Math::vec3 delta);
         //Different in each view but okay to use together
@@ -73,6 +79,7 @@ namespace CS230 {
         //void UpdateRotation(double delta);
 
         //should have each sprite
+        Collision_Type collision_type = Detect;
         Sprite* view_sprite = &side_sprite;
 
     private:

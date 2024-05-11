@@ -1,3 +1,10 @@
+/*
+File Name:  Player.cpp
+Project:    Gam150 Engine
+Author:     Seunghyeon Song
+Created:    May 3, 2024
+*/
+
 #include "Player.h"
 #include "../Engine/Engine.h"
 #include "Map.h"
@@ -87,25 +94,26 @@ void Player::move(double dt) {
 
 void Player::gravity(double dt)
 {
-    if (GetPosition().y > Map::floor) {
-        UpdateVelocity({ 0 , -Map::gravity * dt, 0 });
-    }
-    if (GetPosition().y <= Map::floor && falling) {
-        SetVelocity({ GetVelocity().x, 0, GetVelocity().z });
-        SetPosition({ GetPosition().x, Map::floor, GetPosition().z });
-        jumping = false;
-        falling = false;
-    }
+    UpdateVelocity({ 0 , -Map::gravity * dt, 0 });
 }
 
 void Player::Update(double dt) {
-    check_view();
     gravity(dt);
     move(dt);
     GameObject::Update(dt);
 }
 
-void Player::Collision(GameObject* compare)
+void Player::Collision(GameObject* compare, Collision_Type type)
+{
+    if (type == Block) {
+        Collision_Floor(compare);
+    }
+    else if (type == Move) {
+        Collision_Box(compare);
+    }
+}
+
+void Player::Collision_Floor(GameObject* compare)
 {
     UpdatePosition(collision->GetDistance(compare));
 
@@ -119,4 +127,20 @@ void Player::Collision(GameObject* compare)
         }
         jumping = false;
     }
+}
+
+void Player::Collision_Box(GameObject* compare)
+{
+    collision->GetDistance(compare);
+    if (collision->distance.y != 0) {
+        SetVelocity({ GetVelocity().x, 0, GetVelocity().z });
+        if (collision->distance.y > 0) {
+            falling = false;
+        }
+        else {
+            falling = true;
+        }
+        jumping = false;
+    }UpdatePosition({ 0, collision->distance.y, 0 });
+    compare->UpdatePosition({ -collision->distance.x, 0, -collision->distance.z });
 }

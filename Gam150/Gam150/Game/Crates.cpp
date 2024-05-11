@@ -8,11 +8,50 @@ Author:     Jonathan Holmes
 Created:    March 8, 2023
 */
 
+#include "Map.h"
 #include "Crates.h"
+#include "../Engine/Collision.h"
 
 Crates::Crates(Math::vec3 start_position) : 
-    CS230::GameObject(start_position) 
+    CS230::GameObject(start_position)
 {
+    collision_type = Move;
     side_sprite.Load("Assets/Crates1.spt");
     top_sprite.Load("Assets/Crates1.spt");
+}
+
+void Crates::Update(double dt) {
+    check_view();
+    gravity(dt);
+    GameObject::Update(dt);
+}
+
+void Crates::Collision(GameObject* compare, Collision_Type type)
+{
+    if (type == Block) {
+        Collision_Floor(compare);
+    }
+    else if (type == Detect) {
+        Collision_Button(compare);
+    }
+}
+
+void Crates::gravity(double dt)
+{
+    UpdateVelocity({ 0 , -Map::gravity * dt, 0 });
+}
+
+void Crates::Collision_Floor(GameObject* compare)
+{
+    UpdatePosition(collision->GetDistance(compare));
+    if (collision->distance.y != 0) {
+        SetVelocity({ GetVelocity().x, 0, GetVelocity().z });
+    }
+}
+
+void Crates::Collision_Button(GameObject* compare)
+{
+    if (collision->CollisionDetect(compare)) {
+        Engine::GetLogger().LogEvent("Collision");
+    }
 }

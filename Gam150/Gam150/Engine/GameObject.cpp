@@ -82,10 +82,7 @@ void CS230::GameObject::check_view()
     }
 }
 
-void CS230::GameObject::Collision(GameObject* compare)
-{
-    collision->CollisionDetect(compare);
-}
+void CS230::GameObject::Collision(GameObject* compare, Collision_Type type) { }
 
 const Math::TransformationMatrix& CS230::GameObject::GetMatrix() {
     //this make problem!!!
@@ -156,4 +153,9 @@ void CS230::GameObject::SetView(View view)
 {
     matrix_outdated = false;
     current_view = view;
+}
+
+Collision_Type CS230::GameObject::GetType() const
+{
+    return collision_type;
 }

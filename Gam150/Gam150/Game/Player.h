@@ -18,7 +18,9 @@ class Player : public CS230::GameObject {
 public:
 	Player(Math::vec3 start_position);
 	void Update(double dt) override;
-	void Collision(GameObject* compare) override;
+	void Collision(GameObject* compare, Collision_Type type) override;
+	void Collision_Floor(GameObject* compare);
+	void Collision_Box(GameObject* compare);
 	const Math::vec3& GetPosition() const { return GameObject::GetPosition(); };
 
 private:

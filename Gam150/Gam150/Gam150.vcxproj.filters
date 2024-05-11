@@ -34,9 +34,6 @@
     <Filter Include="Game\InGame\Player">
       <UniqueIdentifier>{f190561a-3a0a-44fa-a88b-f2bf694a879a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\InGame\Common">
-      <UniqueIdentifier>{9149534c-6251-479b-842c-0c50a5ccbf24}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\InGame\Map">
       <UniqueIdentifier>{660df625-0477-47e1-b3eb-3ea7dd126e48}</UniqueIdentifier>
     </Filter>
@@ -124,6 +121,9 @@
     <ClCompile Include="Engine\FileIO.cpp">
       <Filter>Engine\FileIO</Filter>
     </ClCompile>
+    <ClCompile Include="Game\Floor.cpp">
+      <Filter>Game\InGame\Object</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Animation.h">
@@ -192,9 +192,6 @@
     <ClInclude Include="Game\Player.h">
       <Filter>Game\InGame\Player</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Floor.h">
-      <Filter>Game\InGame\Common</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\Collision.h">
       <Filter>Engine\Physic</Filter>
     </ClInclude>
@@ -212,6 +209,9 @@
     </ClInclude>
     <ClInclude Include="Engine\FileIO.h">
       <Filter>Engine\FileIO</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Floor.h">
+      <Filter>Game\InGame\Object</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

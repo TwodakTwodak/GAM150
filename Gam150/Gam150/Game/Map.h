@@ -27,6 +27,7 @@ public:
         return "Map";
     }
 
+    //In future we could choose gravity for each map!
     static constexpr double gravity = 800;
     static constexpr double floor = 100;
     static constexpr double timer_max = 30;

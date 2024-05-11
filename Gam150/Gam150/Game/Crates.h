@@ -14,4 +14,11 @@ Created:    March 8, 2023
 class Crates : public CS230::GameObject {
 public:
     Crates(Math::vec3 start_position);
+    void Update(double dt) override;
+    void Collision(GameObject* compare, Collision_Type type) override;
+    void Collision_Floor(GameObject* compare);
+    void Collision_Button(GameObject* compare);
+
+private:
+    void gravity(double dt);
 };
