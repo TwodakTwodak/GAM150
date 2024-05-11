@@ -33,7 +33,8 @@ private:
 	bool dashing = false;
 	double dash_start_pos;
 	bool key_order[4];
-	double count_timer = 0;
+	double count_timer;
+	double cool_time = 1.5;
 
 	bool collision_X = false;
 	bool collision_Y = false;

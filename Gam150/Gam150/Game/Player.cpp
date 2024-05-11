@@ -8,17 +8,24 @@ Player::Player(Math::vec3 start_position) :
 {
     side_sprite.Load("Assets/Ship.spt");
     top_sprite.Load("Assets/Ship.spt");
+    
 }
 
 void Player::move(double dt) {
+    if (count_timer >= 0) {
+        count_timer += dt;
+    }
+   
+    Engine::GetLogger().LogError("time: " + std::to_string(count_timer));
     if (Engine::GetInput().KeyDown(CS230::Input::Keys::D)) {
         SetVelocity({ max_velocity, GetVelocity().y, GetVelocity().z });
 
         if (!GetView()) {
-            if (Engine::GetInput().KeyDown(CS230::Input::Keys::Space) && !dashing) {
+            if (Engine::GetInput().KeyDown(CS230::Input::Keys::Space) && !dashing && count_timer > cool_time) {
                 dashing = true;
                 dash_start_pos = GetPosition().x;
                 SetVelocity({ dash_velocity, GetVelocity().y, GetVelocity().z });
+                count_timer = 0;
             }
             else { dashing = false; }
         }
@@ -28,10 +35,11 @@ void Player::move(double dt) {
         SetVelocity({ -max_velocity, GetVelocity().y, GetVelocity().z });
 
         if (!GetView()) {
-            if (Engine::GetInput().KeyDown(CS230::Input::Keys::Space) && !dashing) {
+            if (Engine::GetInput().KeyDown(CS230::Input::Keys::Space) && !dashing && count_timer > cool_time) {
                 dashing = true;
                 dash_start_pos = GetPosition().x;
                 SetVelocity({ -dash_velocity, GetVelocity().y, GetVelocity().z });
+                count_timer = 0;
             }
             else { dashing = false; }
         }
@@ -56,10 +64,11 @@ void Player::move(double dt) {
         }
         if (!GetView()) {
 
-            if (Engine::GetInput().KeyDown(CS230::Input::Keys::Space) && !dashing) {
+            if (Engine::GetInput().KeyDown(CS230::Input::Keys::Space) && !dashing && count_timer > cool_time) {
                 dashing = true;
                 dash_start_pos = GetPosition().z;
                 SetVelocity({ GetVelocity().x, GetVelocity().y, dash_velocity });
+                count_timer = 0;
             }
             else { dashing = false; }
         }
@@ -67,9 +76,10 @@ void Player::move(double dt) {
     else if (Engine::GetInput().KeyDown(CS230::Input::Keys::S) && !GetView()) {
         SetVelocity({ GetVelocity().x , GetVelocity().y, -max_velocity });
         if (!GetView()) {
-            if (Engine::GetInput().KeyDown(CS230::Input::Keys::Space) && !dashing) {
+            if (Engine::GetInput().KeyDown(CS230::Input::Keys::Space) && !dashing && count_timer > cool_time) {
                 dashing = true;
                 SetVelocity({ GetVelocity().x, GetVelocity().y, -dash_velocity });
+               count_timer = 0;
             }
             else { dashing = false; }
         }
@@ -115,24 +125,27 @@ void Player::Update(double dt) {
 
 void Player::Collision(GameObject* compare)
 {
-    if (collision->CollisionDetect(compare) && GetVelocity().x != 0 && !collision_Y && !collision_Z) {
-        SetVelocity({ 0, GetVelocity().y, GetVelocity().z});
-        UpdatePosition({ collision->GetDistanceX(compare), 0, 0 });
+    if (collision->CollisionDetect(compare)) {
+        if (!collision_X) {
+            SetVelocity({ 0, GetVelocity().y, GetVelocity().z });
+            UpdatePosition({ 0, 0, 0 });
+        }
     }
-    if (collision->CollisionDetect(compare) && falling && GetVelocity().y != 0 && collision_Y) {
+    if (collision->CollisionDetect(compare) && falling  ) {
         SetVelocity({ GetVelocity().x, 0, GetVelocity().z });
         UpdatePosition({ 0, collision->GetDistanceY(compare), 0 });
         jumping = false;
         falling = false;
     }
-    if (collision->CollisionDetect(compare) && jumping && GetVelocity().y != 0 && collision_Y) {
+    if (collision->CollisionDetect(compare) && jumping ) {
         SetVelocity({ GetVelocity().x, 0, GetVelocity().z });
         UpdatePosition({ 0, collision->GetDistanceY(compare), 0 });
         jumping = false;
         falling = true;
     }
-    if (collision->CollisionDetect(compare) && GetVelocity().z != 0 && !collision_X) {
+    if (collision->CollisionDetect(compare) ) {
         SetVelocity({ GetVelocity().x, GetVelocity().y, 0 });
         UpdatePosition({ 0, 0, collision->GetDistanceZ(compare) });
     }
+
 }
