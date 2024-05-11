@@ -26,16 +26,20 @@ private:
 	static constexpr double xz_drag = 450;
 	static constexpr double max_velocity = 200;
 	static constexpr double jump_velocity = 650;
-	static constexpr double dash_velocity = 1000.0;
+	static constexpr double dash_velocity = 2000;
+	static constexpr double dash_timer = 2;
 	bool jumping = false;
 	bool falling = false;
 	bool dashing = false;
 	double dash_start_pos;
 	bool key_order[4];
+	double count_timer = 0;
+
+	bool collision_X = false;
+	bool collision_Y = false;
+	bool collision_Z = false;
 
 	void move(double dt);
-	void jump(double dt);
-	void dash(double dt);
 
 	void gravity(double dt);
 

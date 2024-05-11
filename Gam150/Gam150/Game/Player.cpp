@@ -4,17 +4,16 @@
 #include "../Engine/Collision.h"
 
 Player::Player(Math::vec3 start_position) :
-	GameObject(start_position)
+    GameObject(start_position)
 {
-	side_sprite.Load("Assets/Ship.spt");
+    side_sprite.Load("Assets/Ship.spt");
     top_sprite.Load("Assets/Ship.spt");
 }
 
 void Player::move(double dt) {
     if (Engine::GetInput().KeyDown(CS230::Input::Keys::D)) {
-       
-            SetVelocity({ max_velocity, GetVelocity().y, GetVelocity().z });
-        
+        SetVelocity({ max_velocity, GetVelocity().y, GetVelocity().z });
+
         if (!GetView()) {
             if (Engine::GetInput().KeyDown(CS230::Input::Keys::Space) && !dashing) {
                 dashing = true;
@@ -25,9 +24,9 @@ void Player::move(double dt) {
         }
     }
     else if (Engine::GetInput().KeyDown(CS230::Input::Keys::A)) {
+        collision_X = true;
+        SetVelocity({ -max_velocity, GetVelocity().y, GetVelocity().z });
 
-            SetVelocity({ -max_velocity, GetVelocity().y, GetVelocity().z });
-      
         if (!GetView()) {
             if (Engine::GetInput().KeyDown(CS230::Input::Keys::Space) && !dashing) {
                 dashing = true;
@@ -43,7 +42,8 @@ void Player::move(double dt) {
 
     if (Engine::GetInput().KeyDown(CS230::Input::Keys::W)) {
         if (GetView()) {
-            if (!jumping) {
+            if (!jumping && !falling) {
+                collision_Y = true;
                 jumping = true;
                 SetVelocity({ GetVelocity().x, jump_velocity, GetVelocity().z });
             }
@@ -55,7 +55,7 @@ void Player::move(double dt) {
             SetVelocity({ GetVelocity().x , GetVelocity().y, max_velocity });
         }
         if (!GetView()) {
-            
+
             if (Engine::GetInput().KeyDown(CS230::Input::Keys::Space) && !dashing) {
                 dashing = true;
                 dash_start_pos = GetPosition().z;
@@ -88,7 +88,7 @@ void Player::gravity(double dt)
 {
     if (GetPosition().y > Map::floor) {
         UpdateVelocity({ 0 , -Map::gravity * dt, 0 });
-    }        
+    }
     if (GetPosition().y <= Map::floor && falling) {
         SetVelocity({ GetVelocity().x, 0, GetVelocity().z });
         SetPosition({ GetPosition().x, Map::floor, GetPosition().z });
@@ -101,19 +101,38 @@ void Player::Update(double dt) {
     check_view();
     gravity(dt);
     move(dt);
-	GameObject::Update(dt);
+    if (dashing) {
+        if (count_timer < dash_timer) {
+            count_timer += dt;
+        }
+        else {
+            dashing = false;
+            count_timer = 0;
+        }
+    }
+    GameObject::Update(dt);
 }
 
 void Player::Collision(GameObject* compare)
 {
-    if (!falling) {
+    if (collision->CollisionDetect(compare) && GetVelocity().x != 0 && !collision_Y && !collision_Z) {
+        SetVelocity({ 0, GetVelocity().y, GetVelocity().z});
         UpdatePosition({ collision->GetDistanceX(compare), 0, 0 });
     }
-    if (collision->CollisionDetect(compare) && falling) {
+    if (collision->CollisionDetect(compare) && falling && GetVelocity().y != 0 && collision_Y) {
         SetVelocity({ GetVelocity().x, 0, GetVelocity().z });
         UpdatePosition({ 0, collision->GetDistanceY(compare), 0 });
         jumping = false;
         falling = false;
     }
-    //UpdatePosition({ 0, 0, collision->GetDistanceZ(compare) });
+    if (collision->CollisionDetect(compare) && jumping && GetVelocity().y != 0 && collision_Y) {
+        SetVelocity({ GetVelocity().x, 0, GetVelocity().z });
+        UpdatePosition({ 0, collision->GetDistanceY(compare), 0 });
+        jumping = false;
+        falling = true;
+    }
+    if (collision->CollisionDetect(compare) && GetVelocity().z != 0 && !collision_X) {
+        SetVelocity({ GetVelocity().x, GetVelocity().y, 0 });
+        UpdatePosition({ 0, 0, collision->GetDistanceZ(compare) });
+    }
 }
