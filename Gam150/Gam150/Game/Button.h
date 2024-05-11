@@ -15,4 +15,5 @@ class Button : public CS230::GameObject {
 public:
     Button(Math::vec3 start_position);
     //need fuction for collision!
+    bool press = false;
 };

@@ -26,7 +26,7 @@ void Player::move(double dt) {
     Engine::GetLogger().LogError("time: " + std::to_string(cool_timer));
     if (Engine::GetInput().KeyDown(CS230::Input::Keys::D)) {
         SetVelocity({ max_velocity, GetVelocity().y, GetVelocity().z });
-
+        SetScale({ 1, 1, 1 });
         if (!GetView()) {
             if (Engine::GetInput().KeyDown(CS230::Input::Keys::Left_Shift) && cool_timer >= cool_time) {
                 dash_start_pos = GetPosition().x;
@@ -37,7 +37,7 @@ void Player::move(double dt) {
     }
     else if (Engine::GetInput().KeyDown(CS230::Input::Keys::A)) {
         SetVelocity({ -max_velocity, GetVelocity().y, GetVelocity().z });
-
+        SetScale({ -1, 1, 1 });
         if (!GetView()) {
             if (Engine::GetInput().KeyDown(CS230::Input::Keys::Left_Shift) && cool_timer >= cool_time) {
                 dash_start_pos = GetPosition().x;
@@ -141,6 +141,7 @@ void Player::Collision_Box(GameObject* compare)
             falling = true;
         }
         jumping = false;
-    }UpdatePosition({ 0, collision->distance.y, 0 });
+    }
+    UpdatePosition({ 0, collision->distance.y, 0 });
     compare->UpdatePosition({ -collision->distance.x, 0, -collision->distance.z });
 }

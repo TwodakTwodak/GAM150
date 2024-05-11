@@ -47,7 +47,8 @@ namespace CS230 {
         const Math::vec3& GetPosition() const;
         const Math::vec3& GetVelocity() const;
         const Math::vec3& GetScale() const;
-        //double GetRotation() const;
+        double GetRotation() const;
+
         View GetView() const;
         Collision_Type GetType() const;
         void SetView(View view);
@@ -70,13 +71,15 @@ namespace CS230 {
         void change_state(State* new_state);
 
         void SetPosition(Math::vec3 new_position);
+
         void SetVelocity(Math::vec3 new_velocity);
         void UpdateVelocity(Math::vec3 delta);
         //Different in each view but okay to use together
         void SetScale(Math::vec3 new_scale);
         void UpdateScale(Math::vec3 delta);
-        //void SetRotation(double new_rotation);
-        //void UpdateRotation(double delta);
+
+        void SetRotation(double new_rotation);
+        void UpdateRotation(double delta);
 
         //should have each sprite
         Collision_Type collision_type = Detect;

@@ -113,6 +113,11 @@ View CS230::GameObject::GetView() const
     return current_view;
 }
 
+double CS230::GameObject::GetRotation() const
+{
+    return rotation;
+}
+
 
 
 void CS230::GameObject::SetPosition(Math::vec3 new_position) {
@@ -147,6 +152,15 @@ void CS230::GameObject::UpdateScale(Math::vec3 delta)
 {
     matrix_outdated = false;
     scale += delta;
+}
+
+void CS230::GameObject::SetRotation(double new_rotation) {
+    rotation = new_rotation;
+}
+
+void CS230::GameObject::UpdateRotation(double delta)
+{
+    rotation += delta;
 }
 
 void CS230::GameObject::SetView(View view)

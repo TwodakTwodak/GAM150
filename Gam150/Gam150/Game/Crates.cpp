@@ -10,6 +10,7 @@ Created:    March 8, 2023
 
 #include "Map.h"
 #include "Crates.h"
+#include "Button.h"
 #include "../Engine/Collision.h"
 
 Crates::Crates(Math::vec3 start_position) : 
@@ -52,6 +53,6 @@ void Crates::Collision_Floor(GameObject* compare)
 void Crates::Collision_Button(GameObject* compare)
 {
     if (collision->CollisionDetect(compare)) {
-        Engine::GetLogger().LogEvent("Collision");
+        static_cast<Button*>(compare)->press = true;
     }
 }
