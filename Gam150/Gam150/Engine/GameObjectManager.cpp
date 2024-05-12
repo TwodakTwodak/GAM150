@@ -31,7 +31,12 @@ void CS230::GameObjectManager::DrawAll(Math::TransformationMatrix camera_matrix)
 		object->Draw(camera_matrix);
 	}
 }
-
+void CS230::GameObjectManager::DrawAllEditor(Math::TransformationMatrix camera_matrix)
+{
+	for (CS230::GameObject* object : draw_objects) {
+		object->DrawEditor(camera_matrix);
+	}
+}
 void CS230::GameObjectManager::CollisionPlayer()
 {
 	for (int i = 0; i < collision_objects.size() - 1; ++i) {
@@ -80,3 +85,22 @@ bool CS230::GameObjectManager::top_compare(GameObject* object1, GameObject* obje
 	}
 	return false;
 }
+CS230::GameObject* CS230::GameObjectManager::ReturnLastInteraction()
+{
+	return collision_objects[collision_objects.size() - 1];
+}
+CS230::GameObject* CS230::GameObjectManager::ReturnSelected(Math::vec3 location)
+{
+	int i = 0;
+	for (CS230::GameObject* object : collision_objects) {
+		if ((object->GetPosition().x<location.x && object->GetPosition().x + object->GetScale().x > location.x) &&
+			(object->GetPosition().y<location.y && object->GetPosition().y + object->GetScale().y > location.y) &&
+			(object->GetPosition().z<location.z && object->GetPosition().z + object->GetScale().z > location.z))
+		{
+			return collision_objects[i];
+		}
+		i++;
+	}
+	return nullptr;
+}//make seperate collision latter
+//check nullptr

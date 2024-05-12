@@ -49,6 +49,10 @@ namespace CS230 {
         Gam150::Collision* collision;
         Sprite side_sprite;
         Sprite top_sprite;
+        void SetPosition(Math::vec3 new_position);
+        virtual void DrawEditor(Math::TransformationMatrix camera_matrix);
+        const Math::TransformationMatrix& GetMatrixEditorSide();
+        const Math::TransformationMatrix& GetMatrixEditorTop();
 
     protected:
         class State {
@@ -62,7 +66,6 @@ namespace CS230 {
 
         void change_state(State* new_state);
 
-        void SetPosition(Math::vec3 new_position);
         void UpdatePosition(Math::vec3 delta);
         void SetVelocity(Math::vec3 new_velocity);
         void UpdateVelocity(Math::vec3 delta);

@@ -22,6 +22,7 @@ namespace CS230 {
 
         void UpdateAll(double dt);
         void DrawAll(Math::TransformationMatrix camera_matrix);
+        void DrawAllEditor(Math::TransformationMatrix camera_matrix);
         void CollisionPlayer();
 
         void ChangeAll();
@@ -29,6 +30,9 @@ namespace CS230 {
         static bool side_compare(GameObject* object1, GameObject* object2);
         static bool top_compare(GameObject* object1, GameObject* object2);
         bool new_object = false;
+
+        GameObject* ReturnLastInteraction();
+        GameObject* ReturnSelected(Math::vec3 location);
 
         View main_view = View::Side;
     private:
