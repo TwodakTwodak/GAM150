@@ -8,6 +8,7 @@ Author:     Jonathan Holmes
 Created:    March 8, 2023
 */
 
+#include "Collision.h"
 #include "GameObject.h"
 #include "Matrix.h"
 #include <iostream>
@@ -26,8 +27,14 @@ CS230::GameObject::GameObject(Math::vec3 position, double rotation, Math::vec3 s
     position(position),
     scale(scale),
     rotation(rotation),
-    current_state(&state_none)
+    current_state(&state_none),
+    collision(new Gam150::Collision(this))
 {}
+
+CS230::GameObject::~GameObject()
+{
+    delete collision;
+}
 
 void CS230::GameObject::Update(double dt) {
     check_view();
@@ -36,6 +43,17 @@ void CS230::GameObject::Update(double dt) {
     if (velocity.x != 0 || velocity.y != 0 || velocity.z != 0) {
         UpdatePosition(velocity * dt);
     }
+    collision_cube.bottom_behind = {
+        position.x,
+        position.y,
+        position.z
+    };
+    collision_cube.top_front = {
+        position.x + side_sprite.texture->GetSize().x,
+        position.y + side_sprite.texture->GetSize().y,
+        position.z + top_sprite.texture->GetSize().y
+    };
+
     current_state->CheckExit(this);
 }
 
@@ -46,6 +64,7 @@ void CS230::GameObject::change_state(State* new_state) {
 
 //
 void CS230::GameObject::Draw(Math::TransformationMatrix camera_matrix) {
+    collision->CollisionDraw();
     view_sprite->Draw(camera_matrix * GetMatrix());
 }
 
@@ -68,6 +87,11 @@ void CS230::GameObject::check_view()
             view_scale = &(scale.z);
         }
     }
+}
+
+void CS230::GameObject::Collision(GameObject* compare)
+{
+    collision->CollisionDetect(compare);
 }
 
 const Math::TransformationMatrix& CS230::GameObject::GetMatrix() {

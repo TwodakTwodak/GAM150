@@ -11,8 +11,6 @@ Created:    March 8, 2023
 #pragma once
 #include <vector>
 #include "GameObject.h"
-#include "Matrix.h"
-#include "Vec3.h"
 
 namespace Math { class TransformationMatrix; }
 
@@ -24,19 +22,17 @@ namespace CS230 {
 
         void UpdateAll(double dt);
         void DrawAll(Math::TransformationMatrix camera_matrix);
-        void DrawAllEditor(Math::TransformationMatrix camera_matrix);
-        void CollisionAll();
+        void CollisionPlayer();
 
         void ChangeAll();
         void Reorder(bool change_view);
         static bool side_compare(GameObject* object1, GameObject* object2);
         static bool top_compare(GameObject* object1, GameObject* object2);
-
-        GameObject* ReturnLastInteraction();
-        GameObject* ReturnSelected(Math::vec3 location);
+        bool new_object = false;
 
         View main_view = View::Side;
     private:
-        std::vector<GameObject*> objects;
+        std::vector<GameObject*> collision_objects;
+        std::vector<GameObject*> draw_objects;
     };
 }

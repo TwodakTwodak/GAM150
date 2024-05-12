@@ -8,49 +8,104 @@ Author:     Huiuk Jang
 Created:    May 4, 2024
 */
 
+#include "Engine.h"
 #include "Collision.h"
+#include "GameObject.h"
 
 namespace Gam150 {
-	bool Collision::CollisionCheck(Math::cube c1, Math::cube c2)
+	Collision::Collision(CS230::GameObject* clone) : gameobject(clone) { }
+
+	bool Collision::CollisionDetect(CS230::GameObject* compare)
 	{
-		//check collision for x axis
-		CollisionAxis({ c1.top_front.x, c1.bottom_behind.x }, { c2.top_front.x, c2.bottom_behind.x });
-		//check collision for y axis
-		CollisionAxis({ c1.top_front.y, c1.bottom_behind.y }, { c2.top_front.y, c2.bottom_behind.y });
-		//check collision for z axis
-		CollisionAxis({ c1.top_front.z, c1.bottom_behind.z }, { c2.top_front.z, c2.bottom_behind.z });
-
-
-		if (collision_cube.Size().x != 0 && collision_cube.Size().y != 0 && collision_cube.Size().z != 0) {
+		if (((gameobject->collision_cube.bottom_behind.x <= compare->collision_cube.top_front.x) && (gameobject->collision_cube.top_front.x >= compare->collision_cube.bottom_behind.x))
+			&& (gameobject->collision_cube.bottom_behind.y <= compare->collision_cube.top_front.y) && (gameobject->collision_cube.top_front.y >= compare->collision_cube.bottom_behind.y)
+			&& (gameobject->collision_cube.bottom_behind.z <= compare->collision_cube.top_front.z) && (gameobject->collision_cube.top_front.z >= compare->collision_cube.bottom_behind.z)
+			) {
 			return true;
 		}
-		else {
-			return false;
+		return false;
+	}
+
+    double Collision::GetDistanceX(CS230::GameObject* compare)
+    {
+		if (CollisionDetect(compare))
+		{
+			if (gameobject->collision_cube.top_front.x < compare->collision_cube.top_front.x)
+			{
+				return (compare->collision_cube.bottom_behind.x - gameobject->collision_cube.top_front.x);
+			}
+			else
+			{
+				return -(gameobject->collision_cube.bottom_behind.x - compare->collision_cube.top_front.x);
+			}
+		}
+		else
+		{
+			return NULL;
 		}
 	}
 
-	void Collision::CollisionAxis(Math::vec2 a, Math::vec2 b)
+	double Collision::GetDistanceY(CS230::GameObject* compare)
 	{
-		//c1.top_front.? = a.x
-		//c1.bottom_behind.? = a.y
-		//c2.top_front.? = b.x
-		//c2.bottom_behind.? = b.y
-		if ((a.x - b.y) > 0) {
-			collision_cube.top_front.x = a.x;
-			collision_cube.bottom_behind.x = b.y;
+		if (CollisionDetect(compare))
+		{
+			if (gameobject->collision_cube.top_front.y < compare->collision_cube.top_front.y)
+			{
+				return -(gameobject->collision_cube.top_front.y - compare->collision_cube.bottom_behind.y);
+			}
+			else
+			{
+				return (compare->collision_cube.top_front.y - gameobject->collision_cube.bottom_behind.y);
+			}
 		}
-		else if ((b.x - a.y) > 0) {
-			collision_cube.top_front.x = b.x;
-			collision_cube.bottom_behind.x = a.y;
-		}
-		else {
-			collision_cube.bottom_behind.x = 0;
-			collision_cube.top_front.x = 0;
+		else
+		{
+			return NULL;
 		}
 	}
 
-	Math::vec3 Collision::GetDistance()
+	double Collision::GetDistanceZ(CS230::GameObject* compare)
 	{
-		return collision_cube.Size();
+		if (CollisionDetect(compare))
+		{
+			if (gameobject->collision_cube.top_front.z < compare->collision_cube.top_front.z)
+			{
+				return -(gameobject->collision_cube.top_front.z - compare->collision_cube.bottom_behind.z);
+			}
+			else
+			{
+				return (compare->collision_cube.top_front.z - gameobject->collision_cube.bottom_behind.z);
+			}
+		}
+		else
+		{
+			return NULL;
+		}
 	}
+
+	void Collision::CollisionDraw()
+	{
+        int width, height;
+        if (gameobject->GetView()) {
+            width = std::abs(gameobject->collision_cube.top_front.x - gameobject->collision_cube.bottom_behind.x);
+            height = std::abs(gameobject->collision_cube.top_front.y - gameobject->collision_cube.bottom_behind.y);
+            DrawRectangleLines(
+                gameobject->collision_cube.bottom_behind.x,
+                Engine::GetWindow().GetSize().y - gameobject->collision_cube.bottom_behind.y - height,
+                width,
+                height,
+                WHITE);
+        }
+        else {
+            width = std::abs(gameobject->collision_cube.top_front.x - gameobject->collision_cube.bottom_behind.x);
+            height = std::abs(gameobject->collision_cube.top_front.z - gameobject->collision_cube.bottom_behind.z);
+            DrawRectangleLines(
+                gameobject->collision_cube.bottom_behind.x,
+                Engine::GetWindow().GetSize().y - gameobject->collision_cube.bottom_behind.z - height,
+                width,
+                height,
+                WHITE);
+        }
+	}
+
 }

@@ -9,10 +9,11 @@ Created:    March 8, 2023
 */
 
 #pragma once
-#include "Collision.h"
+#include "Engine.h"
+#include "Cube.h"
 #include "Sprite.h"
 
-namespace Math { class TransformationMatrix; }
+namespace Gam150 { class Collision; }
 
 //made with bool beacuse we have only two view!
 enum View : bool {
@@ -27,13 +28,15 @@ namespace CS230 {
         GameObject();
         GameObject(Math::vec3 position);
         GameObject(Math::vec3 position, double rotation, Math::vec3 scale);
-        virtual ~GameObject() {}
+        ~GameObject();
 
         virtual void Update(double dt);
         //Different in each view
         virtual void Draw(Math::TransformationMatrix camera_matrix);
         //For change view
         virtual void check_view();
+        //For Collisiona
+        virtual void Collision(GameObject* compare);
 
         const Math::TransformationMatrix& GetMatrix();
         const Math::vec3& GetPosition() const;
@@ -42,10 +45,11 @@ namespace CS230 {
         //double GetRotation() const;
         View GetView() const;
         void SetView(View view);
-        void SetPosition(Math::vec3 new_position);
-        virtual void DrawEditor(Math::TransformationMatrix camera_matrix);
-        const Math::TransformationMatrix& GetMatrixEditorSide();
-        const Math::TransformationMatrix& GetMatrixEditorTop();
+        Math::cube collision_cube;
+        Gam150::Collision* collision;
+        Sprite side_sprite;
+        Sprite top_sprite;
+
     protected:
         class State {
         public:
@@ -58,6 +62,7 @@ namespace CS230 {
 
         void change_state(State* new_state);
 
+        void SetPosition(Math::vec3 new_position);
         void UpdatePosition(Math::vec3 delta);
         void SetVelocity(Math::vec3 new_velocity);
         void UpdateVelocity(Math::vec3 delta);
@@ -68,8 +73,6 @@ namespace CS230 {
         //void UpdateRotation(double delta);
 
         //should have each sprite
-        Sprite side_sprite;
-        Sprite top_sprite;
         Sprite* view_sprite = &side_sprite;
 
     private:
@@ -87,14 +90,11 @@ namespace CS230 {
         Math::TransformationMatrix object_matrix;
 
         bool matrix_outdated = false;
-        bool matrix_outdated_editor = false;
 
         double rotation;
         Math::vec3 scale;
         Math::vec3 position;
         Math::vec3 velocity;
-
-        Math::cube collision_cube;
 
         //this change by current view
         double* view_position = &(position.y);

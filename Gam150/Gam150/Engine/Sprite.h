@@ -36,10 +36,10 @@ namespace CS230 {
 
         void PlayAnimation(int animation);
         bool AnimationEnded();
+        Texture* texture;
     private:
         Math::ivec2 GetFrameTexel(int index) const;
 
-        Texture* texture;
         std::vector<Math::ivec2> hotspots;
 
         int current_animation;

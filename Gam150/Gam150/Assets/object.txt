@@ -1,13 +1,13 @@
 Number 1
 Room 1
 Type box
-Position 350 230 80
+Position 350 100 80
 Information move
 Size 100 200 300
 Number 2
 Room 1
 Type box
-Position 200 200 80
+Position 200 100 80
 Information move
 Size 100 200 300
 Number 3
@@ -42,6 +42,12 @@ Information cant
 Size 200 200 300
 Number 8
 Room 3
+Type box
+Position 600 300 80
+Information cant
+Size 200 200 300
+Number 9
+Room 4
 Type box
 Position 600 300 80
 Information cant

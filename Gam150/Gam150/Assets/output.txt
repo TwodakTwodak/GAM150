@@ -11,7 +11,7 @@ Position 300 200 80
 Information cant
 Size 200 200 300
 Number 3
-Room 2
+Room 3
 Type box
 Position 1000 200 80
 Information cant

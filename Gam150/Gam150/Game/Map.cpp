@@ -76,17 +76,17 @@ void Map::Load() {
 }
 
 void Map::Update([[maybe_unused]] double dt) {
-	if (Engine::GetInput().KeyJustPressed(CS230::Input::Keys::F)) {
-		gameobjectmanager.ChangeAll();
+	if (Engine::GetInput().KeyDown(CS230::Input::Keys::Nine)) {
+		dt = dt * 0.1;
 	}
 	gameobjectmanager.UpdateAll(dt);
-	if (Engine::GetInput().KeyJustPressed(CS230::Input::Keys::Up)) {
+	if (Engine::GetInput().KeyJustPressed(CS230::Input::Keys::Up) && room < 9) {
 		room++;
 		Unload();
 		Load();
 	}
-	if (Engine::GetInput().KeyJustPressed(CS230::Input::Keys::Down)) {
-		room--;
+	if (Engine::GetInput().KeyJustPressed(CS230::Input::Keys::Down) && room > 1) {
+		room--;	
 		Unload();
 		Load();
 	}

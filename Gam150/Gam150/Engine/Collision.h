@@ -9,17 +9,23 @@ Created:    May 4, 2024
 */
 
 #pragma once
+
 #include "Engine.h"
 #include "Cube.h"
 
+namespace CS230 { class GameObject; }
+
 namespace Gam150 {
-	class Collision {
-	public:
-		bool CollisionCheck(Math::cube c1, Math::cube c2);
-		//seems unefficent
-		void CollisionAxis(Math::vec2 a, Math::vec2 b);
-		Math::vec3 GetDistance();
-	private:
-		Math::cube collision_cube;
-	};
+    class Collision {
+    public:
+        Collision(CS230::GameObject* clone);
+        bool CollisionDetect(CS230::GameObject* compare);
+        double GetDistanceX(CS230::GameObject* compare);
+        double GetDistanceY(CS230::GameObject* compare);
+        double GetDistanceZ(CS230::GameObject* compare);
+        void CollisionDraw();
+    private:
+        Math::vec3 distance;
+        CS230::GameObject* gameobject;
+    };
 }

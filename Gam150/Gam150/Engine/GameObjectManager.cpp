@@ -1,65 +1,67 @@
 #include "GameObjectManager.h"
-#include <iostream>
 
 void CS230::GameObjectManager::Add(GameObject* object)
 {
-	objects.push_back(object);
+	collision_objects.push_back(object);
+	draw_objects.push_back(object);
+	new_object = true;
 }
 
 void CS230::GameObjectManager::Unload()
 {
-	for (CS230::GameObject* object : objects) {
+	for (CS230::GameObject* object : collision_objects) {
 		delete object;
 	}
-	objects.clear();
+	collision_objects.clear();
+	draw_objects.clear();
 }
 
 void CS230::GameObjectManager::UpdateAll(double dt)
 {
-	for (CS230::GameObject* object : objects) {
+	ChangeAll();
+	for (CS230::GameObject* object : collision_objects) {
 		object->Update(dt);
 	}
+	CollisionPlayer();
 }
 
 void CS230::GameObjectManager::DrawAll(Math::TransformationMatrix camera_matrix)
 {
-	for (CS230::GameObject* object : objects) {
+	for (CS230::GameObject* object : draw_objects) {
 		object->Draw(camera_matrix);
 	}
 }
 
-void CS230::GameObjectManager::DrawAllEditor(Math::TransformationMatrix camera_matrix)
+void CS230::GameObjectManager::CollisionPlayer()
 {
-	for (CS230::GameObject* object : objects) {
-		object->DrawEditor(camera_matrix);
+	for (int i = 0; i < collision_objects.size() - 1; ++i) {
+		collision_objects[0]->Collision(collision_objects[i + 1]);
 	}
-}
-
-void CS230::GameObjectManager::CollisionAll()
-{
-	//for (int i = 0; i < objects.size() - 1; ++i) {
-	//	if (Gam150::Collision::CollisionCheck( , )) {
-
-	//	}
-	//}
 }
 
 void CS230::GameObjectManager::ChangeAll()
 {
-	main_view = static_cast<View>(!static_cast<bool>(main_view));
-	for (CS230::GameObject* object : objects) {
-		object->SetView(main_view);
+	if (Engine::GetInput().KeyJustPressed(CS230::Input::Keys::F)) {
+		main_view = static_cast<View>(!static_cast<bool>(main_view));
+		for (CS230::GameObject* object : draw_objects) {
+			object->SetView(main_view);
+		}
+		Reorder(main_view);
 	}
-	Reorder(main_view);
+
+	if (new_object) {
+		Reorder(main_view);
+		new_object = false;
+	}
 }
 
 void CS230::GameObjectManager::Reorder(bool change_view)
 {
 	if (change_view) {
-		std::sort(objects.begin(), objects.end(), &GameObjectManager::side_compare);
+		std::sort(draw_objects.begin(), draw_objects.end(), &GameObjectManager::side_compare);
 	}
 	else {
-		std::sort(objects.begin(), objects.end(), &GameObjectManager::top_compare);
+		std::sort(draw_objects.begin(), draw_objects.end(), &GameObjectManager::top_compare);
 	}
 }
 //need fix!
@@ -78,25 +80,3 @@ bool CS230::GameObjectManager::top_compare(GameObject* object1, GameObject* obje
 	}
 	return false;
 }
-
-CS230::GameObject* CS230::GameObjectManager::ReturnLastInteraction()
-{
-	return objects[objects.size() - 1];
-}
-
-CS230::GameObject* CS230::GameObjectManager::ReturnSelected(Math::vec3 location)
-{
-	int i = 0;
-	for (CS230::GameObject* object : objects) {
-		if ((object->GetPosition().x<location.x && object->GetPosition().x + object->GetScale().x > location.x) &&
-			(object->GetPosition().y<location.y && object->GetPosition().y + object->GetScale().y > location.y) &&
-			(object->GetPosition().z<location.z && object->GetPosition().z + object->GetScale().z > location.z))
-		{
-			return objects[i];
-		}
-		i++;
-	}
-	return nullptr;
-}//make seperate collision latter
-//check nullptr
-
