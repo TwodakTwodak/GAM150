@@ -14,8 +14,8 @@ Button::Button(Math::vec3 start_position) :
     CS230::GameObject(start_position)
 {
     collision_type = Detect;
-    side_sprite.Load("Assets/Button.spt");
-    top_sprite.Load("Assets/Button.spt");
+    side_sprite.Load("Assets/Side_Button.spt");
+    top_sprite.Load("Assets/Top_Button.spt");
 }
 
 void Button::Update(double dt)
