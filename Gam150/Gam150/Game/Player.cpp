@@ -51,8 +51,7 @@ void Player::move(double dt) {
     else {
         SetVelocity({ 0, GetVelocity().y, GetVelocity().z });
     }
-
-    if (Engine::GetInput().KeyDown(CS230::Input::Keys::W)) {
+    if (Engine::GetInput().KeyJustPressed(CS230::Input::Keys::W)) {
         if (GetView()) {
             if (!jumping && !falling) {
                 jumping = true;
@@ -65,6 +64,10 @@ void Player::move(double dt) {
         else {
             SetVelocity({ GetVelocity().x , GetVelocity().y, max_velocity });
         }
+    }
+
+    if (Engine::GetInput().KeyDown(CS230::Input::Keys::W)) {
+        
         if (!GetView()) {
 
             if (Engine::GetInput().KeyDown(CS230::Input::Keys::Left_Shift) && cool_timer >= cool_time) {
