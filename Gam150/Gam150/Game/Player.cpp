@@ -27,7 +27,7 @@ void Player::move(double dt) {
     if (Engine::GetInput().KeyDown(CS230::Input::Keys::D)) {
         SetVelocity({ max_velocity, GetVelocity().y, GetVelocity().z });
         if (!GetView()) {
-            if (Engine::GetInput().KeyDown(CS230::Input::Keys::Left_Shift) && cool_timer >= cool_time) {
+            if (Engine::GetInput().KeyJustReleased(CS230::Input::Keys::Left_Shift) && cool_timer >= cool_time) {
                 dash_start_pos = GetPosition().x;
                 SetVelocity({ dash_velocity, GetVelocity().y, GetVelocity().z });
                 cool_timer = 0;
@@ -39,7 +39,7 @@ void Player::move(double dt) {
     else if (Engine::GetInput().KeyDown(CS230::Input::Keys::A)) {
         SetVelocity({ -max_velocity, GetVelocity().y, GetVelocity().z });
         if (!GetView()) {
-            if (Engine::GetInput().KeyDown(CS230::Input::Keys::Left_Shift) && cool_timer >= cool_time) {
+            if (Engine::GetInput().KeyJustReleased(CS230::Input::Keys::Left_Shift) && cool_timer >= cool_time) {
                 dash_start_pos = GetPosition().x;
                 SetVelocity({ -dash_velocity, GetVelocity().y, GetVelocity().z });
                 cool_timer = 0;
@@ -61,16 +61,16 @@ void Player::move(double dt) {
                 SetVelocity({ GetVelocity().x, 0, GetVelocity().z });
             }
         }
-        else {
-            SetVelocity({ GetVelocity().x , GetVelocity().y, max_velocity });
-        }
+       
+           
     }
 
     if (Engine::GetInput().KeyDown(CS230::Input::Keys::W)) {
         
         if (!GetView()) {
-
-            if (Engine::GetInput().KeyDown(CS230::Input::Keys::Left_Shift) && cool_timer >= cool_time) {
+            SetVelocity({ GetVelocity().x , GetVelocity().y, max_velocity });
+            if (Engine::GetInput().KeyJustReleased(CS230::Input::Keys::Left_Shift) && cool_timer >= cool_time) {
+                cool_timer = 0;
                 dash_start_pos = GetPosition().z;
                 SetVelocity({ GetVelocity().x, GetVelocity().y, dash_velocity });
                 cool_timer = 0;
@@ -82,7 +82,7 @@ void Player::move(double dt) {
     else if (Engine::GetInput().KeyDown(CS230::Input::Keys::S) && !GetView()) {
         SetVelocity({ GetVelocity().x , GetVelocity().y, -max_velocity });
         if (!GetView()) {
-            if (Engine::GetInput().KeyDown(CS230::Input::Keys::Left_Shift) && cool_timer >= cool_time) {
+            if (Engine::GetInput().KeyJustReleased(CS230::Input::Keys::Left_Shift) && cool_timer >= cool_time) {
                 dash_start_pos = GetPosition().z;
                 SetVelocity({ GetVelocity().x, GetVelocity().y, -dash_velocity });
                 cool_timer = 0;
