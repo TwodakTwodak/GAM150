@@ -14,6 +14,7 @@ Created:    May 8, 2024
 class Button : public CS230::GameObject {
 public:
     Button(Math::vec3 start_position);
+    void Update(double dt) override;
     //need fuction for collision!
     bool press = false;
 };

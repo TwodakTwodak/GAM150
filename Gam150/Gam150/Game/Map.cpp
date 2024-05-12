@@ -40,14 +40,17 @@ void Map::Load() {
 				if (GetType(load_object_number) == "box")//check type
 				{
 					gameobjectmanager.Add(new Crates(GetPosition(load_object_number)));
+					gameobjectmanager.box_length.y += 1;
 				}
 				if (GetType(load_object_number) == "button")//check type
 				{
 					gameobjectmanager.Add(new Button(GetPosition(load_object_number)));
+					gameobjectmanager.button_length.y += 1;
 				}
 				if (GetType(load_object_number) == "floor") 
 				{
 					gameobjectmanager.Add(new Floor(GetPosition(load_object_number)));
+					gameobjectmanager.floor_length.y += 1;
 				}
 			}
 			load_object_number++;
@@ -66,19 +69,31 @@ void Map::Load() {
 				if (GetType(temp_load_object_number) == "box")//check type
 				{
 					gameobjectmanager.Add(new Crates(GetPosition(temp_load_object_number)));
+					gameobjectmanager.box_length.y += 1;
 				}
 				if (GetType(temp_load_object_number) == "button")//check type
 				{
 					gameobjectmanager.Add(new Button(GetPosition(temp_load_object_number)));
+					gameobjectmanager.button_length.y += 1;
 				}
 				if (GetType(temp_load_object_number) == "floor") 
 				{
 					gameobjectmanager.Add(new Floor(GetPosition(temp_load_object_number)));
+					gameobjectmanager.floor_length.y += 1;
 				}
 			}
 			temp_load_object_number++;
 		}
 	}
+
+	gameobjectmanager.box_length.x = 1;
+	gameobjectmanager.box_length.y += 1;
+
+	gameobjectmanager.button_length.x = gameobjectmanager.box_length.y;
+	gameobjectmanager.button_length.y += gameobjectmanager.button_length.x;
+
+	gameobjectmanager.floor_length.x = gameobjectmanager.button_length.y;
+	gameobjectmanager.floor_length.y += gameobjectmanager.floor_length.x;
 
 	gameobjectmanager.Reorder(gameobjectmanager.main_view);
 }

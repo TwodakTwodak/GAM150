@@ -55,4 +55,7 @@ void Crates::Collision_Button(GameObject* compare)
     if (collision->CollisionDetect(compare)) {
         static_cast<Button*>(compare)->press = true;
     }
+    else {
+        static_cast<Button*>(compare)->press = false;
+    }
 }

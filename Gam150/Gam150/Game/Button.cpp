@@ -18,4 +18,12 @@ Button::Button(Math::vec3 start_position) :
     top_sprite.Load("Assets/Button.spt");
 }
 
+void Button::Update(double dt)
+{
+    if (press) {
+        Engine::GetLogger().LogEvent("Collision");
+    }
+    GameObject::Update(dt);
+}
+
 

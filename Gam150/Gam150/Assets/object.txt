@@ -1,59 +1,78 @@
 Number 1
 Room 1
 Type box
-Position 350 100 80
-Information move
-Size 100 200 300
+Position 0 200 200
+Information cant
+Size 200 200 200
 Number 2
-Room 1
-Type box
-Position 200 100 80
-Information move
-Size 100 200 300
-Number 3
-Room 1
-Type box
-Position 400 300 80
-Information move
-Number 4
 Room 1
 Type floor
 Position 0 0 0
 Information cant
 Size 200 200 300
-Number 5
-Room 1
+Number 3
+Room 2
+Type box
+Position 50 100 200
+Information cant
+Size 200 100 100
+Number 4
+Room 2
 Type button
-Position 600 100 300
+Position 500 100 100
+Information cant
+Size 100 100 100
+Number 5
+Room 2
+Type floor
+Position 0 0 0
 Information cant
 Size 200 200 300
 Number 6
-Room 2
+Room 3
 Type box
-Position 350 330 80
-Information move
-Size 100 200 300
+Position 0 250 200
+Information cant
+Size 200 100 100
 Number 7
 Room 3
 Type box
-Position 200 300 80
-Information move
-Size 100 200 300
+Position 150 50 200
+Information cant
+Size 200 100 100
 Number 8
 Room 3
-Type button
-Position 300 300 80
+Type box
+Position 150 450 200
 Information cant
-Size 200 200 300
+Size 200 100 100
 Number 9
 Room 3
-Type box
-Position 600 300 80
+Type floor
+Position 0 0 0
 Information cant
 Size 200 200 300
 Number 10
 Room 4
 Type box
-Position 600 300 80
+Position 100 200 400
+Information cant
+Size 200 100 100
+Number 11
+Room 4
+Type box
+Position 100 200 100
+Information cant
+Size 200 100 100
+Number 12
+Room 4
+Type floor
+Position 0 0 0
+Information cant
+Size 200 200 300
+Number 13
+Room 5
+Type floor
+Position 0 0 0
 Information cant
 Size 200 200 300

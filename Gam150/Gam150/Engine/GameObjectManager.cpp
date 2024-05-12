@@ -14,6 +14,9 @@ void CS230::GameObjectManager::Unload()
 	}
 	collision_objects.clear();
 	draw_objects.clear();
+	box_length = { 0,0 };
+	button_length = { 0,0 };
+	floor_length = { 0,0 };
 }
 
 void CS230::GameObjectManager::UpdateAll(double dt)
@@ -35,16 +38,20 @@ void CS230::GameObjectManager::DrawAll(Math::TransformationMatrix camera_matrix)
 
 void CS230::GameObjectManager::CollisionPlayer()
 {
-	for (int i = 1; i < collision_objects.size(); ++i) {
+	for (int i = box_length.x; i < box_length.y; ++i) {
+		collision_objects[0]->Collision(collision_objects[i], collision_objects[i]->GetType());
+	}
+	for (int i = floor_length.x - 1; i < collision_objects.size(); ++i) {
 		collision_objects[0]->Collision(collision_objects[i], collision_objects[i]->GetType());
 	}
 }
 
 void CS230::GameObjectManager::CollisionBox()
 {
-	for (int i = 1; i < collision_objects.size() - 2; ++i) {
-		collision_objects[i]->Collision(collision_objects[collision_objects.size() - 2], collision_objects[collision_objects.size() - 2]->GetType());
-		collision_objects[i]->Collision(collision_objects[collision_objects.size() - 1], collision_objects[collision_objects.size() - 1]->GetType());
+	for (int i = 1; i < box_length.y; ++i) {
+		for (int j = button_length.x - 2; j < collision_objects.size(); ++j) {
+			collision_objects[i]->Collision(collision_objects[j], collision_objects[j]->GetType());
+		}
 	}
 }
 

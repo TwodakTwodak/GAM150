@@ -32,6 +32,11 @@ namespace CS230 {
         bool new_object = false;
 
         View main_view = View::Side;
+
+        Math::ivec2 box_length;
+        Math::ivec2 button_length;
+        Math::ivec2 floor_length;
+
     private:
         std::vector<GameObject*> collision_objects;
         std::vector<GameObject*> draw_objects;
