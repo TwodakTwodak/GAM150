@@ -57,7 +57,7 @@ namespace CS230 {
         Sprite side_sprite;
         Sprite top_sprite;
         void UpdatePosition(Math::vec3 delta);
-
+        void SetPosition(Math::vec3 new_position);
     protected:
         class State {
         public:
@@ -70,7 +70,7 @@ namespace CS230 {
 
         void change_state(State* new_state);
 
-        void SetPosition(Math::vec3 new_position);
+       
 
         void SetVelocity(Math::vec3 new_velocity);
         void UpdateVelocity(Math::vec3 delta);

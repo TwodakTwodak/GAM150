@@ -18,7 +18,7 @@ Upadted:    March 14, 2024
 #include "Float_Floor.h"
 #include "Button.h"
 #include "../Engine/FileIO.h"
-
+#include "Wall_Floor.h"
 Player* player_ptr = nullptr;
 
 Map::Map() {
@@ -26,7 +26,7 @@ Map::Map() {
 
 void Map::Load() {
 
-	player_ptr = new Player({ 300, floor, 300 });
+	player_ptr = new Player({ 0, 0, 300 });
 	background = Engine::GetTextureManager().Load("Assets/Background.png");
 	gameobjectmanager.Add(player_ptr);
 	/*gameobjectmanager.Add(new Crates({ 200, 400, 400 }));
@@ -58,6 +58,11 @@ void Map::Load() {
 					gameobjectmanager.Add(new Floor(GetPosition(load_object_number)));
 					gameobjectmanager.floor_length.y += 1;
 				}
+				if (GetType(load_object_number) == "wall_floor")
+				{
+					gameobjectmanager.Add(new Wall_Floor(GetPosition(load_object_number)));
+					gameobjectmanager.floor_length.y += 1;
+				}
 			}
 			load_object_number++;
 		}
@@ -82,9 +87,14 @@ void Map::Load() {
 					gameobjectmanager.Add(new Button(GetPosition(temp_load_object_number)));
 					gameobjectmanager.button_length.y += 1;
 				}
-				if (GetType(load_object_number) == "float_floor")
+				if (GetType(temp_load_object_number) == "float_floor")
 				{
 					gameobjectmanager.Add(new Float_Floor(GetPosition(temp_load_object_number)));
+					gameobjectmanager.floor_length.y += 1;
+				}
+				if (GetType(temp_load_object_number) == "wall_floor")
+				{
+					gameobjectmanager.Add(new Wall_Floor(GetPosition(temp_load_object_number)));
 					gameobjectmanager.floor_length.y += 1;
 				}
 				if (GetType(temp_load_object_number) == "floor") 
@@ -114,16 +124,22 @@ void Map::Update([[maybe_unused]] double dt) {
 		dt = dt * 0.1;
 	}
 	gameobjectmanager.UpdateAll(dt);
-	if (Engine::GetInput().KeyJustPressed(CS230::Input::Keys::Up) && room < 9) {
+	if (player_ptr->GetPosition().x > Engine::GetWindow().GetSize().x && room < 9|| Engine::GetInput().KeyJustPressed(CS230::Input::Keys::Up)) {
 		room++;
 		Unload();
 		Load();
 	}
-	if (Engine::GetInput().KeyJustPressed(CS230::Input::Keys::Down) && room > 1) {
+	else if (player_ptr->GetPosition().x < 0 && room > 1|| Engine::GetInput().KeyJustPressed(CS230::Input::Keys::Down)) {
 		room--;	
 		Unload();
 		Load();
+		player_ptr->SetPosition({ (double)Engine::GetWindow().GetSize().x, player_ptr->GetPosition().y, player_ptr->GetPosition().z });
 	}
+	else if (player_ptr->GetPosition().x < 0 && room <= 1) {
+		player_ptr->SetPosition({ 0, player_ptr->GetPosition().y, player_ptr->GetPosition().z});
+	}
+	
+	
 }
 
 void Map::Draw() {

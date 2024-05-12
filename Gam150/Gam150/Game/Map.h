@@ -31,11 +31,12 @@ public:
     static constexpr double gravity = 800;
     static constexpr double floor = 100;
     static constexpr double timer_max = 30;
+    int room = 1;
 
 private:
     CS230::GameObjectManager gameobjectmanager;
     CS230::Texture* background;
-    int room = 1;
+    
     int load_object_number = 0;
     int room_object_memory[100] = { 0 };
     int memory = 1;

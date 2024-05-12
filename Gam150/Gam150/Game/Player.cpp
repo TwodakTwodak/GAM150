@@ -61,7 +61,7 @@ void Player::move(double dt) {
                 SetVelocity({ GetVelocity().x, 0, GetVelocity().z });
             }
         }
-       
+        jumping = false;
            
     }
 
@@ -79,6 +79,7 @@ void Player::move(double dt) {
             gravi = true;
         }
     }
+    
     else if (Engine::GetInput().KeyDown(CS230::Input::Keys::S) && !GetView()) {
         SetVelocity({ GetVelocity().x , GetVelocity().y, -max_velocity });
         if (!GetView()) {
@@ -98,6 +99,13 @@ void Player::move(double dt) {
     if (GetVelocity().y < 0) {
         falling = true;
     }
+    if (GetPosition().z <= 0) {
+        SetPosition({ GetPosition().x, GetPosition().y, 0 });
+    }
+    else if (GetPosition().z >= Engine::GetWindow().GetSize().y - top_sprite.texture->GetSize().y) {
+        SetPosition({ GetPosition().x, GetPosition().y, (double)Engine::GetWindow().GetSize().y - top_sprite.texture->GetSize().y });
+    }
+    
 }
 
 
@@ -106,6 +114,7 @@ void Player::gravity(double dt)
     if (gravi == true) {
         UpdateVelocity({ 0 , -Map::gravity * dt, 0 });
     }
+
 }
 
 void Player::Update(double dt) {

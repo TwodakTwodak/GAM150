@@ -10,6 +10,7 @@ Created:    May 3, 2024
 #include "../Engine/Camera.h"
 #include "../Engine/GameObject.h"
 
+
 struct key_order {
 	bool press;
 };
@@ -23,7 +24,9 @@ public:
 	void Collision_Box(GameObject* compare);
 	const Math::vec3& GetPosition() const { return GameObject::GetPosition(); };
 
+
 private:
+	
 	static constexpr double xz_acceleration = 300;
 	static constexpr double xz_drag = 450;
 	static constexpr double max_velocity = 200;
