@@ -18,7 +18,7 @@ Information move
 Number 4
 Room 1
 Type floor
-Position 0 70 0
+Position 0 0 0
 Information move
 Size 200 200 300
 Number 5

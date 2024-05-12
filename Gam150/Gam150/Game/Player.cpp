@@ -13,8 +13,8 @@ Created:    May 3, 2024
 Player::Player(Math::vec3 start_position) : cool_timer(cool_time),
     GameObject(start_position)
 {
-    side_sprite.Load("Assets/Ship.spt");
-    top_sprite.Load("Assets/Ship.spt");
+    side_sprite.Load("Assets/Side_Player.spt");
+    top_sprite.Load("Assets/Top_Player.spt");
     
 }
 
@@ -26,7 +26,6 @@ void Player::move(double dt) {
     Engine::GetLogger().LogError("time: " + std::to_string(cool_timer));
     if (Engine::GetInput().KeyDown(CS230::Input::Keys::D)) {
         SetVelocity({ max_velocity, GetVelocity().y, GetVelocity().z });
-        SetScale({ 1, 1, 1 });
         if (!GetView()) {
             if (Engine::GetInput().KeyDown(CS230::Input::Keys::Left_Shift) && cool_timer >= cool_time) {
                 dash_start_pos = GetPosition().x;
@@ -37,7 +36,6 @@ void Player::move(double dt) {
     }
     else if (Engine::GetInput().KeyDown(CS230::Input::Keys::A)) {
         SetVelocity({ -max_velocity, GetVelocity().y, GetVelocity().z });
-        SetScale({ -1, 1, 1 });
         if (!GetView()) {
             if (Engine::GetInput().KeyDown(CS230::Input::Keys::Left_Shift) && cool_timer >= cool_time) {
                 dash_start_pos = GetPosition().x;

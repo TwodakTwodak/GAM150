@@ -28,7 +28,7 @@ private:
 	static constexpr double xz_drag = 450;
 	static constexpr double max_velocity = 200;
 	static constexpr double jump_velocity = 650;
-	static constexpr double dash_velocity = 1000;
+	static constexpr double dash_velocity = 5000;
 	static constexpr double cool_time = 1.5;
 	bool jumping = false;
 	bool falling = false;

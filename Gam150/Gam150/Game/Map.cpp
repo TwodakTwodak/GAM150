@@ -20,11 +20,13 @@ Upadted:    March 14, 2024
 
 Player* player_ptr = nullptr;
 
-Map::Map() { }
+Map::Map() {
+}
 
 void Map::Load() {
 
 	player_ptr = new Player({ 300, floor, 300 });
+	background = Engine::GetTextureManager().Load("Assets/Background.png");
 	gameobjectmanager.Add(player_ptr);
 	/*gameobjectmanager.Add(new Crates({ 200, 400, 400 }));
 	gameobjectmanager.Add(new Crates({ 400, floor, 300 }));
@@ -100,10 +102,12 @@ void Map::Update([[maybe_unused]] double dt) {
 
 void Map::Draw() {
 	Engine::GetWindow().Clear(0x000000FF);
+	background->Draw(Math::TranslationMatrix(Math::vec2{0,0}));
 	gameobjectmanager.DrawAll(Math::TransformationMatrix());
 }
 
 void Map::Unload() {
 	gameobjectmanager.Unload();
+	background = nullptr;
 	player_ptr = nullptr;
 }

@@ -34,6 +34,7 @@ public:
 
 private:
     CS230::GameObjectManager gameobjectmanager;
+    CS230::Texture* background;
     int room = 1;
     int load_object_number = 0;
     int room_object_memory[100] = { 0 };
