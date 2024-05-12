@@ -61,7 +61,7 @@ void Player::move(double dt) {
                 SetVelocity({ GetVelocity().x, 0, GetVelocity().z });
             }
         }
-        jumping = false;
+        
            
     }
 
@@ -105,7 +105,7 @@ void Player::move(double dt) {
     else if (GetPosition().z >= Engine::GetWindow().GetSize().y - top_sprite.texture->GetSize().y) {
         SetPosition({ GetPosition().x, GetPosition().y, (double)Engine::GetWindow().GetSize().y - top_sprite.texture->GetSize().y });
     }
-    
+   
 }
 
 

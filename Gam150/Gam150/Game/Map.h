@@ -13,6 +13,9 @@ Created:    May 3, 2024
 #include "../Engine/GameState.h"
 #include "../Engine/GameObjectManager.h"
 #include "../Engine/Camera.h"
+#include "../Engine/GameObject.h"
+#include "../Engine/Input.h"
+#include "../Engine/Camera.h"
 
 
 class Map : public CS230::GameState {
