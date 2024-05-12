@@ -19,7 +19,7 @@ Number 4
 Room 1
 Type floor
 Position 0 0 0
-Information move
+Information cant
 Size 200 200 300
 Number 5
 Room 1

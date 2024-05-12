@@ -33,6 +33,7 @@ private:
 	bool jumping = false;
 	bool falling = false;
 	double dash_start_pos;
+	bool gravi = true;
 	bool key_order[4];
 	double cool_timer;
 

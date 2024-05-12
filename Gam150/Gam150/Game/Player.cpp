@@ -31,7 +31,9 @@ void Player::move(double dt) {
                 dash_start_pos = GetPosition().x;
                 SetVelocity({ dash_velocity, GetVelocity().y, GetVelocity().z });
                 cool_timer = 0;
+                gravi = false;
             }
+            gravi = true;
         }
     }
     else if (Engine::GetInput().KeyDown(CS230::Input::Keys::A)) {
@@ -41,7 +43,9 @@ void Player::move(double dt) {
                 dash_start_pos = GetPosition().x;
                 SetVelocity({ -dash_velocity, GetVelocity().y, GetVelocity().z });
                 cool_timer = 0;
+                gravi = false;
             }
+            gravi = true;
         }
     }
     else {
@@ -67,7 +71,9 @@ void Player::move(double dt) {
                 dash_start_pos = GetPosition().z;
                 SetVelocity({ GetVelocity().x, GetVelocity().y, dash_velocity });
                 cool_timer = 0;
+                gravi = false;
             }
+            gravi = true;
         }
     }
     else if (Engine::GetInput().KeyDown(CS230::Input::Keys::S) && !GetView()) {
@@ -77,7 +83,9 @@ void Player::move(double dt) {
                 dash_start_pos = GetPosition().z;
                 SetVelocity({ GetVelocity().x, GetVelocity().y, -dash_velocity });
                 cool_timer = 0;
+                gravi = false;
             }
+            gravi = true;
         }
     }
     else {
@@ -92,7 +100,9 @@ void Player::move(double dt) {
 
 void Player::gravity(double dt)
 {
-    UpdateVelocity({ 0 , -Map::gravity * dt, 0 });
+    if (gravi == true) {
+        UpdateVelocity({ 0 , -Map::gravity * dt, 0 });
+    }
 }
 
 void Player::Update(double dt) {

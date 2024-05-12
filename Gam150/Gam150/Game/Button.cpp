@@ -17,3 +17,5 @@ Button::Button(Math::vec3 start_position) :
     side_sprite.Load("Assets/Button.spt");
     top_sprite.Load("Assets/Button.spt");
 }
+
+
