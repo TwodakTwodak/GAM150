@@ -16,18 +16,21 @@ Upadted:    March 14, 2024
 #include "Crates.h"
 #include "Button.h"
 #include "../Engine/FileIO.h"
+#include "../Engine/Window.h"
 
 Player* player_ptr = nullptr;
 
 Map::Map() { }
 
 void Map::Load() {
-
+	if (went_editor)
+	{
+		Engine::GetWindow().MapWindow();
+		went_editor = false;
+	}
+	
 	player_ptr = new Player({ 300, floor, 300 });
 	gameobjectmanager.Add(player_ptr);
-	/*gameobjectmanager.Add(new Crates({ 200, 400, 400 }));
-	gameobjectmanager.Add(new Crates({ 400, floor, 300 }));
-	gameobjectmanager.Add(new Crates({ 600, 80, 200 }));*/
 	if (room_object_memory[room] == 0)
 	{
 		while (GetRoom(load_object_number) <= room && GetRoom(load_object_number) != 0)
@@ -86,6 +89,11 @@ void Map::Update([[maybe_unused]] double dt) {
 		room--;
 		Unload();
 		Load();
+	}
+	if (Engine::GetInput().KeyJustPressed(CS230::Input::Keys::P)) {
+		Engine::GetGameStateManager().ClearNextGameState();
+		Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::Editor));
+		went_editor = true;
 	}
 }
 

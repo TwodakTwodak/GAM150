@@ -16,3 +16,7 @@ Crates::Crates(Math::vec3 start_position) :
     side_sprite.Load("Assets/Crates1.spt");
     top_sprite.Load("Assets/Crates1.spt");
 }
+void Crates::ChangePosition(Math::vec3 chage_position)
+{
+    SetPosition(chage_position);
+}

@@ -149,6 +149,7 @@
     <ClCompile Include="Engine\Window.cpp" />
     <ClCompile Include="Game\Button.cpp" />
     <ClCompile Include="Game\Crates.cpp" />
+    <ClCompile Include="Game\Editor.cpp" />
     <ClCompile Include="Game\Player.cpp" />
     <ClCompile Include="Game\Map.cpp" />
     <ClCompile Include="Game\Splash.cpp" />
@@ -178,6 +179,7 @@
     <ClInclude Include="Engine\Window.h" />
     <ClInclude Include="Game\Button.h" />
     <ClInclude Include="Game\Crates.h" />
+    <ClInclude Include="Game\Editor.h" />
     <ClInclude Include="Game\Floor.h" />
     <ClInclude Include="Game\Fonts.h" />
     <ClInclude Include="Game\Player.h" />

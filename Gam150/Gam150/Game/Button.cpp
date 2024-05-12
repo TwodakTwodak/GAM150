@@ -16,3 +16,7 @@ Button::Button(Math::vec3 start_position) :
     side_sprite.Load("Assets/Button.spt");
     top_sprite.Load("Assets/Button.spt");
 }
+void Button::ChangePosition(Math::vec3 chage_position)
+{
+    SetPosition(chage_position);
+}

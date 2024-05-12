@@ -2,7 +2,9 @@
 #include "Engine.h"
 
 FileObject arr[100];
+FileObject EditorArray[100];
 int object_number = 0;
+int num = 0;
 
 void FileInput(const std::filesystem::path& sprite_file) {
     if (sprite_file.extension() != ".txt") {
@@ -99,6 +101,52 @@ void FileOutput(const std::filesystem::path& sprite_file)
         out_file << '\n';
     }
 }
+
+void FileOutputEditor(const std::filesystem::path& sprite_file)
+{
+    if (sprite_file.extension() != ".txt") {
+        throw std::runtime_error(sprite_file.generic_string() + " is not a .txt file");
+    }
+    std::ofstream out_file(sprite_file);
+
+    if (out_file.is_open() == false) {
+        throw std::runtime_error("Failed to load " + sprite_file.generic_string());
+    }
+
+    
+    for (num = 0; EditorArray[num].Number != 0; num++);
+    for (int i = 0; i < num; i++)
+    {
+        out_file << "Number ";
+        out_file << EditorArray[i].Number;
+        out_file << '\n';
+        out_file << "Room ";
+        out_file << EditorArray[i].Room;
+        out_file << '\n';
+        out_file << "Type ";
+        out_file << EditorArray[i].Type;
+        out_file << '\n';
+        out_file << "Position ";
+        out_file << EditorArray[i].Position.x;
+        out_file << ' ';
+        out_file << EditorArray[i].Position.y;
+        out_file << ' ';
+        out_file << EditorArray[i].Position.z;
+        out_file << '\n';
+        out_file << "Information ";
+        out_file << EditorArray[i].Information;
+        out_file << '\n';
+        out_file << "Size ";
+        out_file << EditorArray[i].Size.x;
+        out_file << ' ';
+        out_file << EditorArray[i].Size.y;
+        out_file << ' ';
+        out_file << EditorArray[i].Size.z;
+        out_file << '\n';
+    }
+    std::cout << "editor printing" << std::endl;
+    std::cout << num << std::endl;
+}
 int GetRoom(int number)
 {
     return arr[number].Room;
@@ -118,4 +166,54 @@ std::string GetInformation(int number)
 Math::vec3 GetSize(int number)
 {
     return arr[number].Size;
+}
+
+int GetRoomEditor(int number)
+{
+    return EditorArray[number].Room;
+}
+std::string GetTypeEditor(int number)
+{
+    return EditorArray[number].Type;
+}
+Math::vec3 GetPositionEditor(int number)
+{
+    return EditorArray[number].Position;
+}
+std::string GetInformationEditor(int number)
+{
+    return EditorArray[number].Information;
+}
+Math::vec3 GetSizeEditor(int number)
+{
+    return EditorArray[number].Size;
+}
+
+void SetNumber(int number)
+{
+    EditorArray[number].Number = number+1;
+    std::cout << "editor number" << std::endl;
+    std::cout << number << std::endl;
+}
+void SetRoom(int number, int room)
+{
+    EditorArray[number].Room = room;
+    std::cout << "editor room" << std::endl;
+    std::cout << room << std::endl;
+}
+void SetType(int number, std::string type)
+{
+    EditorArray[number].Type = type;
+}
+void SetPosition(int number, Math::vec3 position)
+{
+    EditorArray[number].Position = position;
+}
+void SetInformation(int number, std::string information)
+{
+    EditorArray[number].Information = information;
+}
+void SetSize(int number, Math::vec3 size)
+{
+    EditorArray[number].Size = size;
 }

@@ -24,7 +24,8 @@ namespace CS230 {
         bool IsClosed() const;
         Math::ivec2 GetSize() const;
         void Clear(unsigned int color);
-
+        void EditorWindow();
+        void MapWindow();
     private:
         Math::ivec2 size;
         //It is a problem of sequence of main code it update after calling window! 

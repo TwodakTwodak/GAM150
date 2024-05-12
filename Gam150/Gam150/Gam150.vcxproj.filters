@@ -52,6 +52,9 @@
     <Filter Include="Engine\FileIO">
       <UniqueIdentifier>{11fc71c6-ab83-4781-b9ce-6d2b06d1f489}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\InGame\Editor">
+      <UniqueIdentifier>{590e18c5-b40b-48ef-9ef5-6c2222fd3b56}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -123,6 +126,9 @@
     </ClCompile>
     <ClCompile Include="Engine\FileIO.cpp">
       <Filter>Engine\FileIO</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Editor.cpp">
+      <Filter>Game\InGame\Editor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -212,6 +218,9 @@
     </ClInclude>
     <ClInclude Include="Engine\FileIO.h">
       <Filter>Engine\FileIO</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Editor.h">
+      <Filter>Game\InGame\Editor</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

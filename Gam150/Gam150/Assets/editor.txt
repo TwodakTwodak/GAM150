@@ -1,0 +1,84 @@
+Number 1
+Room 1
+Type box
+Position 513 367 154
+Information cant
+Size 200 200 200
+Number 2
+Room 1
+Type button
+Position 406 217 22
+Information cant
+Size 200 200 200
+Number 3
+Room 1
+Type box
+Position 230 284 98
+Information cant
+Size 200 200 200
+Number 4
+Room 1
+Type button
+Position 327 173 40
+Information cant
+Size 200 200 200
+Number 5
+Room 2
+Type box
+Position 531 350 156
+Information cant
+Size 200 200 200
+Number 6
+Room 2
+Type box
+Position 505 284 113
+Information cant
+Size 200 200 200
+Number 7
+Room 2
+Type button
+Position 518 88 412
+Information cant
+Size 200 200 200
+Number 8
+Room 3
+Type box
+Position 269 265 32
+Information cant
+Size 200 200 200
+Number 9
+Room 3
+Type box
+Position 461 275 89
+Information cant
+Size 200 200 200
+Number 10
+Room 3
+Type box
+Position 595 323 102
+Information cant
+Size 200 200 200
+Number 11
+Room 3
+Type button
+Position 464 82 366
+Information cant
+Size 200 200 200
+Number 12
+Room 10
+Type box
+Position 799 264 213
+Information cant
+Size 200 200 200
+Number 13
+Room 10
+Type button
+Position 477 264 58
+Information cant
+Size 200 200 200
+Number 14
+Room 10
+Type button
+Position 544 329 94
+Information cant
+Size 200 200 200
