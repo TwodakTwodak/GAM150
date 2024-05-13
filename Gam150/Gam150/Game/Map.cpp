@@ -137,6 +137,11 @@ void Map::Update([[maybe_unused]] double dt) {
 		dt = dt * 0.1;
 	}
 	gameobjectmanager.UpdateAll(dt);
+	if (room == 2) {
+		if (!static_cast<Button*>(gameobjectmanager.collision_objects[2])->press && player_ptr->GetPosition().x > Engine::GetWindow().GetSize().x - 200.0) {
+			player_ptr->SetPosition({ Engine::GetWindow().GetSize().x - 200.0, player_ptr->GetPosition().y, player_ptr->GetPosition().z });
+		}
+	}
 	if (player_ptr->GetPosition().x > Engine::GetWindow().GetSize().x && room < 5|| Engine::GetInput().KeyJustPressed(CS230::Input::Keys::Up)) {
 		room++;
 		Unload();
@@ -155,9 +160,6 @@ void Map::Update([[maybe_unused]] double dt) {
 	else if (player_ptr->GetPosition().x >= Engine::GetWindow().GetSize().x - player_ptr->side_sprite.texture->GetSize().x && room >= 5) {
 		player_ptr->SetPosition({ (double)Engine::GetWindow().GetSize().x - player_ptr->side_sprite.texture->GetSize().x, player_ptr->GetPosition().y, player_ptr->GetPosition().z });
 	}
-	
-
-	
 	
 }
 

@@ -130,6 +130,9 @@
     <ClCompile Include="Game\Wall_Floor.cpp">
       <Filter>Game\InGame\Object</Filter>
     </ClCompile>
+    <ClCompile Include="Game\Locked_Wall.cpp">
+      <Filter>Game\InGame\Object</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Animation.h">
@@ -223,6 +226,9 @@
       <Filter>Game\InGame\Object</Filter>
     </ClInclude>
     <ClInclude Include="Game\Wall_Floor.h">
+      <Filter>Game\InGame\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\LockedWall.h">
       <Filter>Game\InGame\Object</Filter>
     </ClInclude>
   </ItemGroup>

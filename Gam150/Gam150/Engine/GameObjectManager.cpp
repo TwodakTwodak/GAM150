@@ -57,7 +57,7 @@ void CS230::GameObjectManager::CollisionBox()
 
 void CS230::GameObjectManager::ChangeAll()
 {
-	if (Engine::GetInput().KeyJustPressed(CS230::Input::Keys::F)) {
+	if (Engine::GetInput().KeyJustPressed(CS230::Input::Keys::Space)) {
 		main_view = static_cast<View>(!static_cast<bool>(main_view));
 		for (CS230::GameObject* object : draw_objects) {
 			object->SetView(main_view);

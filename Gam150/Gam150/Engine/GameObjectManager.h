@@ -37,8 +37,11 @@ namespace CS230 {
         Math::ivec2 button_length;
         Math::ivec2 floor_length;
 
-    private:
+        //should move later!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         std::vector<GameObject*> collision_objects;
+
+
+    private:
         std::vector<GameObject*> draw_objects;
     };
 }

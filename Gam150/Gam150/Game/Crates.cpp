@@ -45,8 +45,14 @@ void Crates::gravity(double dt)
 void Crates::Collision_Floor(GameObject* compare)
 {
     UpdatePosition(collision->GetDistance(compare));
-    if (collision->distance.y != 0) {
+    if (collision->distance.x != 0) {
+        SetVelocity({ 0, GetVelocity().y, GetVelocity().z});
+    }
+    if (collision->distance.y > 0) {
         SetVelocity({ GetVelocity().x, 0, GetVelocity().z });
+    }
+    if (collision->distance.z != 0) {
+        SetVelocity({ GetVelocity().x, GetVelocity().y, 0 });
     }
 }
 

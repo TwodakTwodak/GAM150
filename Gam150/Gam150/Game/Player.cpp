@@ -33,7 +33,9 @@ void Player::move(double dt) {
                 cool_timer = 0;
                 gravi = false;
             }
-            gravi = true;
+            else {
+                gravi = true;
+            }
         }
     }
     else if (Engine::GetInput().KeyDown(CS230::Input::Keys::A)) {
@@ -45,7 +47,9 @@ void Player::move(double dt) {
                 cool_timer = 0;
                 gravi = false;
             }
-            gravi = true;
+            else {
+                gravi = true;
+            }
         }
     }
     else {
@@ -58,6 +62,7 @@ void Player::move(double dt) {
                 SetVelocity({ GetVelocity().x, jump_velocity, GetVelocity().z });
             }
             else if (jumping && Engine::GetInput().KeyJustReleased(CS230::Input::Keys::W)) {
+                falling = true;
                 SetVelocity({ GetVelocity().x, 0, GetVelocity().z });
             }
         }
@@ -76,7 +81,9 @@ void Player::move(double dt) {
                 cool_timer = 0;
                 gravi = false;
             }
-            gravi = true;
+            else {
+                gravi = true;
+            }
         }
     }
     
@@ -89,7 +96,9 @@ void Player::move(double dt) {
                 cool_timer = 0;
                 gravi = false;
             }
-            gravi = true;
+            else {
+                gravi = true;
+            }
         }
     }
     else {
@@ -137,14 +146,9 @@ void Player::Collision_Floor(GameObject* compare)
 {
     UpdatePosition(collision->GetDistance(compare));
 
-    if (collision->distance.y != 0) {
+    if (collision->distance.y > 0) {
         SetVelocity({ GetVelocity().x, 0, GetVelocity().z });
-        if (collision->distance.y > 0) {
-            falling = false;
-        }
-        else {
-            falling = true;
-        }
+        falling = false;
         jumping = false;
     }
 }
@@ -152,15 +156,14 @@ void Player::Collision_Floor(GameObject* compare)
 void Player::Collision_Box(GameObject* compare)
 {
     collision->GetDistance(compare);
-    if (collision->distance.y != 0) {
+    
+    if (collision->distance.y > 0) {
         SetVelocity({ GetVelocity().x, 0, GetVelocity().z });
-        if (collision->distance.y > 0) {
-            falling = false;
-        }
-        else {
-            falling = true;
-        }
+        falling = false;
         jumping = false;
+    }
+    else {
+        falling = true;
     }
     UpdatePosition({ 0, collision->distance.y, 0 });
     compare->UpdatePosition({ -collision->distance.x, 0, -collision->distance.z });
