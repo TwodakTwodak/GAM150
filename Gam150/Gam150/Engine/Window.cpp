@@ -56,4 +56,22 @@ void CS230::Window::Clear(unsigned int rgba) {
 
     ClearBackground(rl_color);
 }
+void CS230::Window::EditorWindow() {
+    EndDrawing();
+    int current_width = default_width *2;
+    int current_height = GetScreenHeight();
+    Engine::GetLogger().LogEvent("Editor Window");
+    SetWindowSize(current_width, current_height);
+    size = { current_width, current_height };
+    BeginDrawing();
+}
 
+void CS230::Window::MapWindow() {
+    EndDrawing();
+    int current_width = default_width;
+    int current_height = GetScreenHeight();
+    Engine::GetLogger().LogEvent("Editor Window");
+    SetWindowSize(current_width, current_height);
+    size = { current_width, current_height };
+    BeginDrawing();
+}

@@ -11,8 +11,10 @@ Created:    March 8, 2023
 #include <iostream>
 
 #include "Engine/Engine.h"
+#include "Engine/FileIO.h"
 #include "Game/Splash.h"
 #include "Game/Map.h"
+#include "Game/Editor.h"
 
 int main() {
     try {
@@ -24,8 +26,11 @@ int main() {
 
         Splash splash;
         engine.GetGameStateManager().AddGameState(splash);
+        FileInput("Assets/object.txt");
         Map map;
         engine.GetGameStateManager().AddGameState(map);
+        Editor editor;
+        engine.GetGameStateManager().AddGameState(editor);
 
         while (engine.HasGameEnded() == false) {
             engine.Update();

@@ -43,11 +43,14 @@
     <Filter Include="Engine\Physic">
       <UniqueIdentifier>{0f5765a0-55c5-4e14-b623-a7aa00dbede4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\InGame\Map\Level1">
-      <UniqueIdentifier>{a31e50a5-19ca-4473-81d0-95224fb42d05}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\InGame\Object">
       <UniqueIdentifier>{502bdbe1-4c62-44d6-b1a9-145523dffd93}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Editor">
+      <UniqueIdentifier>{00602c36-5872-434b-9e3b-bf7929e24155}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\FileIO">
+      <UniqueIdentifier>{fd7eb219-4ce5-4da7-a769-c92d52462cbc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -109,14 +112,20 @@
     <ClCompile Include="Engine\Collision.cpp">
       <Filter>Engine\Physic</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Map.cpp">
-      <Filter>Game\InGame\Map\Level1</Filter>
-    </ClCompile>
     <ClCompile Include="Game\Crates.cpp">
       <Filter>Game\InGame\Object</Filter>
     </ClCompile>
     <ClCompile Include="Game\Button.cpp">
       <Filter>Game\InGame\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Editor.cpp">
+      <Filter>Game\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\FileIO.cpp">
+      <Filter>Engine\FileIO</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Map.cpp">
+      <Filter>Game\InGame\Map</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -195,14 +204,20 @@
     <ClInclude Include="Engine\Cube.h">
       <Filter>Engine\Math</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Map.h">
-      <Filter>Game\InGame\Map\Level1</Filter>
-    </ClInclude>
     <ClInclude Include="Game\Crates.h">
       <Filter>Game\InGame\Object</Filter>
     </ClInclude>
     <ClInclude Include="Game\Button.h">
       <Filter>Game\InGame\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Editor.h">
+      <Filter>Game\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\FileIO.h">
+      <Filter>Engine\FileIO</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Map.h">
+      <Filter>Game\InGame\Map</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

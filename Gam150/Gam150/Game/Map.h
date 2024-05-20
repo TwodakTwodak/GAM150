@@ -32,6 +32,11 @@ public:
 
 private:
     CS230::GameObjectManager gameobjectmanager;
+    int room = 1;
+    int load_object_number = 0;
+    int room_object_memory[100] = { 0 };
+    int memory = 1;
+    bool went_editor = true;
 };
 
 //Why don't it work when i change driection of headerfile, why does it work after retyping.

@@ -13,6 +13,10 @@ Created:    March 8, 2023
 Button::Button(Math::vec3 start_position) :
     CS230::GameObject(start_position)
 {
-    side_sprite.Load("Assets/Crates1.spt");
-    top_sprite.Load("Assets/Crates1.spt");
+    side_sprite.Load("Assets/Button.spt");
+    top_sprite.Load("Assets/Button.spt");
+}
+void Button::ChangePosition(Math::vec3 chage_position)
+{
+    SetPosition(chage_position);
 }

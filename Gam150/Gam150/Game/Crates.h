@@ -14,4 +14,5 @@ Created:    March 8, 2023
 class Crates : public CS230::GameObject {
 public:
     Crates(Math::vec3 start_position);
+    void ChangePosition(Math::vec3 chage_position);
 };

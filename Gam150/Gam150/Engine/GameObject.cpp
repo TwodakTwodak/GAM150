@@ -9,6 +9,8 @@ Created:    March 8, 2023
 */
 
 #include "GameObject.h"
+#include "Matrix.h"
+#include <iostream>
 
 CS230::GameObject::GameObject() :
     GameObject({0, 0, 0}, 0, { 1, 1, 1 })
@@ -47,6 +49,11 @@ void CS230::GameObject::Draw(Math::TransformationMatrix camera_matrix) {
     view_sprite->Draw(camera_matrix * GetMatrix());
 }
 
+void CS230::GameObject::DrawEditor(Math::TransformationMatrix camera_matrix) {
+    side_sprite.Draw(camera_matrix * GetMatrixEditorSide());
+    top_sprite.Draw(camera_matrix * GetMatrixEditorTop());
+}
+
 void CS230::GameObject::check_view()
 {
     if (!matrix_outdated) {
@@ -71,7 +78,16 @@ const Math::TransformationMatrix& CS230::GameObject::GetMatrix() {
     }
     return object_matrix;
 }
-
+const Math::TransformationMatrix& CS230::GameObject::GetMatrixEditorSide() {
+    //this make problem!!!
+    object_matrix = Math::TranslationMatrix(Math::vec2({ position.x , position.z })) * Math::ScaleMatrix({ scale.x, scale.z });
+    return object_matrix;
+}
+const Math::TransformationMatrix& CS230::GameObject::GetMatrixEditorTop() {
+    //this make problem!!!
+    object_matrix = Math::TranslationMatrix(Math::vec2({ position.x + Engine::GetWindow().GetSize().x / 2, position.y })) * Math::ScaleMatrix({ scale.x, scale.y });
+    return object_matrix;
+}
 const Math::vec3& CS230::GameObject::GetPosition() const
 {
     return position;
