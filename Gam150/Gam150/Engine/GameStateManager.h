@@ -1,16 +1,6 @@
-/*
-Copyright (C) 2023 DigiPen Institute of Technology
-Reproduction or distribution of this file or its contents without
-prior written consent is prohibited
-File Name:  GameStateManager.h
-Project:    CS230 Engine
-Author:     Jonathan Holmes
-Created:    March 8, 2023
-*/
+/* Copyright stuff ... */
 
-#ifndef GAMESTATEMANAGER
-#define GAMESTATEMANAGER
-
+#pragma once
 #include "GameState.h"
 #include <vector>
 
@@ -24,8 +14,12 @@ namespace CS230 {
         void AddGameState(GameState& gamestate);
         void SetNextGameState(int index);
         void ClearNextGameState();
-        void ReloadGameState();
+        //void ReloadState();
         bool HasGameEnded();
+        void ReloadGameState();
+        template<typename T>
+        T* GetGSComponent() { return current_gamestate->GetGSComponent<T>(); }
+
     private:
         enum class Status {
             STARTING,
@@ -42,5 +36,3 @@ namespace CS230 {
         GameState* next_gamestate;
     };
 }
-
-#endif

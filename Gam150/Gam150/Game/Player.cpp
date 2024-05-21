@@ -130,6 +130,27 @@ void Player::Update(double dt) {
     gravity(dt);
     move(dt);
     GameObject::Update(dt);
+
+    Math::rect cat_rect = GetGOComponent<CS230::RectCollision>()->WorldBoundary();
+    if (!GetView()) {
+        if (Engine::GetInput().KeyJustReleased(CS230::Input::Keys::Left_Shift) && cool_timer >= cool_time) {
+            dash_start_pos = GetPosition().z;
+            SetVelocity({ GetVelocity().x, GetVelocity().y, -dash_velocity });
+            cool_timer = 0;
+            gravi = false;
+        }
+        else {
+            gravi = true;
+        }
+    }
+    if (GetPosition().x < Engine::GetGameStateManager().GetGSComponent<CS230::Camera>()->GetPosition().x + cat_rect.Size().x / 2) {
+        UpdatePosition({ -cat_rect.Left(), 0 });
+        SetVelocity({ 0, GetVelocity().y });
+    }
+    if (GetPosition().x + cat_rect.Size().x / 2 > Engine::GetGameStateManager().GetGSComponent<CS230::Camera>()->GetPosition().x + Engine::GetWindow().GetSize().x) {
+        UpdatePosition({ Engine::GetGameStateManager().GetGSComponent<CS230::Camera>()->GetPosition().x + Engine::GetWindow().GetSize().x - cat_rect.Right() , 0 });
+        SetVelocity({ 0, GetVelocity().y });
+    }
 }
 
 void Player::Collision(GameObject* compare, Collision_Type type)

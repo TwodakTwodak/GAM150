@@ -13,9 +13,10 @@ Created:    March 8, 2023
 
 #include "Matrix.h"
 #include "Rect.h"
+#include "ComponentManager.h"
 
 namespace CS230 {
-    class Camera {
+    class Camera : public Component {
     public:
         Camera(Math::rect player_zone);
         void SetPosition(Math::vec2 new_position);

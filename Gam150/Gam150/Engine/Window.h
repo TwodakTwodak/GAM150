@@ -34,8 +34,8 @@ namespace CS230 {
         // 
         //Or push default at the Start() function? this seems most good!
         static constexpr unsigned int default_background = UINT_MAX;
-        static constexpr int default_width = 800;
-        static constexpr int default_height = 600;
+        static constexpr int default_width = 1600;
+        static constexpr int default_height = 900;
     };
 }
 

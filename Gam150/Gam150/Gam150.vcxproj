@@ -162,6 +162,8 @@
     <ClInclude Include="Engine\Animation.h" />
     <ClInclude Include="Engine\Camera.h" />
     <ClInclude Include="Engine\Collision.h" />
+    <ClInclude Include="Engine\Component.h" />
+    <ClInclude Include="Engine\ComponentManager.h" />
     <ClInclude Include="Engine\Cube.h" />
     <ClInclude Include="Engine\Engine.h" />
     <ClInclude Include="Engine\FileIO.h" />
@@ -185,6 +187,7 @@
     <ClInclude Include="Game\Float_Floor.h" />
     <ClInclude Include="Game\Floor.h" />
     <ClInclude Include="Game\Fonts.h" />
+    <ClInclude Include="Game\GameObjectTypes.h" />
     <ClInclude Include="Game\LockedWall.h" />
     <ClInclude Include="Game\Player.h" />
     <ClInclude Include="Game\Map.h" />

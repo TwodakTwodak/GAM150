@@ -12,8 +12,12 @@ Created:    March 8, 2023
 #include "Engine.h"
 #include "Cube.h"
 #include "Sprite.h"
+#include "ComponentManager.h"
 
-namespace Gam150 { class Collision; }
+//namespace Math { class TransformationMatrix; }
+enum class GameObjectTypes;
+
+//namespace Gam150 { class Collision; }
 
 //made with bool beacuse we have only two view!
 enum View : bool {
@@ -28,6 +32,7 @@ enum Collision_Type : char {
 };
 
 namespace CS230 {
+    class Component;
     class GameObject {
     public:
         GameObject();
@@ -53,11 +58,19 @@ namespace CS230 {
         Collision_Type GetType() const;
         void SetView(View view);
         Math::cube collision_cube;
-        Gam150::Collision* collision;
         Sprite side_sprite;
         Sprite top_sprite;
         void UpdatePosition(Math::vec3 delta);
         void SetPosition(Math::vec3 new_position);
+
+        bool IsCollidingWith(GameObject* other_object);
+        virtual bool CanCollideWith(GameObjectTypes other_object_type);
+        virtual void ResolveCollision(GameObject* other_object) { };
+
+        template<typename T>
+        T* GetGOComponent() {
+            return componentmanager.GetComponent<T>();
+        }
     protected:
         class State {
         public:
@@ -70,7 +83,7 @@ namespace CS230 {
 
         void change_state(State* new_state);
 
-       
+        
 
         void SetVelocity(Math::vec3 new_velocity);
         void UpdateVelocity(Math::vec3 delta);
@@ -85,6 +98,7 @@ namespace CS230 {
         Collision_Type collision_type = Detect;
         Sprite* view_sprite = &side_sprite;
 
+        
     private:
 
         //none 
@@ -111,5 +125,7 @@ namespace CS230 {
         double* view_scale = &(scale.y);
 
         View current_view = View::Side;
+
+        ComponentManager componentmanager;
     };
 }

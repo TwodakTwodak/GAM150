@@ -8,7 +8,8 @@ Author:     Jonathan Holmes
 Created:    March 8, 2023
 */
 
-#include "Collision.h"
+#include "Collision.h"\
+
 #include "GameObject.h"
 
 CS230::GameObject::GameObject() :
@@ -25,13 +26,12 @@ CS230::GameObject::GameObject(Math::vec3 position, double rotation, Math::vec3 s
     position(position),
     scale(scale),
     rotation(rotation),
-    current_state(&state_none),
-    collision(new Gam150::Collision(this))
+    current_state(&state_none)
 {}
 
 CS230::GameObject::~GameObject()
 {
-    delete collision;
+    //delete collision;
 }
 
 void CS230::GameObject::Update(double dt) {
@@ -62,7 +62,7 @@ void CS230::GameObject::change_state(State* new_state) {
 
 //
 void CS230::GameObject::Draw(Math::TransformationMatrix camera_matrix) {
-    collision->CollisionDraw();
+    //collision->CollisionDraw();
     view_sprite->Draw(camera_matrix * GetMatrix());
 }
 
@@ -172,4 +172,13 @@ void CS230::GameObject::SetView(View view)
 Collision_Type CS230::GameObject::GetType() const
 {
     return collision_type;
+}
+
+bool CS230::GameObject::IsCollidingWith(GameObject* other_object) {
+    Gam150::Collision* collider = GetGOComponent<Collision>();
+    return collider != nullptr && collider->IsCollidingWith(other_object);
+}
+
+bool CS230::GameObject::CanCollideWith(GameObjectTypes other_object_type) {
+    return false;
 }

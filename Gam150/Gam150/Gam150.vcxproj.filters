@@ -231,5 +231,14 @@
     <ClInclude Include="Game\LockedWall.h">
       <Filter>Game\InGame\Object</Filter>
     </ClInclude>
+    <ClInclude Include="Game\GameObjectTypes.h">
+      <Filter>Game\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Component.h">
+      <Filter>Engine\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\ComponentManager.h">
+      <Filter>Engine\Object</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
