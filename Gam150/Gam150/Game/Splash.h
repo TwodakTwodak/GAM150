@@ -3,7 +3,11 @@ Copyright (C) 2023 DigiPen Institute of Technology
 Reproduction or distribution of this file or its contents without
 prior written consent is prohibited
 File Name:  Splash.h
-Project:    CS230 Engine
+Project:    
+
+
+
+Engine
 Author:     Jonathan Holmes
 Created:    March 8, 2023
 */
@@ -14,7 +18,7 @@ Created:    March 8, 2023
 #include "../Engine/GameState.h"
 #include "../Engine/Texture.h"
 
-class Splash : public CS230::GameState {
+class Splash : public Gam150::GameState {
 public:
     Splash();
     void Load() override;
@@ -29,7 +33,7 @@ public:
 private:
     //Is this private or public?
     double counter = 0;
-    CS230::Texture* texture;
+    Gam150::Texture* texture;
 };
 
 //Why don't it work when i change driection of headerfile, why does it work after retyping.

@@ -11,7 +11,7 @@ Created:    May 8, 2024
 #pragma once
 #include "../Engine/GameObject.h"
 
-class Button : public CS230::GameObject {
+class Button : public Gam150::GameObject {
 public:
     Button(Math::vec3 start_position);
     void Update(double dt) override;

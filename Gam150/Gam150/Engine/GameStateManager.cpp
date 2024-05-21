@@ -3,7 +3,7 @@ Copyright (C) 2023 DigiPen Institute of Technology
 Reproduction or distribution of this file or its contents without
 prior written consent is prohibited
 File Name:  GameStateManager.cpp
-Project:    CS230 Engine
+Project:    Gam150 Engine
 Author:     Jonathan Holmes, Seunghyeon Song
 Created:    March 8, 2023
 Upated:     March 15, 2024
@@ -12,13 +12,13 @@ Upated:     March 15, 2024
 #include "GameStateManager.h"
 #include "Engine.h"
 
-CS230::GameStateManager::GameStateManager() :
+Gam150::GameStateManager::GameStateManager() :
     current_gamestate(nullptr),
     next_gamestate(nullptr),
     status(Status::STARTING)
 { }
 
-void CS230::GameStateManager::Update(double dt) {
+void Gam150::GameStateManager::Update(double dt) {
     switch (status) {
     case Status::STARTING:
         next_gamestate = gamestates[0];
@@ -65,23 +65,23 @@ void CS230::GameStateManager::Update(double dt) {
     }
 }
 
-void CS230::GameStateManager::AddGameState(GameState& gamestate) {
+void Gam150::GameStateManager::AddGameState(GameState& gamestate) {
     gamestates.push_back(&gamestate); //&?
 }
 
-void CS230::GameStateManager::SetNextGameState(int index) {
+void Gam150::GameStateManager::SetNextGameState(int index) {
     next_gamestate = gamestates[index]; //?
 }
 
-void CS230::GameStateManager::ReloadGameState() {
+void Gam150::GameStateManager::ReloadGameState() {
     status = Status::UNLOADING;//Where are we using this?
     //how the hack is this working!
 }
 
-void CS230::GameStateManager::ClearNextGameState() {
+void Gam150::GameStateManager::ClearNextGameState() {
     next_gamestate = nullptr;
 }
 
-bool CS230::GameStateManager::HasGameEnded() {
+bool Gam150::GameStateManager::HasGameEnded() {
     return status == Status::EXIT;
 }

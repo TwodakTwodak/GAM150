@@ -1,6 +1,6 @@
 #pragma once
 
-namespace CS230 {
+namespace Gam150 {
     class Component {
     public:
         virtual ~Component() {};

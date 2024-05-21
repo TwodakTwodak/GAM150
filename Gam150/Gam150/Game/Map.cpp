@@ -3,7 +3,10 @@ Copyright (C) 2023 DigiPen Institute of Technology
 Reproduction or distribution of this file or its contents without
 prior written consent is prohibited
 File Name:  Mode1.cpp
-Project:    CS230 Engine
+Project:    
+
+
+Engine
 Author:     Jonathan Holmes, Seunghyeon Song
 Created:    March 8, 2023
 Upadted:    March 14, 2024
@@ -133,7 +136,7 @@ void Map::Load() {
 }
 
 void Map::Update([[maybe_unused]] double dt) {
-	if (Engine::GetInput().KeyDown(CS230::Input::Keys::Nine)) {
+	if (Engine::GetInput().KeyDown(Gam150::Input::Keys::Nine)) {
 		dt = dt * 0.1;
 	}
 	gameobjectmanager.UpdateAll(dt);
@@ -142,12 +145,12 @@ void Map::Update([[maybe_unused]] double dt) {
 			player_ptr->SetPosition({ Engine::GetWindow().GetSize().x - 200.0, player_ptr->GetPosition().y, player_ptr->GetPosition().z });
 		}
 	}
-	if (player_ptr->GetPosition().x > Engine::GetWindow().GetSize().x && room < 5|| Engine::GetInput().KeyJustPressed(CS230::Input::Keys::Up)) {
+	if (player_ptr->GetPosition().x > Engine::GetWindow().GetSize().x && room < 5|| Engine::GetInput().KeyJustPressed(Gam150::Input::Keys::Up)) {
 		room++;
 		Unload();
 		Load();
 	}
-	else if (player_ptr->GetPosition().x < 0 && room > 1|| Engine::GetInput().KeyJustPressed(CS230::Input::Keys::Down)) {
+	else if (player_ptr->GetPosition().x < 0 && room > 1|| Engine::GetInput().KeyJustPressed(Gam150::Input::Keys::Down)) {
 		room--;	
 		Unload();
 		Load();

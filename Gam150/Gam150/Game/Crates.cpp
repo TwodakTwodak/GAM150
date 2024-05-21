@@ -3,7 +3,9 @@ Copyright (C) 2023 DigiPen Institute of Technology
 Reproduction or distribution of this file or its contents without
 prior written consent is prohibited
 File Name:  Crates.cpp
-Project:    CS230 Engine
+Project:    
+
+Engine
 Author:     Jonathan Holmes
 Created:    March 8, 2023
 */
@@ -14,7 +16,7 @@ Created:    March 8, 2023
 #include "../Engine/Collision.h"
 
 Crates::Crates(Math::vec3 start_position) : 
-    CS230::GameObject(start_position)
+    Gam150::GameObject(start_position)
 {
     collision_type = Move;
     side_sprite.Load("Assets/Crates1.spt");
@@ -44,6 +46,7 @@ void Crates::gravity(double dt)
 
 void Crates::Collision_Floor(GameObject* compare)
 {
+    /*
     UpdatePosition(collision->GetDistance(compare));
     if (collision->distance.x != 0) {
         SetVelocity({ 0, GetVelocity().y, GetVelocity().z});
@@ -53,15 +56,17 @@ void Crates::Collision_Floor(GameObject* compare)
     }
     if (collision->distance.z != 0) {
         SetVelocity({ GetVelocity().x, GetVelocity().y, 0 });
-    }
+    }*/
 }
 
 void Crates::Collision_Button(GameObject* compare)
 {
+    /*
     if (collision->CollisionDetect(compare)) {
         static_cast<Button*>(compare)->press = true;
     }
     else {
         static_cast<Button*>(compare)->press = false;
     }
+    */
 }

@@ -7,7 +7,7 @@ Created:    May 3, 2024
 
 #include "Float_Floor.h"
 
-Float_Floor::Float_Floor(Math::vec3 start_position) : CS230::GameObject(start_position)
+Float_Floor::Float_Floor(Math::vec3 start_position) : Gam150::GameObject(start_position)
 {
     collision_type = Block;
     side_sprite.Load("Assets/Side_Float_Floor.spt");

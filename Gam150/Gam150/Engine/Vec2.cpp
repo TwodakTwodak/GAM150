@@ -3,7 +3,9 @@ Copyright (C) 2023 DigiPen Institute of Technology
 Reproduction or distribution of this file or its contents without
 prior written consent is prohibited
 File Name:  Vec2.h
-Project:    CS230 Engine
+Project:    
+
+Engine
 Author:     Jonathan Holmes, Seunghyeon Song
 Created:    March 8, 2023
 Updated:    March 20, 2024

@@ -13,43 +13,29 @@ Created:    May 4, 2024
 #include "Engine.h"
 #include "Cube.h"
 #include "ComponentManager.h"
-
-namespace CS230 {
-    class GameObject;
+namespace Math {
+    class TransformationMatrix;
 }
 
 namespace Gam150 {
-    class Collision : public CS230::Component {
+    class GameObject;
+    class Collision : public Component {
     public:
-        Collision(CS230::GameObject* clone);
-        virtual bool CollisionDetect(CS230::GameObject* compare);
-        double GetDistanceX(CS230::GameObject* compare);
-        double GetDistanceY(CS230::GameObject* compare);
-        double GetDistanceZ(CS230::GameObject* compare);
-        Math::vec3 GetDistance(CS230::GameObject* compare);
+        virtual bool CollisionDetect(Gam150::GameObject* compare);
+        double GetDistanceX(Gam150::GameObject* compare);
+        double GetDistanceY(Gam150::GameObject* compare);
+        double GetDistanceZ(Gam150::GameObject* compare);
+        Math::vec3 GetDistance(Gam150::GameObject* compare);
         void CollisionDraw();
         double* bigger(double* com1, double* com2);
         Math::vec3 distance;
-        virtual bool IsCollidingWith(CS230::GameObject* other_object) = 0;
+        virtual bool IsCollidingWith(Gam150::GameObject* other_object) = 0;
+        virtual void Draw(Math::TransformationMatrix display_matrix) = 0;
     private:
-        CS230::GameObject* gameobject;
+        GameObject* gameobject;
     };
 
-}
-
-namespace CS230 {
-    /*
-    class Collision : public Component {
-    public:
-        enum class CollisionShape {
-            Rect,
-            Circle
-        };
-        virtual CollisionShape Shape() = 0;
-        virtual bool IsCollidingWith(GameObject* other_object) = 0;
-        virtual void Draw(Math::TransformationMatrix display_matrix) = 0;
-    };*/
-    class RectCollision : public Gam150::Collision {
+    class RectCollision : public Collision {
     public:
         RectCollision(Math::irect boundary, GameObject* object);
         bool IsCollidingWith(GameObject* other_object) override;
@@ -59,4 +45,5 @@ namespace CS230 {
         GameObject* object;
         Math::irect boundary;
     };
+
 }

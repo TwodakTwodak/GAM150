@@ -8,7 +8,7 @@ Created:    May 3, 2024
 #pragma once
 #include "../Engine/GameObject.h"
 
-class Floor : public CS230::GameObject {
+class Floor : public Gam150::GameObject {
 public:
     Floor(Math::vec3 start_position);
 };

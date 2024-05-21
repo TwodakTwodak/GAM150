@@ -3,7 +3,13 @@ Copyright (C) 2023 DigiPen Institute of Technology
 Reproduction or distribution of this file or its contents without
 prior written consent is prohibited
 File Name:  Texture.cpp
-Project:    CS230 Engine
+Project:    
+
+
+
+
+
+Engine
 Author:     Jonathan Holmes
 Created:    March 8, 2023
 */
@@ -12,20 +18,20 @@ Created:    March 8, 2023
 #include "Engine.h"
 #include <rlgl.h>
 
-CS230::Texture::Texture(const std::filesystem::path& file_name) {
+Gam150::Texture::Texture(const std::filesystem::path& file_name) {
     texture = LoadTexture(file_name.string().c_str());
     SetTextureWrap(texture, TEXTURE_WRAP_CLAMP);
 }
 
-CS230::Texture::Texture(Texture2D given_texture) {
+Gam150::Texture::Texture(Texture2D given_texture) {
     texture = given_texture;
 }
 
-CS230::Texture::~Texture() {
+Gam150::Texture::~Texture() {
     UnloadTexture(texture);
 }
 
-CS230::Texture::Texture(Texture&& temporary) noexcept : texture(temporary.texture) {
+Gam150::Texture::Texture(Texture&& temporary) noexcept : texture(temporary.texture) {
     temporary.texture.id = 0;
     temporary.texture.width = 0;
     temporary.texture.height = 0;
@@ -33,7 +39,7 @@ CS230::Texture::Texture(Texture&& temporary) noexcept : texture(temporary.textur
     temporary.texture.format = 0;
 }
 
-CS230::Texture& CS230::Texture::operator=(Texture&& temporary) noexcept {
+Gam150::Texture& Gam150::Texture::operator=(Texture&& temporary) noexcept {
     std::swap(texture.id, temporary.texture.id);
     std::swap(texture.width, temporary.texture.width);
     std::swap(texture.height, temporary.texture.height);
@@ -42,11 +48,11 @@ CS230::Texture& CS230::Texture::operator=(Texture&& temporary) noexcept {
     return *this;
 }
 
-void CS230::Texture::Draw(Math::TransformationMatrix display_matrix, unsigned int color) {
+void Gam150::Texture::Draw(Math::TransformationMatrix display_matrix, unsigned int color) {
     Draw(display_matrix, { 0, 0 }, { texture.width, texture.height }, color);
 }
 
-void CS230::Texture::Draw(Math::TransformationMatrix display_matrix, Math::ivec2 texel_position, Math::ivec2 frame_size, unsigned int color) {
+void Gam150::Texture::Draw(Math::TransformationMatrix display_matrix, Math::ivec2 texel_position, Math::ivec2 frame_size, unsigned int color) {
     const double render_height = rlGetFramebufferHeight();
     Math::vec2 bottom_left = display_matrix * Math::vec2{ 0, 0 };
     Math::vec2 bottom_right = display_matrix * Math::vec2{ double(frame_size.x), 0 };
@@ -89,6 +95,6 @@ void CS230::Texture::Draw(Math::TransformationMatrix display_matrix, Math::ivec2
     rlSetTexture(0);
 }
 
-Math::ivec2 CS230::Texture::GetSize() const {
+Math::ivec2 Gam150::Texture::GetSize() const {
     return { texture.width, texture.height };
 }

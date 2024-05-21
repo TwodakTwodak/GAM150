@@ -1,7 +1,7 @@
 #pragma once
 #include "Component.h"
 #include <vector>
-namespace CS230 {
+namespace Gam150 {
     class ComponentManager {
     public:
         ~ComponentManager() { Clear(); }

@@ -3,7 +3,9 @@ Copyright (C) 2023 DigiPen Institute of Technology
 Reproduction or distribution of this file or its contents without
 prior written consent is prohibited
 File Name:  Animation.h
-Project:    CS230 Engine
+Project:    
+
+Engine
 Author:     Jonathan Holmes
 Created:    March 8, 2023
 */
@@ -12,7 +14,7 @@ Created:    March 8, 2023
 #include <vector>
 #include <filesystem>
 
-namespace CS230 {
+namespace Gam150 {
     enum class CommandType {
         PlayFrame,
         Loop,

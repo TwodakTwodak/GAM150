@@ -3,7 +3,7 @@ Copyright (C) 2023 DigiPen Institute of Technology
 Reproduction or distribution of this file or its contents without
 prior written consent is prohibited
 File Name:  Splash.h
-Project:    CS230 Engine
+Project:    Gam150 Engine
 Author:     Seunghyeon Song
 Created:    May 3, 2024
 */
@@ -18,7 +18,7 @@ Created:    May 3, 2024
 #include "../Engine/Camera.h"
 
 
-class Map : public CS230::GameState {
+class Map : public Gam150::GameState {
 public:
     Map();
     void Load() override;
@@ -37,8 +37,8 @@ public:
     int room = 1;
 
 private:
-    CS230::GameObjectManager gameobjectmanager;
-    CS230::Texture* background;
+    Gam150::GameObjectManager gameobjectmanager;
+    Gam150::Texture* background;
     
     int load_object_number = 0;
     int room_object_memory[100] = { 0 };

@@ -13,9 +13,8 @@ Created:    May 4, 2024
 #include "GameObject.h"
 
 namespace Gam150 {
-	Collision::Collision(CS230::GameObject* clone) : gameobject(clone) { }
 
-	bool Collision::CollisionDetect(CS230::GameObject* compare)
+	bool Collision::CollisionDetect(Gam150::GameObject* compare)
 	{
 		if (((gameobject->collision_cube.bottom_behind.x <= compare->collision_cube.top_front.x) && (gameobject->collision_cube.top_front.x >= compare->collision_cube.bottom_behind.x))
 			&& (gameobject->collision_cube.bottom_behind.y <= compare->collision_cube.top_front.y) && (gameobject->collision_cube.top_front.y >= compare->collision_cube.bottom_behind.y)
@@ -26,7 +25,7 @@ namespace Gam150 {
 		return false;
 	}
 
-	double Collision::GetDistanceX(CS230::GameObject* compare)
+	double Collision::GetDistanceX(Gam150::GameObject* compare)
 	{
 		if (CollisionDetect(compare))
 		{
@@ -45,7 +44,7 @@ namespace Gam150 {
 		}
 	}
 
-	double Collision::GetDistanceY(CS230::GameObject* compare)
+	double Collision::GetDistanceY(Gam150::GameObject* compare)
 	{
 		if (CollisionDetect(compare))
 		{
@@ -64,7 +63,7 @@ namespace Gam150 {
 		}
 	}
 
-	double Collision::GetDistanceZ(CS230::GameObject* compare)
+	double Collision::GetDistanceZ(Gam150::GameObject* compare)
 	{
 		if (CollisionDetect(compare))
 		{
@@ -83,7 +82,7 @@ namespace Gam150 {
 		}
 	}
 
-	Math::vec3 Collision::GetDistance(CS230::GameObject* compare)
+	Math::vec3 Collision::GetDistance(Gam150::GameObject* compare)
 	{
 		distance.x = GetDistanceX(compare);
 		distance.y = GetDistanceY(compare);
@@ -130,20 +129,17 @@ namespace Gam150 {
 		}
 	}
 
-}
-namespace CS230 {
-	CS230::RectCollision::RectCollision(Math::irect boundary, GameObject* object) :
+	RectCollision::RectCollision(Math::irect boundary, GameObject* object) :
 		boundary(boundary),
-		object(object)
-	{ }
+		object(object){}
 
-	Math::rect CS230::RectCollision::WorldBoundary() {
+	Math::rect Gam150::RectCollision::WorldBoundary() {
 		return {
 			object->GetMatrix() * static_cast<Math::vec2>(boundary.point_1),
 			object->GetMatrix() * static_cast<Math::vec2>(boundary.point_2)
 		};
 	}
-	void CS230::RectCollision::Draw(Math::TransformationMatrix display_matrix) {
+	void Gam150::RectCollision::Draw(Math::TransformationMatrix display_matrix) {
 		const double render_height = rlGetFramebufferHeight();
 
 		Math::rect world_boundary = WorldBoundary();
@@ -164,8 +160,8 @@ namespace CS230 {
 		DrawLine(int(top_left.x), int(top_left.y), int(bottom_left.x), int(bottom_left.y), WHITE);
 	}
 
-	bool CS230::RectCollision::IsCollidingWith(GameObject* other_object) {
-		Collision* other_collider = other_object->GetGOComponent<Collision>();
+	bool Gam150::RectCollision::IsCollidingWith(GameObject* other_object) {
+		Gam150::Collision* other_collider = other_object->GetGOComponent<Gam150::Collision>();
 
 
 		if (other_collider == nullptr) {

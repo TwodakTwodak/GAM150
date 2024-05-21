@@ -2,53 +2,43 @@
 Copyright (C) 2023 DigiPen Institute of Technology
 Reproduction or distribution of this file or its contents without
 prior written consent is prohibited
-File Name:  Sprite.h
-Project:    CS230 Engine
-Author:     Jonathan Holmes, Seunghyeon Song
-Created:    March 8, 2023
-Updated:	March 23, 2024
+File Name:  Sprite.cpp
+Project:    Gam150 Engine
+Author:     Huiuk Jang
+Created:    May 1, 2024
 */
-
-#include "Sprite.h"
-#include <fstream>
 #include "Engine.h"
+#include "Sprite.h"
+#include "GameObjectManager.h"
+#include "Collision.h"
 
-CS230::Sprite::Sprite(): current_animation(0){ }
+Gam150::Sprite::Sprite(const std::filesystem::path& sprite_file, GameObject* given_object) {
+    Load(sprite_file, given_object);
+}
 
-CS230::Sprite::~Sprite()
-{
-    for (Animation* animation : animations) {
-        delete animation;
+
+
+Gam150::Sprite::~Sprite() {
+    for (int i = 0; i < animations.size(); i++)
+    {
+        delete animations[i];
     }
+    hotspots.clear();
+    frame_texels.clear();
     animations.clear();
-    //Not sure about this part either!
 }
-
-CS230::Sprite::Sprite(Sprite&& temporary) noexcept :
-    texture(std::move(temporary.texture)),
-    hotspots(std::move(temporary.hotspots)),
-    current_animation(temporary.current_animation),
-    frame_size(temporary.frame_size),
-    frame_texels(std::move(temporary.frame_texels)),
-    animations(std::move(temporary.animations))
-{ }
-
-CS230::Sprite& CS230::Sprite::operator=(Sprite&& temporary) noexcept {
-    std::swap(texture, temporary.texture);
-    std::swap(hotspots, temporary.hotspots);
-    std::swap(current_animation, temporary.current_animation);
-    std::swap(frame_size, temporary.frame_size);
-    std::swap(frame_texels, frame_texels);
-    std::swap(animations, temporary.animations);
-    return *this;
-}
-
-void CS230::Sprite::Update(double dt)
+void Gam150::Sprite::Update(double dt)
 {
-    animations[current_animation]->Update(dt);
+    if (AnimationEnded()) {
+        PlayAnimation(0);
+    }
+    else {
+        animations[current_animation]->Update(dt);
+    }
+    //was error
 }
 
-void CS230::Sprite::Load(const std::filesystem::path& sprite_file) {
+void Gam150::Sprite::Load(const std::filesystem::path& sprite_file, GameObject* object) {
     if (sprite_file.extension() != ".spt") {
         throw std::runtime_error(sprite_file.generic_string() + " is not a .spt file");
     }
@@ -60,7 +50,7 @@ void CS230::Sprite::Load(const std::filesystem::path& sprite_file) {
 
     hotspots.clear();
     frame_texels.clear();
-    animations.clear();
+
 
     std::string text;
     in_file >> text;
@@ -93,10 +83,21 @@ void CS230::Sprite::Load(const std::filesystem::path& sprite_file) {
             hotspots.push_back({ hotspot_x, hotspot_y });
         }
         else if (text == "Anim") {
-            std::filesystem::path tempfile;
-            in_file >> tempfile;
-            animations.push_back(new Animation(tempfile));
-            //Not sure also!!
+            std::string anim;
+            in_file >> anim;
+            Animation* animation = new Animation(anim);
+            animations.push_back(animation);
+        }
+        else if (text == "RectCollision") {
+            Math::irect boundary;
+            in_file >> boundary.point_1.x >> boundary.point_1.y >> boundary.point_2.x >> boundary.point_2.y;
+
+            if (object == nullptr) {
+                Engine::GetLogger().LogError("Cannot add collision to a null object");
+            }
+            else {
+                object->AddGOComponent(new RectCollision(boundary, object));
+            }
         }
         else {
             Engine::GetLogger().LogError("Unknown command: " + text);
@@ -106,52 +107,77 @@ void CS230::Sprite::Load(const std::filesystem::path& sprite_file) {
     if (frame_texels.empty() == true) {
         frame_texels.push_back({ 0,0 });
     }
-    if (animations.empty() == true) {
-        animations.push_back(new Animation());
+    if (animations.empty()) {
+        Animation* default_anim = new Animation();
+        animations.push_back(default_anim);
         PlayAnimation(0);
-        //Not sure also!!
     }
 }
 
-void CS230::Sprite::Draw(Math::TransformationMatrix display_matrix) {
+
+
+void Gam150::Sprite::Draw(Math::TransformationMatrix display_matrix) {
     texture->Draw(display_matrix * Math::TranslationMatrix(-GetHotSpot(0)), GetFrameTexel(animations[current_animation]->CurrentFrame()), GetFrameSize());
 }
 
-Math::ivec2 CS230::Sprite::GetHotSpot(int index){
-	if (index < hotspots.size()) {
-		return hotspots[index];
-	}
-	return { 0,0 };
+
+Math::ivec2 Gam150::Sprite::GetHotSpot(int index)
+{
+    return hotspots[index];
 }
 
-Math::ivec2 CS230::Sprite::GetFrameSize()
+Math::ivec2 Gam150::Sprite::GetFrameTexel(int index) const {
+    if (index < 0 || index >= frame_texels.size())
+    {
+        Engine::GetLogger().LogError("Invalid frame texels index: " + std::to_string(index));
+        return { 0,0 };
+    }
+    else
+    {
+        return frame_texels[index];
+    }
+}
+
+
+Math::ivec2 Gam150::Sprite::GetFrameSize()
 {
     return frame_size;
 }
 
-void CS230::Sprite::PlayAnimation(int animation)
+void Gam150::Sprite::PlayAnimation(int animation)
 {
-    if (animation < 0 || animation >= animations.size()) {
-        Engine::GetLogger().LogError("PlayAnimation");
-        return ;
+    if (animation >= 0 && animation < animations.size())
+    {
+        current_animation = animation;
+        animations[current_animation]->Reset();
     }
-    current_animation = animation;
-    animations[current_animation]->Reset();
-    //You mean current is "animation" or before changing?
-    //I think both two will work!
-
+    else
+    {
+        Engine::GetLogger().LogError("animation doesn't exist");
+        current_animation = 0;
+    }
+}
+bool Gam150::Sprite::AnimationEnded()
+{
+    if (animations[current_animation]->Ended()) return true;
+    else return false;
 }
 
-bool CS230::Sprite::AnimationEnded()
-{
-    return animations[current_animation]->Ended();
-}
+Gam150::Sprite::Sprite(Sprite&& temporary) noexcept :
+    texture(std::move(temporary.texture)),
+    hotspots(std::move(temporary.hotspots)),
+    current_animation(temporary.current_animation),
+    frame_size(temporary.frame_size),
+    frame_texels(std::move(temporary.frame_texels)),
+    animations(std::move(temporary.animations))
+{ }
 
-Math::ivec2 CS230::Sprite::GetFrameTexel(int index) const
-{
-    if (index < 0 || index >= frame_texels.size()) {
-        Engine::GetLogger().LogError("GetFrameTexel");
-        return {0,0};
-    }
-    return frame_texels[index];
+Gam150::Sprite& Gam150::Sprite::operator=(Sprite&& temporary) noexcept {
+    std::swap(texture, temporary.texture);
+    std::swap(hotspots, temporary.hotspots);
+    std::swap(current_animation, temporary.current_animation);
+    std::swap(frame_size, temporary.frame_size);
+    std::swap(frame_texels, frame_texels);
+    std::swap(animations, temporary.animations);
+    return *this;
 }

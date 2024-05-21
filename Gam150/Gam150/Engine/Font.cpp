@@ -3,7 +3,10 @@ Copyright (C) 2023 DigiPen Institute of Technology
 Reproduction or distribution of this file or its contents without
 prior written consent is prohibited
 File Name:  Font.h
-Project:    CS230 Engine
+Project:    
+
+
+Engine
 Author:     Jonathan Holmes
 Created:    March 8, 2023
 */
@@ -11,7 +14,7 @@ Created:    March 8, 2023
 #include "Font.h"
 #include "Engine.h"
 
-CS230::Font::Font(const std::filesystem::path& file_name) : texture(file_name) {
+Gam150::Font::Font(const std::filesystem::path& file_name) : texture(file_name) {
     const unsigned int white = 0xFFFFFFFF;
 
     original_image = LoadImage(file_name.string().c_str());
@@ -28,7 +31,7 @@ CS230::Font::Font(const std::filesystem::path& file_name) : texture(file_name) {
     UnloadImage(original_image);
 }
 
-void CS230::Font::FindCharRects() {
+void Gam150::Font::FindCharRects() {
     unsigned int check_color = GetPixel({ 0, 0 });
     unsigned int next_color;
 
@@ -51,7 +54,7 @@ void CS230::Font::FindCharRects() {
     }
 }
 
-Math::irect& CS230::Font::GetCharRect(char c) {
+Math::irect& Gam150::Font::GetCharRect(char c) {
     if (c >= ' ' && c <= 'z') {
         return char_rects[c - ' '];
     }
@@ -61,7 +64,7 @@ Math::irect& CS230::Font::GetCharRect(char c) {
     }
 }
 
-Math::ivec2 CS230::Font::MeasureText(std::string text)
+Math::ivec2 Gam150::Font::MeasureText(std::string text)
 {
     Math::ivec2 total_size = { 0, original_image.height};
     for (char c : text) {
@@ -70,7 +73,7 @@ Math::ivec2 CS230::Font::MeasureText(std::string text)
     return total_size;
 }
 
-void CS230::Font::DrawChar(Math::TransformationMatrix& matrix, char c, unsigned int color) {
+void Gam150::Font::DrawChar(Math::TransformationMatrix& matrix, char c, unsigned int color) {
     const Math::irect& display_rect = GetCharRect(c);
     const Math::ivec2 top_left_texel = { display_rect.bottom_left.x, display_rect.top_right.y };
     if (c != ' ') {
@@ -83,13 +86,13 @@ void CS230::Font::DrawChar(Math::TransformationMatrix& matrix, char c, unsigned 
     matrix *= Math::TranslationMatrix(Math::ivec2{ display_rect.Size().x, 0 });
 }
 
-unsigned int CS230::Font::GetPixel(Math::ivec2 texel)
+unsigned int Gam150::Font::GetPixel(Math::ivec2 texel)
 {
     return ColorToInt(GetImageColor(original_image, texel.x, texel.y));
 }
 //?????
 
-CS230::Texture* CS230::Font::PrintToTexture(const std::string& text, unsigned int color) {
+Gam150::Texture* Gam150::Font::PrintToTexture(const std::string& text, unsigned int color) {
     const Math::ivec2 text_size = MeasureText(text);
     auto& texture_manager = Engine::GetTextureManager();
     texture_manager.StartRenderTextureMode(text_size.x, text_size.y);

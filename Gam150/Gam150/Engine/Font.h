@@ -3,7 +3,7 @@ Copyright (C) 2023 DigiPen Institute of Technology
 Reproduction or distribution of this file or its contents without
 prior written consent is prohibited
 File Name:  Font.h
-Project:    CS230 Engine
+Project:    Gam150 Engine
 Author:     Jonathan Holmes
 Created:    March 8, 2023
 */
@@ -15,7 +15,7 @@ Created:    March 8, 2023
 #include <filesystem>
 #include <string>
 
-namespace CS230 {
+namespace Gam150 {
     class Font {
     public:
         Font(const std::filesystem::path& file_name);

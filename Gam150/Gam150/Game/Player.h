@@ -15,7 +15,7 @@ struct key_order {
 	bool press;
 };
 
-class Player : public CS230::GameObject {
+class Player : public Gam150::GameObject {
 public:
 	Player(Math::vec3 start_position);
 	void Update(double dt) override;

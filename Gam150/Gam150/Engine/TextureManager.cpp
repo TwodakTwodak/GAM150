@@ -3,7 +3,10 @@ Copyright (C) 2023 DigiPen Institute of Technology
 Reproduction or distribution of this file or its contents without
 prior written consent is prohibited
 File Name:  TextureManager.cpp
-Project:    CS230 Engine
+Project:    
+
+
+Engine
 Author:     Jonathan Holmes
 Created:    March 8, 2023
 */
@@ -11,7 +14,7 @@ Created:    March 8, 2023
 #include "TextureManager.h"
 #include "Engine.h"
 
-CS230::Texture* CS230::TextureManager::Load(const std::filesystem::path& file_name)
+Gam150::Texture* Gam150::TextureManager::Load(const std::filesystem::path& file_name)
 {
 	if(textures.insert({ file_name, new Texture(file_name) }).second){
 		Engine::GetLogger().LogEvent("Loading Texture: " + file_name.string());
@@ -19,7 +22,7 @@ CS230::Texture* CS230::TextureManager::Load(const std::filesystem::path& file_na
 	return textures[file_name];
 }
 
-void CS230::TextureManager::Unload()
+void Gam150::TextureManager::Unload()
 {
 	Engine::GetLogger().LogEvent("Clearing Textures" );
 	for (std::pair texture : textures) {
@@ -28,18 +31,18 @@ void CS230::TextureManager::Unload()
 	textures.clear();
 }
 
-namespace {
+namespace Gam150 {
     RenderTexture2D s_render_texture = {};
 }
 
-void CS230::TextureManager::StartRenderTextureMode(int width, int height) {
+void Gam150::TextureManager::StartRenderTextureMode(int width, int height) {
     s_render_texture = LoadRenderTexture(width, height);
     BeginTextureMode(s_render_texture);
     rlClearColor(0, 0, 0, 0);
     rlClearScreenBuffers();
 }
 
-CS230::Texture* CS230::TextureManager::EndRenderTextureMode() {
+Gam150::Texture* Gam150::TextureManager::EndRenderTextureMode() {
     EndTextureMode();
     const auto window_size = Engine::GetWindow().GetSize();
     rlSetFramebufferWidth(window_size.x);

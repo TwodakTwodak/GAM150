@@ -3,25 +3,24 @@ Copyright (C) 2023 DigiPen Institute of Technology
 Reproduction or distribution of this file or its contents without
 prior written consent is prohibited
 File Name:  GameObject.h
-Project:    CS230 Engine
+Project:    Gam150 Engine
 Author:     Jonathan Holmes
 Created:    March 8, 2023
 */
 
-#include "Collision.h"\
-
+#include "Collision.h"
 #include "GameObject.h"
 
-CS230::GameObject::GameObject() :
+Gam150::GameObject::GameObject() :
     GameObject({0, 0, 0}, 0, { 1, 1, 1 })
 {
 }
 
-CS230::GameObject::GameObject(Math::vec3 position) :
+Gam150::GameObject::GameObject(Math::vec3 position) :
     GameObject(position, 0, { 1, 1, 1 })
 {}
 
-CS230::GameObject::GameObject(Math::vec3 position, double rotation, Math::vec3 scale) :
+Gam150::GameObject::GameObject(Math::vec3 position, double rotation, Math::vec3 scale) :
     velocity({ 0, 0, 0 }),
     position(position),
     scale(scale),
@@ -29,12 +28,12 @@ CS230::GameObject::GameObject(Math::vec3 position, double rotation, Math::vec3 s
     current_state(&state_none)
 {}
 
-CS230::GameObject::~GameObject()
+Gam150::GameObject::~GameObject()
 {
     //delete collision;
 }
 
-void CS230::GameObject::Update(double dt) {
+void Gam150::GameObject::Update(double dt) {
     check_view();
     view_sprite->Update(dt);
     current_state->Update(this, dt);
@@ -55,18 +54,18 @@ void CS230::GameObject::Update(double dt) {
     current_state->CheckExit(this);
 }
 
-void CS230::GameObject::change_state(State* new_state) {
+void Gam150::GameObject::change_state(State* new_state) {
     current_state = new_state;
     current_state->Enter(this);
 }
 
 //
-void CS230::GameObject::Draw(Math::TransformationMatrix camera_matrix) {
+void Gam150::GameObject::Draw(Math::TransformationMatrix camera_matrix) {
     //collision->CollisionDraw();
     view_sprite->Draw(camera_matrix * GetMatrix());
 }
 
-void CS230::GameObject::check_view()
+void Gam150::GameObject::check_view()
 {
     if (!matrix_outdated) {
         if (current_view) {
@@ -82,9 +81,9 @@ void CS230::GameObject::check_view()
     }
 }
 
-void CS230::GameObject::Collision(GameObject* compare, Collision_Type type) { }
+void Gam150::GameObject::Collision(GameObject* compare, Collision_Type type) { }
 
-const Math::TransformationMatrix& CS230::GameObject::GetMatrix() {
+const Math::TransformationMatrix& Gam150::GameObject::GetMatrix() {
     //this make problem!!!
     if (!matrix_outdated) {
         object_matrix = Math::TranslationMatrix(Math::vec2({position.x, *view_position })) * Math::ScaleMatrix({scale.x, *view_scale });
@@ -93,92 +92,92 @@ const Math::TransformationMatrix& CS230::GameObject::GetMatrix() {
     return object_matrix;
 }
 
-const Math::vec3& CS230::GameObject::GetPosition() const
+const Math::vec3& Gam150::GameObject::GetPosition() const
 {
     return position;
 }
 
-const Math::vec3& CS230::GameObject::GetVelocity() const
+const Math::vec3& Gam150::GameObject::GetVelocity() const
 {
     return velocity;
 }
 
-const Math::vec3& CS230::GameObject::GetScale() const
+const Math::vec3& Gam150::GameObject::GetScale() const
 {
     return scale;
 }
 
-View CS230::GameObject::GetView() const
+View Gam150::GameObject::GetView() const
 {
     return current_view;
 }
 
-double CS230::GameObject::GetRotation() const
+double Gam150::GameObject::GetRotation() const
 {
     return rotation;
 }
 
 
 
-void CS230::GameObject::SetPosition(Math::vec3 new_position) {
+void Gam150::GameObject::SetPosition(Math::vec3 new_position) {
     matrix_outdated = false;
     position = new_position;
 }
 
-void CS230::GameObject::UpdatePosition(Math::vec3 delta) {
+void Gam150::GameObject::UpdatePosition(Math::vec3 delta) {
     matrix_outdated = false;
     position += delta;
 }
 
-void CS230::GameObject::SetVelocity(Math::vec3 new_velocity)
+void Gam150::GameObject::SetVelocity(Math::vec3 new_velocity)
 {
     matrix_outdated = false;
     velocity = new_velocity;
 }
 
-void CS230::GameObject::UpdateVelocity(Math::vec3 delta)
+void Gam150::GameObject::UpdateVelocity(Math::vec3 delta)
 {
     matrix_outdated = false;
     velocity += delta;
 }
 
-void CS230::GameObject::SetScale(Math::vec3 new_scale)
+void Gam150::GameObject::SetScale(Math::vec3 new_scale)
 {
     matrix_outdated = false;
     scale = new_scale;
 }
 
-void CS230::GameObject::UpdateScale(Math::vec3 delta)
+void Gam150::GameObject::UpdateScale(Math::vec3 delta)
 {
     matrix_outdated = false;
     scale += delta;
 }
 
-void CS230::GameObject::SetRotation(double new_rotation) {
+void Gam150::GameObject::SetRotation(double new_rotation) {
     rotation = new_rotation;
 }
 
-void CS230::GameObject::UpdateRotation(double delta)
+void Gam150::GameObject::UpdateRotation(double delta)
 {
     rotation += delta;
 }
 
-void CS230::GameObject::SetView(View view)
+void Gam150::GameObject::SetView(View view)
 {
     matrix_outdated = false;
     current_view = view;
 }
 
-Collision_Type CS230::GameObject::GetType() const
+Collision_Type Gam150::GameObject::GetType() const
 {
     return collision_type;
 }
 
-bool CS230::GameObject::IsCollidingWith(GameObject* other_object) {
-    Gam150::Collision* collider = GetGOComponent<Collision>();
+bool Gam150::GameObject::IsCollidingWith(GameObject* other_object) {
+    Gam150::Collision* collider = GetGOComponent<Gam150::Collision>();
     return collider != nullptr && collider->IsCollidingWith(other_object);
 }
 
-bool CS230::GameObject::CanCollideWith(GameObjectTypes other_object_type) {
+bool Gam150::GameObject::CanCollideWith(GameObjectTypes other_object_type) {
     return false;
 }

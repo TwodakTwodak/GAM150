@@ -3,7 +3,10 @@ Copyright (C) 2023 DigiPen Institute of Technology
 Reproduction or distribution of this file or its contents without
 prior written consent is prohibited
 File Name:  Engine.cpp
-Project:    CS230 Engine
+Project:    
+
+
+Engine
 Author:     Jonathan Holmes, Seunghyeon Song
 Created:    March 8, 2023
 Updated:    March 14, 2024
@@ -14,10 +17,10 @@ Updated:    March 14, 2024
 Engine::Engine() : last_tick(std::chrono::system_clock::now()),
     //delegating is setting value at the start part must put , at the end!
 #ifdef _DEBUG
-    logger(CS230::Logger::Severity::Debug, true, last_tick)
+    logger(Gam150::Logger::Severity::Debug, true, last_tick)
     //"last_tick" where should i put this?
 #else
-    logger(CS230::Logger::Severity::Event, false)
+    logger(Gam150::Logger::Severity::Event, false)
 #endif
 {
 }

@@ -3,7 +3,9 @@ Copyright (C) 2023 DigiPen Institute of Technology
 Reproduction or distribution of this file or its contents without
 prior written consent is prohibited
 File Name:  Animation.h
-Project:    CS230 Engine
+Project:    
+
+Engine
 Author:     Jonathan Holmes
 Created:    March 8, 2023
 */
@@ -12,9 +14,9 @@ Created:    March 8, 2023
 #include <fstream>
 #include "Engine.h"
 
-CS230::Animation::Animation() : Animation("./Assets/None.anm") { }
+Gam150::Animation::Animation() : Animation("./Assets/None.anm") { }
 
-CS230::Animation::Animation(const std::filesystem::path& animation_file) : current_command(0) {
+Gam150::Animation::Animation(const std::filesystem::path& animation_file) : current_command(0) {
     if (animation_file.extension() != ".anm") {
         throw std::runtime_error(animation_file.generic_string() + " is not a .anm file");
     }
@@ -49,14 +51,14 @@ CS230::Animation::Animation(const std::filesystem::path& animation_file) : curre
     Reset();
 }
 
-CS230::Animation::~Animation() {
+Gam150::Animation::~Animation() {
     for (Command* command : commands) {
         delete command;
     }
     commands.clear();
 }
 
-void CS230::Animation::Update(double dt) {
+void Gam150::Animation::Update(double dt) {
     current_frame->Update(dt);
     if (current_frame->Ended() == true) {
         current_frame->ResetTime();
@@ -81,12 +83,12 @@ void CS230::Animation::Update(double dt) {
     }
 }
 
-int CS230::Animation::CurrentFrame() 
+int Gam150::Animation::CurrentFrame() 
 {
     return current_frame->Frame();
 }
 
-void CS230::Animation::Reset()
+void Gam150::Animation::Reset()
 {
     current_command = 0;
     ended = false;
@@ -97,26 +99,26 @@ void CS230::Animation::Reset()
     //It is private so bring getter? nah setter
 }
 
-bool CS230::Animation::Ended() 
+bool Gam150::Animation::Ended() 
 {
     return ended;
 }
 
-CS230::Loop::Loop(int loop_index): loop_index(loop_index) { }
+Gam150::Loop::Loop(int loop_index): loop_index(loop_index) { }
 
-int CS230::Loop::LoopIndex()
+int Gam150::Loop::LoopIndex()
 {
     return loop_index;
 }
 
-CS230::PlayFrame::PlayFrame(int frame, double duration): frame(frame), target_time(duration), timer(0) { }
+Gam150::PlayFrame::PlayFrame(int frame, double duration): frame(frame), target_time(duration), timer(0) { }
 
-void CS230::PlayFrame::Update(double dt)
+void Gam150::PlayFrame::Update(double dt)
 {
     timer += dt;
 }
 
-bool CS230::PlayFrame::Ended()
+bool Gam150::PlayFrame::Ended()
 {
     if (timer >= target_time) {
         return true;
@@ -124,12 +126,12 @@ bool CS230::PlayFrame::Ended()
     return false;
 }
 
-void CS230::PlayFrame::ResetTime()
+void Gam150::PlayFrame::ResetTime()
 {
     timer = 0;
 }
 
-int CS230::PlayFrame::Frame()
+int Gam150::PlayFrame::Frame()
 {
     return frame;
 }

@@ -4,7 +4,7 @@
 #include "GameState.h"
 #include <vector>
 
-namespace CS230 {
+namespace Gam150 {
     class GameStateManager {
     public:
         GameStateManager();

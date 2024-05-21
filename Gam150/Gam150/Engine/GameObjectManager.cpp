@@ -1,15 +1,15 @@
 #include "GameObjectManager.h"
 
-void CS230::GameObjectManager::Add(GameObject* object)
+void Gam150::GameObjectManager::Add(GameObject* object)
 {
 	collision_objects.push_back(object);
 	draw_objects.push_back(object);
 	new_object = true;
 }
 
-void CS230::GameObjectManager::Unload()
+void Gam150::GameObjectManager::Unload()
 {
-	for (CS230::GameObject* object : collision_objects) {
+	for (Gam150::GameObject* object : collision_objects) {
 		delete object;
 	}
 	collision_objects.clear();
@@ -19,24 +19,24 @@ void CS230::GameObjectManager::Unload()
 	floor_length = { 0,0 };
 }
 
-void CS230::GameObjectManager::UpdateAll(double dt)
+void Gam150::GameObjectManager::UpdateAll(double dt)
 {
 	ChangeAll();
-	for (CS230::GameObject* object : collision_objects) {
+	for (Gam150::GameObject* object : collision_objects) {
 		object->Update(dt);
 	}
 	CollisionBox();
 	CollisionPlayer();
 }
 
-void CS230::GameObjectManager::DrawAll(Math::TransformationMatrix camera_matrix)
+void Gam150::GameObjectManager::DrawAll(Math::TransformationMatrix camera_matrix)
 {
-	for (CS230::GameObject* object : draw_objects) {
+	for (Gam150::GameObject* object : draw_objects) {
 		object->Draw(camera_matrix);
 	}
 }
 
-void CS230::GameObjectManager::CollisionPlayer()
+void Gam150::GameObjectManager::CollisionPlayer()
 {
 	for (int i = box_length.x; i < box_length.y; ++i) {
 		collision_objects[0]->Collision(collision_objects[i], collision_objects[i]->GetType());
@@ -46,7 +46,7 @@ void CS230::GameObjectManager::CollisionPlayer()
 	}
 }
 
-void CS230::GameObjectManager::CollisionBox()
+void Gam150::GameObjectManager::CollisionBox()
 {
 	for (int i = 1; i < box_length.y; ++i) {
 		for (int j = button_length.x - 2; j < collision_objects.size(); ++j) {
@@ -55,11 +55,11 @@ void CS230::GameObjectManager::CollisionBox()
 	}
 }
 
-void CS230::GameObjectManager::ChangeAll()
+void Gam150::GameObjectManager::ChangeAll()
 {
-	if (Engine::GetInput().KeyJustPressed(CS230::Input::Keys::Space)) {
+	if (Engine::GetInput().KeyJustPressed(Gam150::Input::Keys::Space)) {
 		main_view = static_cast<View>(!static_cast<bool>(main_view));
-		for (CS230::GameObject* object : draw_objects) {
+		for (Gam150::GameObject* object : draw_objects) {
 			object->SetView(main_view);
 		}
 		Reorder(main_view);
@@ -71,7 +71,7 @@ void CS230::GameObjectManager::ChangeAll()
 	}
 }
 
-void CS230::GameObjectManager::Reorder(bool change_view)
+void Gam150::GameObjectManager::Reorder(bool change_view)
 {
 	if (change_view) {
 		std::sort(draw_objects.begin(), draw_objects.end(), &GameObjectManager::side_compare);
@@ -81,7 +81,7 @@ void CS230::GameObjectManager::Reorder(bool change_view)
 	}
 }
 //need fix!
-bool CS230::GameObjectManager::side_compare(GameObject* object1, GameObject* object2)
+bool Gam150::GameObjectManager::side_compare(GameObject* object1, GameObject* object2)
 {
 	if (object1->GetPosition().z > object2->GetPosition().z) {
 		return true;
@@ -89,7 +89,7 @@ bool CS230::GameObjectManager::side_compare(GameObject* object1, GameObject* obj
 	return false;
 }
 
-bool CS230::GameObjectManager::top_compare(GameObject* object1, GameObject* object2)
+bool Gam150::GameObjectManager::top_compare(GameObject* object1, GameObject* object2)
 {
 	if (object1->GetPosition().y < object2->GetPosition().y) {
 		return true;

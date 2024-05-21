@@ -3,7 +3,11 @@ Copyright (C) 2023 DigiPen Institute of Technology
 Reproduction or distribution of this file or its contents without
 prior written consent is prohibited
 File Name:  Engine.h
-Project:    CS230 Engine
+Project:    
+
+
+
+Engine
 Author:     Jonathan Holmes, Seunghyeon Song
 Created:    March 8, 2023
 Updated:    March 18, 2024
@@ -27,27 +31,27 @@ public:
         return instance;
     }
 
-    static CS230::Logger& GetLogger() {
+    static Gam150::Logger& GetLogger() {
         return Instance().logger;
     }
 
-    static CS230::Window& GetWindow() {
+    static Gam150::Window& GetWindow() {
         return Instance().window;
     }
 
-    static CS230::GameStateManager& GetGameStateManager() {
+    static Gam150::GameStateManager& GetGameStateManager() {
         return Instance().gamestatemanager;
     }
 
-    static CS230::Input& GetInput() {
+    static Gam150::Input& GetInput() {
         return Instance().input;
     }
 
-    static CS230::TextureManager& GetTextureManager() {
+    static Gam150::TextureManager& GetTextureManager() {
         return Instance().texturemanager;
     }
 
-    static CS230::Font& GetFont(int index) {
+    static Gam150::Font& GetFont(int index) {
         return Instance().fonts[index];
     }
 
@@ -73,13 +77,13 @@ private:
     static constexpr int FPSDuration = 5;
     static constexpr int FPSTargetFrames = static_cast<int>(FPSDuration * TargetFPS);
 
-    CS230::Logger logger; //like this?
-    CS230::Window window;
-    CS230::GameStateManager gamestatemanager;
-    CS230::Input input;
-    CS230::TextureManager texturemanager;
+    Gam150::Logger logger; //like this?
+    Gam150::Window window;
+    Gam150::GameStateManager gamestatemanager;
+    Gam150::Input input;
+    Gam150::TextureManager texturemanager;
 
-    std::vector<CS230::Font> fonts;
+    std::vector<Gam150::Font> fonts;
 };
 
 #endif
