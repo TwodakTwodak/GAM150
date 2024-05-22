@@ -13,8 +13,8 @@ Created:    May 3, 2024
 Player::Player(Math::vec3 start_position) : cool_timer(cool_time),
     GameObject(start_position)
 {
-    side_sprite.Load("Assets/Side_Player.spt");
-    top_sprite.Load("Assets/Top_Player.spt");
+    AddGOComponentSide(new Gam150::Sprite("Assets/Side_Player.spt", "Assets/Top_Player.spt", this));
+    //AddGOComponentTop(new Gam150::Sprite("Assets/Top_Player.spt", this));
 }
 
 void Player::move(double dt) {
@@ -107,11 +107,12 @@ void Player::move(double dt) {
     if (GetVelocity().y < 0) {
         falling = true;
     }
+    Math::rect player_rect = GetGOComponent<Gam150::RectCollision>()->WorldBoundary();
     if (GetPosition().z <= 0) {
         SetPosition({ GetPosition().x, GetPosition().y, 0 });
     }
-    else if (GetPosition().z >= Engine::GetWindow().GetSize().y - top_sprite.texture->GetSize().y) {
-        SetPosition({ GetPosition().x, GetPosition().y, (double)Engine::GetWindow().GetSize().y - top_sprite.texture->GetSize().y });
+    else if (GetPosition().z >= Engine::GetWindow().GetSize().y - player_rect.Size().y) {
+        SetPosition({ GetPosition().x, GetPosition().y, (double)Engine::GetWindow().GetSize().y - player_rect.Size().y });
     }
    
 }

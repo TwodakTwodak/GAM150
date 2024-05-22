@@ -10,6 +10,5 @@ Created:    May 3, 2024
 Float_Floor::Float_Floor(Math::vec3 start_position) : Gam150::GameObject(start_position)
 {
     collision_type = Block;
-    side_sprite.Load("Assets/Side_Float_Floor.spt");
-    top_sprite.Load("Assets/Top_Float_Floor.spt");
+    AddGOComponentSide(new Gam150::Sprite("Assets/Side_Float_Floor.spt", "Assets/Top_Float_Floor.spt", this));
 }

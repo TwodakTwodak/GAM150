@@ -18,7 +18,10 @@ Gam150::GameObject::GameObject() :
 
 Gam150::GameObject::GameObject(Math::vec3 position) :
     GameObject(position, 0, { 1, 1, 1 })
-{}
+{
+    current_state = &state_none;
+    current_state->Enter(this);
+}
 
 Gam150::GameObject::GameObject(Math::vec3 position, double rotation, Math::vec3 scale) :
     velocity({ 0, 0, 0 }),
@@ -26,12 +29,9 @@ Gam150::GameObject::GameObject(Math::vec3 position, double rotation, Math::vec3 
     scale(scale),
     rotation(rotation),
     current_state(&state_none)
-{}
-
-Gam150::GameObject::~GameObject()
 {
-    //delete collision;
 }
+
 
 void Gam150::GameObject::Update(double dt) {
     check_view();

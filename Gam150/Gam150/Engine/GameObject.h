@@ -35,6 +35,7 @@ enum Collision_Type : char {
 
 namespace Gam150 {
     class Component;
+
     class GameObject {
         friend class Sprite;
     public:
@@ -72,7 +73,15 @@ namespace Gam150 {
 
         template<typename T>
         T* GetGOComponent() {
-            return componentmanager.GetComponent<T>();
+            if (current_view == Side)
+            {
+                return side_componentmanager.GetComponent<T>();
+            }
+            else
+            {
+                return top_componentmanager.GetComponent<T>();
+            }
+            
         }
     protected:
         class State {
@@ -86,7 +95,25 @@ namespace Gam150 {
 
         void change_state(State* new_state);
 
-        
+        void AddGOComponentTop(Component* component) {
+            top_componentmanager.AddComponent(component);
+        }
+        void AddGOComponentSide(Component* component) {
+            side_componentmanager.AddComponent(component);
+        }
+        template<typename T>
+        void RemoveGOComponent() {
+            top_componentmanager.RemoveComponent<T>();
+            side_componentmanager.RemoveComponent<T>();
+        }
+        void ClearGOComponents() {
+            top_componentmanager.Clear();
+            side_componentmanager.Clear();
+        }
+        void UpdateGOComponents(double dt) {
+            top_componentmanager.UpdateAll(dt);
+            side_componentmanager.UpdateAll(dt);
+        }
 
         void SetVelocity(Math::vec3 new_velocity);
         void UpdateVelocity(Math::vec3 delta);
@@ -129,6 +156,7 @@ namespace Gam150 {
 
         View current_view = View::Side;
 
-        ComponentManager componentmanager;
+        ComponentManager side_componentmanager;
+        ComponentManager top_componentmanager;
     };
 }

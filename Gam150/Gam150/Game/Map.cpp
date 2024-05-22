@@ -31,13 +31,9 @@ Map::Map() {
 }
 
 void Map::Load() {
-
-	player_ptr = new Player({ 0, 0, 300 });
+	
 	background = Engine::GetTextureManager().Load("Assets/Background.png");
 	gameobjectmanager.Add(player_ptr);
-	/*gameobjectmanager.Add(new Crates({ 200, 400, 400 }));
-	gameobjectmanager.Add(new Crates({ 400, floor, 300 }));
-	gameobjectmanager.Add(new Crates({ 600, 80, 200 }));*/
 	if (room_object_memory[room] == 0)
 	{
 		while (GetRoom(load_object_number) <= room && GetRoom(load_object_number) != 0)
@@ -154,14 +150,6 @@ void Map::Update([[maybe_unused]] double dt) {
 		room--;	
 		Unload();
 		Load();
-		player_ptr->SetPosition({ (double)Engine::GetWindow().GetSize().x - player_ptr->side_sprite.texture->GetSize().x, player_ptr->GetPosition().y, player_ptr->GetPosition().z });
-		
-	}
-	else if (player_ptr->GetPosition().x < 0 && room <= 1) {
-		player_ptr->SetPosition({ 0, player_ptr->GetPosition().y, player_ptr->GetPosition().z});
-	}
-	else if (player_ptr->GetPosition().x >= Engine::GetWindow().GetSize().x - player_ptr->side_sprite.texture->GetSize().x && room >= 5) {
-		player_ptr->SetPosition({ (double)Engine::GetWindow().GetSize().x - player_ptr->side_sprite.texture->GetSize().x, player_ptr->GetPosition().y, player_ptr->GetPosition().z });
 	}
 	
 }

@@ -21,16 +21,18 @@ namespace Gam150 {
     class Sprite :public Component {
     public:
         //Sprite();
+        Sprite(const std::filesystem::path& sprite_file, const std::filesystem::path& sprite_file2, GameObject* given_object);
         ~Sprite();
 
-        Sprite(const std::filesystem::path& sprite_file, GameObject* given_object);
+        Sprite(const Sprite&) = delete;
         Sprite& operator=(const Sprite&) = delete;
 
         Sprite(Sprite&& temporary) noexcept;
         Sprite& operator=(Sprite&& temporary) noexcept;
 
         void Update(double dt) override;
-        void Load(const std::filesystem::path& sprite_file, GameObject* object);
+        void SideLoad(const std::filesystem::path& sprite_file, GameObject* object);
+        void TopLoad(const std::filesystem::path& sprite_file, GameObject* object);
         void Draw(Math::TransformationMatrix display_matrix);
         Math::ivec2 GetHotSpot(int index);
         Math::ivec2 GetFrameSize();

@@ -19,8 +19,7 @@ Crates::Crates(Math::vec3 start_position) :
     Gam150::GameObject(start_position)
 {
     collision_type = Move;
-    side_sprite.Load("Assets/Crates1.spt");
-    top_sprite.Load("Assets/Crates1.spt");
+    AddGOComponentSide(new Gam150::Sprite("Assets/Crates1.spt", "Assets/Crates1.spt", this));
 }
 
 void Crates::Update(double dt) {

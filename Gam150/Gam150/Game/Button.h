@@ -9,7 +9,7 @@ Created:    May 8, 2024
 */
 
 #pragma once
-#include "../Engine/GameObject.h"
+#include "../Engine/GameObjectManager.h"
 
 class Button : public Gam150::GameObject {
 public:

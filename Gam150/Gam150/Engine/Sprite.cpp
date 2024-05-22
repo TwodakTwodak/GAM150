@@ -12,8 +12,13 @@ Created:    May 1, 2024
 #include "GameObjectManager.h"
 #include "Collision.h"
 
-Gam150::Sprite::Sprite(const std::filesystem::path& sprite_file, GameObject* given_object) {
-    Load(sprite_file, given_object);
+//Gam150::Sprite::Sprite()
+//{
+//}
+
+Gam150::Sprite::Sprite(const std::filesystem::path& sprite_file, const std::filesystem::path& sprite_file2, GameObject* given_object) {
+    SideLoad(sprite_file, given_object);
+    TopLoad(sprite_file2, given_object);
 }
 
 
@@ -38,7 +43,7 @@ void Gam150::Sprite::Update(double dt)
     //was error
 }
 
-void Gam150::Sprite::Load(const std::filesystem::path& sprite_file, GameObject* object) {
+void Gam150::Sprite::SideLoad(const std::filesystem::path& sprite_file, GameObject* object) {
     if (sprite_file.extension() != ".spt") {
         throw std::runtime_error(sprite_file.generic_string() + " is not a .spt file");
     }
@@ -96,7 +101,82 @@ void Gam150::Sprite::Load(const std::filesystem::path& sprite_file, GameObject* 
                 Engine::GetLogger().LogError("Cannot add collision to a null object");
             }
             else {
-                object->AddGOComponent(new RectCollision(boundary, object));
+                object->AddGOComponentSide(new RectCollision(boundary, object));
+            }
+        }
+        else {
+            Engine::GetLogger().LogError("Unknown command: " + text);
+        }
+        in_file >> text;
+    }
+    if (frame_texels.empty() == true) {
+        frame_texels.push_back({ 0,0 });
+    }
+    if (animations.empty()) {
+        Animation* default_anim = new Animation();
+        animations.push_back(default_anim);
+        PlayAnimation(0);
+    }
+}
+void Gam150::Sprite::TopLoad(const std::filesystem::path& sprite_file, GameObject* object) {
+    if (sprite_file.extension() != ".spt") {
+        throw std::runtime_error(sprite_file.generic_string() + " is not a .spt file");
+    }
+    std::ifstream in_file(sprite_file);
+
+    if (in_file.is_open() == false) {
+        throw std::runtime_error("Failed to load " + sprite_file.generic_string());
+    }
+
+    hotspots.clear();
+    frame_texels.clear();
+
+
+    std::string text;
+    in_file >> text;
+    texture = Engine::GetTextureManager().Load(text);
+    frame_size = texture->GetSize();
+
+    in_file >> text;
+    while (in_file.eof() == false) {
+        if (text == "FrameSize") {
+            in_file >> frame_size.x;
+            in_file >> frame_size.y;
+        }
+        else if (text == "NumFrames") {
+            int frame_count;
+            in_file >> frame_count;
+            for (int i = 0; i < frame_count; i++) {
+                frame_texels.push_back({ frame_size.x * i, 0 });
+            }
+        }
+        else if (text == "Frame") {
+            int frame_location_x, frame_location_y;
+            in_file >> frame_location_x;
+            in_file >> frame_location_y;
+            frame_texels.push_back({ frame_location_x, frame_location_y });
+        }
+        else if (text == "HotSpot") {
+            int hotspot_x, hotspot_y;
+            in_file >> hotspot_x;
+            in_file >> hotspot_y;
+            hotspots.push_back({ hotspot_x, hotspot_y });
+        }
+        else if (text == "Anim") {
+            std::string anim;
+            in_file >> anim;
+            Animation* animation = new Animation(anim);
+            animations.push_back(animation);
+        }
+        else if (text == "RectCollision") {
+            Math::irect boundary;
+            in_file >> boundary.point_1.x >> boundary.point_1.y >> boundary.point_2.x >> boundary.point_2.y;
+
+            if (object == nullptr) {
+                Engine::GetLogger().LogError("Cannot add collision to a null object");
+            }
+            else {
+                object->AddGOComponentTop(new RectCollision(boundary, object));
             }
         }
         else {

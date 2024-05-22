@@ -18,8 +18,7 @@ Button::Button(Math::vec3 start_position) :
     Gam150::GameObject(start_position)
 {
     collision_type = Detect;
-    side_sprite.Load("Assets/Side_Button.spt");
-    top_sprite.Load("Assets/Top_Button.spt");
+    AddGOComponentSide(new Gam150::Sprite("Assets/Side_Button.spt", "Assets/Top_Button.spt", this));
 }
 
 void Button::Update(double dt)

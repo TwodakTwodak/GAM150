@@ -10,6 +10,5 @@ Created:    May 3, 2024
 Floor::Floor(Math::vec3 start_position)
 {
     collision_type = Block;
-    side_sprite.Load("Assets/Side_Floor.spt");
-    top_sprite.Load("Assets/Top_Floor.spt");
+    AddGOComponentSide(new Gam150::Sprite("Assets/Side_Floor.spt", "Assets/Top_Floor.spt", this));
 }
